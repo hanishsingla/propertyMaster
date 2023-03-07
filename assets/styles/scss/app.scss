@@ -1,0 +1,43 @@
+@import "bootstrap";
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import 'animate.css';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  //font-family: 'Exo 2', sans-serif;
+  scroll-behavior: smooth;
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+.d-sm-none{
+  display: block !important;
+}
+.d-sm-width{
+  width: 50px;
+}
+
+
+
+@media (max-width: 992px){
+  .d-sm-none {
+    display: none !important;
+  }
+  .d-sm-width{
+    width: 35px;
+  }
+}
+
+
+@media (min-width: 992px){
+  .d-lg-none {
+    display: none !important;
+  }
+}

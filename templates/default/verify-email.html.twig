@@ -1,0 +1,12 @@
+{% if app.user and  not app.user.verified %}
+    <div class="container mt-5">
+        <div class="card bg-primary">
+            <div class="card-body text-center">
+                <h1 class="text-white"> Welcome home  {{ app.user.username }} ...</h1>
+                <h5>Please verified your email</h5>
+                <span class="text-white">{{ app.user.email }}</span>
+                {#            <p><a href="{{ path('app_re-send_email') }}" class="btn btn-success mt-2">Resend Confirmation Url</a></p> #}
+            </div>
+        </div>
+    </div>
+{% endif %}

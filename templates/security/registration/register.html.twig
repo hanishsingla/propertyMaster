@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <img src="{{ asset('image/login/login.jpg') }}" alt="login">
+            </div>
+            <div class="col-md-4">
+                {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                {% endfor %}
+                {{ form_start(registrationForm) }}
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="text-center">Register</h1>
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_label(registrationForm.username) }}
+                        {{ form_widget(registrationForm.username) }}
+                        {{ form_errors(registrationForm.username) }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_label(registrationForm.email) }}
+                        {{ form_widget(registrationForm.email) }}
+                        {{ form_errors(registrationForm.email) }}
+                    </div>
+
+                    <div class="col-md-12">
+                        {{ form_label(registrationForm.password.first) }}
+                        <label for="inputPassword">Password</label>
+                        <div class="input-group mb-3">
+                            {{ form_widget(registrationForm.password.first) }}
+                            {{ form_errors(registrationForm.password.first) }}
+                            <span class="input-group-text">
+                                 <i class="fa-solid fa-eye-slash"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_label(registrationForm.password.second) }}
+                        <label for="inputPassword">Password</label>
+                        <div class="input-group mb-3">
+                            {{ form_widget(registrationForm.password.second) }}
+                            {{ form_errors(registrationForm.password.second) }}
+                            <span class="input-group-text">
+                                 <i class="fa-solid fa-eye-slash"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-2">
+                        <div class="checkbox mb-3 form-check form-switch">
+                            <span>
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                                {{ form_label(registrationForm.agreeTerms) }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center mt-2">
+                    <button type="submit" class="btn btn-success">Register</button>
+                </div>
+                {{ form_end(registrationForm) }}
+                <div class="col-12 mt-4 text-center">
+                    <span>
+                         Already have an account ?<a href="{{ path('app_login') }}"> Login</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
