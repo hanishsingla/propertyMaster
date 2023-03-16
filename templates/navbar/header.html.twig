@@ -1,0 +1,28 @@
+<header class="section-header border-y">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <img  src="{{ asset('image/login/resetPassword.jpg') }}" class="d-sm-none" width="50" alt="logo">
+                <button type="button"  class="d-lg-none btn btn-sm px-3" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-expanded="false" >
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <div class="col-10 justify-content-end d-flex align-items-center">
+
+                <div class="d-inline-block mx-2">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+
+                <div class="d-inline-block">
+                    <button class="btn btn-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img  src="{{ asset('image/userImage/male.png') }}"  class="img-fluid rounded-circle d-sm-width"  alt="male">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_property',{'dashboardType' : 'dashboard'}) }}"> <i class="fa-solid fa-user"></i> Account</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-right-to-bracket"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
