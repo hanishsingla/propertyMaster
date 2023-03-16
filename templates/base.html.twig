@@ -1,29 +1,66 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}{{ (site_meta_title_name is defined ? (site_meta_title_name |trans) ~ " | " : "") ~ "The Property" }}{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ (site_meta_title_name is defined ? (site_meta_title_name |trans) ~ " | " : "") ~ "The Property" }}{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app/css') }}
-        {% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('css/app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app/js') }}
-        {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('js/app') }}
+    {% endblock %}
 
-        {% block pageCss %}
+    {% block pageCss %}
 
-        {% endblock %}
+    {% endblock %}
 
-        {% block pageJs %}
+    {% block pageJs %}
 
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+
+    {% block headerBar %}
+        {{ include('navbar/header.html.twig') }}
+    {% endblock %}
+
+    {% block NavBar %}
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                    {{ knp_menu_render('propertyHeaderMenu') }}
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+
+    {% block verifyEmail %}
+        {% if app.user and  not app.user.verified %}
+            <div class="container mt-5">
+                <div class="card bg-primary">
+                    <div class="card-body text-center">
+                        <h1 class="text-white"> Welcome home  {{ app.user.username }} ...</h1>
+                        <h5>Please verified your email</h5>
+                        <span class="text-white">{{ app.user.email }}</span>
+                        {#            <p><a href="{{ path('app_re-send_email') }}" class="btn btn-success mt-2">Resend Confirmation Url</a></p> #}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+
+
+    {% block pageContent %}
+
+    {% endblock %}
+
+{% endblock %}
+</body>
 </html>
