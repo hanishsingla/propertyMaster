@@ -3,9 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Agent;
-use App\Entity\BlogPost;
 use App\Entity\Category;
-use App\Entity\Comment;
 use App\Entity\Property;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
