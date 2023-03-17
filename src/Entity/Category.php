@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-class Category
+class Category extends AbstractEntity
 {
     #[ORM\Column(type: 'guid')]
     #[ORM\Id]
@@ -20,4 +20,5 @@ class Category
     {
         return $this->id;
     }
+
 }
