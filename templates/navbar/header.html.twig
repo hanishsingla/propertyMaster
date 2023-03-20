@@ -1,28 +1,27 @@
+<!-- Topbar Start -->
 <header class="section-header border-y">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2">
-                <img  src="{{ asset('image/login/resetPassword.jpg') }}" class="d-sm-none" width="50" alt="logo">
-                <button type="button"  class="d-lg-none btn btn-sm px-3" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-expanded="false" >
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
-            <div class="col-10 justify-content-end d-flex align-items-center">
-
-                <div class="d-inline-block mx-2">
-                    <i class="fa-solid fa-bell"></i>
-                </div>
-
-                <div class="d-inline-block">
-                    <button class="btn btn-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img  src="{{ asset('image/userImage/male.png') }}"  class="img-fluid rounded-circle d-sm-width"  alt="male">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ path('app_property',{'dashboardType' : 'dashboard'}) }}"> <i class="fa-solid fa-user"></i> Account</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-right-to-bracket"></i> Logout</a></li>
-                    </ul>
+    <div class="container-fluid bg-primary text-white d-none d-lg-flex">
+        <div class="container py-3">
+            <div class="d-flex align-items-center">
+                <a href="">
+                    <h2 class="text-white fw-bold m-0">Property</h2>
+                </a>
+                <div class="ms-auto d-flex align-items-center">
+                    <small class="ms-4"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</small>
+                    <small class="ms-4"><i class="fa fa-envelope me-3"></i>info@example.com</small>
+                    <small class="ms-4"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</small>
+                    <div class="ms-3 d-flex">
+                        <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i
+                                    class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i
+                                    class="fab fa-twitter"></i></a>
+                        <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i
+                                    class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
+<!-- Topbar End -->
+
