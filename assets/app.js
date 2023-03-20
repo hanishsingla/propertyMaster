@@ -9,5 +9,8 @@
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 // start the Stimulus application
 import './bootstrap';
+const $ = require('jquery');
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
+
+import './styles/js/main';
