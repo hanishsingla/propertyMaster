@@ -7,7 +7,7 @@ use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PropertyHeaderMenu
+class HeaderMenu
 {
 
 
@@ -32,15 +32,13 @@ class PropertyHeaderMenu
             'attributes' => ['class' => 'nav-item'],
         ])->setLinkAttribute('class', 'nav-link');
 
-        $menu->addChild('Property', [
+        $menu->addChild('Properties', [
             'route' => 'app_property',
-            'routeParameters' => ['dashboardType' => 'property'],
             'attributes' => ['class' => 'nav-item'],
         ])->setLinkAttribute('class', 'nav-link');
 
-        $menu->addChild('Agent', [
+        $menu->addChild('Agents', [
             'route' => 'app_property',
-            'routeParameters' => ['dashboardType' => 'agent'],
             'attributes' => ['class' => 'nav-item'],
         ])->setLinkAttribute('class', 'nav-link');
 
