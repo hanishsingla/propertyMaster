@@ -7,7 +7,7 @@ use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class HeaderMenu
+class MainMenu
 {
 
 
@@ -23,32 +23,24 @@ class HeaderMenu
         $request = $this->requestStack;
 
         $menu->setChildrenAttribute('class', 'navbar-nav  mb-2 mb-lg-0');
-        $currentRoute = $options['current_route'] ?? '';
+        $currentRoute = $this->requestStack->getCurrentRequest();;
 
         $menu->addChild('Home', [
-            'route' => 'app_index',
+            'route' => 'app_home',
             'attribute' => 'nav-link',
             'label' => 'Home',
             'attributes' => ['class' => 'nav-item'],
-        ])->setLinkAttribute('class', 'nav-link');
+            'labelAttributes' => ['icon' => 'fa-home'],
+            'linkAttributes' => ['class' =>   'nav-link'],
+        ]);
 
         $menu->addChild('Properties', [
             'route' => 'app_property',
             'attributes' => ['class' => 'nav-item'],
-        ])->setLinkAttribute('class', 'nav-link');
+            'labelAttributes' => ['icon' => 'fa-home'],
+            'linkAttributes' => ['class' => 'nav-link'],
+        ]);
 
-        $menu->addChild('Agents', [
-            'route' => 'app_property',
-            'attributes' => ['class' => 'nav-item'],
-        ])->setLinkAttribute('class', 'nav-link');
-
-        // Set the current menu item as active
-        if ($currentRoute === 'app_index') {
-            $menu->getChild('Home')->setCurrent(true);
-        } elseif ($currentRoute === 'app_property') {
-            $menu->getChild('Property')->setCurrent(true);
-            $menu->getChild('Agent')->setCurrent(true);
-        }
 
         return $menu;
     }
