@@ -98,6 +98,7 @@ ul li {
 .text-box-title {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
   height: 164px;
   z-index: 1;
@@ -194,6 +195,20 @@ ul li {
     right: 0;
   }
 }
+.font-size-140{
+  font-size: 140px;
+  opacity: 0.8;
+}
+.font-size-140:hover{
+  opacity: 1;
+}
+@media (max-width: 992px) {
+  .font-size-140{
+    font-size: 50px;
+    opacity: 0.8;
+  }
+}
+
 
 /*========== About page css end ===========*/
 /*========== custom color css start ===========*/
