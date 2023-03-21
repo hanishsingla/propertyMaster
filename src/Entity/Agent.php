@@ -6,6 +6,7 @@ use App\Repository\AgentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ORM\Table(name: 'agent')]
 #[ORM\Entity(repositoryClass: AgentRepository::class)]
 class Agent extends AbstractEntity
 {

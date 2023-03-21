@@ -6,6 +6,7 @@ use App\Repository\PropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ORM\Table(name: 'property')]
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 class Property extends AbstractEntity
 {

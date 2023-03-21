@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
+#[ORM\Table(name: 'security_login')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
