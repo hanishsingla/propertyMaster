@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Security\SecurityCustomAuthenticator;
+use App\Service\Security\RegisterHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,10 +29,10 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,UserAuthenticatorInterface $authenticator,SecurityCustomAuthenticator $customAuthenticator): Response
+    public function register(Request $request, RegisterHelper $registerHelper,UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,UserAuthenticatorInterface $authenticator,SecurityCustomAuthenticator $customAuthenticator): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('app_index');
+            return $this->redirectToRoute('app_home');
         }
 
         $user = new User();
@@ -46,7 +47,8 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
-
+            $userInformation =$form->getData();
+            $registerHelper->setCreatedDate($userInformation);
             $entityManager->persist($user);
             $entityManager->flush();
 
