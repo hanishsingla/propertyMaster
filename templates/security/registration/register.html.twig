@@ -18,20 +18,19 @@
                     <div class="col-md-12">
                         {{ form_label(registrationForm.username) }}
                         {{ form_widget(registrationForm.username) }}
-                        {{ form_errors(registrationForm.username) }}
+                        <span class="text-danger">{{ form_errors(registrationForm.username) }}</span>
                     </div>
+
                     <div class="col-md-12">
                         {{ form_label(registrationForm.email) }}
                         {{ form_widget(registrationForm.email) }}
-                        {{ form_errors(registrationForm.email) }}
+                        <span class="text-danger">{{ form_errors(registrationForm.email) }}</span>
                     </div>
 
                     <div class="col-md-12">
                         {{ form_label(registrationForm.password.first) }}
-                        <label for="inputPassword">Password</label>
                         <div class="input-group mb-3">
                             {{ form_widget(registrationForm.password.first) }}
-                            {{ form_errors(registrationForm.password.first) }}
                             <span class="input-group-text">
                                  <i class="fa-solid fa-eye-slash"></i>
                             </span>
@@ -39,14 +38,12 @@
                     </div>
                     <div class="col-md-12">
                         {{ form_label(registrationForm.password.second) }}
-                        <label for="inputPassword">Password</label>
                         <div class="input-group mb-3">
                             {{ form_widget(registrationForm.password.second) }}
                             {{ form_errors(registrationForm.password.second) }}
-                            <span class="input-group-text">
-                                 <i class="fa-solid fa-eye-slash"></i>
-                            </span>
+                            <span class="input-group-text"><i class="fa-solid fa-eye-slash"></i></span>
                         </div>
+                        <span class="text-danger">{{ form_errors(registrationForm.password.first) }} </span>
                     </div>
                     <div class="col-6 mt-2">
                         <div class="checkbox mb-3 form-check form-switch">
