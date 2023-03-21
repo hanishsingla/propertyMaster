@@ -37,11 +37,25 @@ class MainMenu
         $menu->addChild('Properties', [
             'route' => 'app_property',
             'attributes' => ['class' => 'nav-item'],
-            'labelAttributes' => ['icon' => 'fa-home'],
+            'labelAttributes' => ['icon' => 'fa-building'],
             'linkAttributes' => ['class' => 'nav-link'],
         ]);
 
+        $menu->addChild('About', [
+            'label' => 'About',
+            'route' => 'app_about',
+            'attributes' => ['class' => 'nav-item'],
+            'labelAttributes' => ['icon' => 'fa-circle-info'],
+            'linkAttributes' => ['class' => 'nav-link'],
+        ]);
 
+        $menu->addChild('Contact', [
+            'label' => 'Contact',
+            'route' => 'app_contact',
+            'attributes' => ['class' => 'nav-item'],
+            'labelAttributes' => ['icon' => 'fa-location-dot'],
+            'linkAttributes' => ['class' => 'nav-link'],
+        ]);
         return $menu;
     }
 }
