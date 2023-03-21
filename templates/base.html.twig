@@ -64,7 +64,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
 
-                        {{ knp_menu_render('mainMenu') }}
+                    {{ knp_menu_render('mainMenu') }}
 
                     <div class="ms-auto d-none d-lg-block">
                         <a href="" class="btn btn-primary rounded-pill py-2 px-3">Quote</a>
@@ -91,11 +91,10 @@
             </div>
         {% endif %}
     {% endblock %}
+    <div class="container-fluid">
+        {% block pageContent %}{% endblock %}
+    </div>
 
-    {% block pageContent %}
-
-
-    {% endblock %}
 
     {% block footer %}
         {{ include('navbar/footer.html.twig') }}

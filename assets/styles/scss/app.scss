@@ -2,15 +2,19 @@
 @import '@fortawesome/fontawesome-free/css/all.css';
 @import 'animate.css';
 
-a{
+a {
   text-decoration: none;
 }
-ul li{
+
+ul li {
   list-style: none;
 }
+:root {
+  --bs-purple-rgb: 111, 66, 193;
+  --bs-bg-opacity: 1;
+}
 
-
-/*** Navbar ***/
+/*========== navbar css Start ===========*/
 .sticky-top {
   top: -100px;
   transition: .5s;
@@ -40,7 +44,7 @@ ul li{
 }
 
 @media (max-width: 991.98px) {
-  .navbar .navbar-nav .nav-link  {
+  .navbar .navbar-nav .nav-link {
     margin-right: 0;
     padding: 10px 0;
   }
@@ -70,9 +74,168 @@ ul li{
   }
 }
 
+/*========== navbar css End ===========*/
+
+/*========== home page carousel button css start ===========*/
 .property-carousel-image {
-  height: 70vH ;
+  height: 70vH;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
+
+/*========== home page carousel button css End ===========*/
+
+/*========== About page css start ===========*/
+.text_container {
+  color: #fff;
+  background-image: url("../../../public/image/property/North Carolina.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.text-box-title {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 164px;
+  z-index: 1;
+
+}
+
+.about h2 {
+  font-size: 48px;
+  font-weight: 700;
+  font-family: var(--font-secondary);
+  margin: 30px 0;
+}
+
+@media (min-width: 991px) {
+  .about h2 {
+    max-width: 65%;
+    margin: 0 0 80px 0;
+  }
+}
+
+.about .our-story {
+  padding: 40px;
+  background-color: #f5f6f7;
+}
+
+@media (min-width: 991px) {
+  .about .our-story {
+    padding-right: 35%;
+  }
+}
+
+.about .our-story h4 {
+  text-transform: uppercase;
+  font-size: 18px;
+  color: #838893;
+}
+
+.about .our-story h3 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--color-secondary);
+}
+
+.about .our-story p:last-child {
+  margin-bottom: 0;
+}
+
+.about ul {
+  list-style: none;
+  padding: 0;
+  font-size: 15px;
+}
+
+.about ul li {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+}
+
+.about ul i {
+  font-size: 20px;
+  margin-right: 4px;
+  color: var(--color-primary);
+}
+
+.about .watch-video i {
+  font-size: 32px;
+  transition: 0.3s;
+  color: var(--color-primary);
+}
+
+.about .watch-video a {
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-left: 8px;
+  transition: 0.3s;
+}
+
+.about .watch-video:hover a {
+  color: var(--color-primary);
+}
+
+.about .about-img {
+  min-height: 600px;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (min-width: 992px) {
+  .about .about-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+/*========== About page css end ===========*/
+/*========== custom color css start ===========*/
+
+.btn-purple {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #5e2ced;
+  --bs-btn-border-color: #5e2ced;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #5e2ced;
+  --bs-btn-hover-border-color: #5e2ced;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #5e2ced;
+  --bs-btn-active-border-color: #5e2ced;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #5e2ced;
+  --bs-btn-disabled-border-color: #5e2ced;
+}
+.btn-outline-purple{
+  --bs-btn-color: #5e2ced;
+  --bs-btn-border-color: #5e2ced;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #5e2ced;
+  --bs-btn-hover-border-color: #5e2ced;
+  --bs-btn-focus-shadow-rgb: 13, 110, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #5e2ced;
+  --bs-btn-active-border-color: #5e2ced;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #5e2ced;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #5e2ced;
+  --bs-gradient: none;
+}
+
+.bg-purple{
+  background-color: rgba(var(--bs-purple-rgb), var(--bs-bg-opacity)) !important;
+}
+/*========== custom color css end ===========*/
+
+/*========== footer css start ===========*/
+
+/*========== footer css end ===========*/
