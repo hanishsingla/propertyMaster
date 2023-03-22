@@ -1,3 +1,41 @@
 .svg{
-  background-image: url("../../../public/image/property/img-Besoins.jpg");
+  background-image: url('../../../public/image/property/img-Besoins.jpg');
+  background-size: cover;
+  height: 23rem;
+}
+#envelope {
+  animation: float 2s ease-in-out infinite;
+  height:8rem;
+  margin-left: 18rem;
+  margin-top: 5rem;
+}
+
+#contact_btn{
+  margin-top: 2rem;
+  margin-left: 11rem;
+}
+
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
 }

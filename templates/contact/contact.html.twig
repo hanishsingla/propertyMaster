@@ -4,12 +4,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <div class="svg"></div>
-            <div id="envelop">
-                <img src="{{ asset('image/property/img-Besoins.jpg') }}">
-            </div>
+            <div class="svg"><img id="envelope" src="{{ asset('image/property/symbol-sms.png') }}"></div>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4 mt-4">
+            {{ form_start(helpData) }}
+                {{ form_row(helpData.username,{'attr':{'class':'form-control'}})}}
+                {{ form_row(helpData.email,{'attr':{'class':'form-control'}})}}
+                {{ form_row(helpData.message,{'attr':{'class':'form-control'}})}}
+                <input type="submit" id="contact_btn" name="submit" class="btn btn-success" value="submit">
+            {{ form_end(helpData) }}
+        </div>
     </div>
 </div>
 {% endblock %}
