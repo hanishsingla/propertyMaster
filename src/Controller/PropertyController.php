@@ -15,14 +15,21 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class PropertyController extends AbstractDashboardController
 {
     #[IsGranted('ROLE_USER')]
-    #[Route('/property', name: 'app_property')]
-    public function property(Request $request, AgentRepository $agentRepository, PropertyRepository $propertyRepository, $propertyType = 'dashboard'): Response
+    #[Route('/property-list', name: 'app_property_list')]
+    public function propertyList(Request $request, PropertyRepository $propertyRepository): Response
     {
+        $property = $propertyRepository->findAll();
         return $this->render('property/property.html.twig', [
-            'propertyType' => $propertyType,
+            'site_meta_title_name' => 'properties',
         ]);
     }
-
+    #[Route('/property-type', name: 'app_property_type')]
+    public function propertyType(Request $request, PropertyRepository $propertyRepository): Response
+    {
+        return $this->render('property/property.html.twig', [
+            'site_meta_title_name' => 'properties',
+        ]);
+    }
 
     #[Route('/propertyEdit/{id}', name: 'propertyEdit')]
     public function admin(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id): Response
