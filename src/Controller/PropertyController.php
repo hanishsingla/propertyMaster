@@ -2,25 +2,23 @@
 
 namespace App\Controller;
 
-use App\Form\PropertyType;
-use App\Repository\AgentRepository;
 use App\Repository\PropertyRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 class PropertyController extends AbstractDashboardController
 {
     #[Route('/property-list', name: 'propertyList')]
     public function propertyList(Request $request, PropertyRepository $propertyRepository): Response
     {
-        $propertyList = $propertyRepository->findAll();
-        return $this->render('property/property_list.html.twig', [
+        $propertyLists = $propertyRepository->findBy(['propertyStatus' => ['sale','rent']]);
+
+        return $this->render('property/property.html.twig', [
             'site_meta_title_name' => 'properties',
-            'propertyList' => $propertyList,
+            'propertyLists' => $propertyLists,
         ]);
     }
 
