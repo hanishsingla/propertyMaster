@@ -14,52 +14,29 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class PropertyController extends AbstractDashboardController
 {
-    #[IsGranted('ROLE_USER')]
-    #[Route('/property-list', name: 'app_property_list')]
+    #[Route('/property-list', name: 'propertyList')]
     public function propertyList(Request $request, PropertyRepository $propertyRepository): Response
     {
-        $property = $propertyRepository->findAll();
-        return $this->render('property/property.html.twig', [
+        $propertyList = $propertyRepository->findAll();
+        return $this->render('property/property_list.html.twig', [
             'site_meta_title_name' => 'properties',
+            'propertyList' => $propertyList,
         ]);
     }
-    #[Route('/property-type', name: 'app_property_type')]
+
+    #[Route('/property-type', name: 'propertyType')]
     public function propertyType(Request $request, PropertyRepository $propertyRepository): Response
     {
-        return $this->render('property/property.html.twig', [
+        return $this->render('property/property_type.html.twig', [
             'site_meta_title_name' => 'properties',
         ]);
     }
 
-    #[Route('/propertyEdit/{id}', name: 'propertyEdit')]
-    public function admin(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id): Response
+    #[Route('/property-agent', name: 'propertyAgent')]
+    public function propertyAgent(Request $request, PropertyRepository $propertyRepository): Response
     {
-        $propertyData = $propertyRepository->findOneBy(['id' => $id]);
-        $form = $this->createForm(PropertyType::class, $propertyData);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->persist($propertyData);
-
-            $em->flush();
-
-            return $this->redirectToRoute('app_property');
-        }
-
-        return $this->render('property/edit_property.html.twig', [
-            'propertyForm' => $form->createView(),
-
+        return $this->render('property/property_agent.html.twig', [
+            'site_meta_title_name' => 'properties',
         ]);
-    }
-
-    #[Route('/propertyDelete/{id}', name: 'app_delete')]
-    public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, AgentRepository $agentRepository, $type, $id): Response
-    {
-        $property = $propertyRepository->findOneBy(['id' => $id]);
-        $em->remove($property);
-
-        $em->flush();
-        return $this->redirectToRoute('app_property', ['type' => $type]);
     }
 }

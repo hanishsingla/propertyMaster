@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Security\SecurityCustomAuthenticator;
-use App\Service\Security\RegisterHelper;
+use App\Service\CommonHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,8 +28,8 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-    #[Route('/register', name: 'app_register')]
-    public function register(Request $request, RegisterHelper $registerHelper,UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,UserAuthenticatorInterface $authenticator,SecurityCustomAuthenticator $customAuthenticator): Response
+    #[Route('/register', name: 'register')]
+    public function register(Request $request, CommonHelper $commonHelper, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $authenticator, SecurityCustomAuthenticator $customAuthenticator): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_home');
@@ -48,7 +48,7 @@ class RegistrationController extends AbstractController
                 )
             );
             $userInformation =$form->getData();
-            $registerHelper->setCreatedDate($userInformation);
+            $commonHelper->setCreatedDate($userInformation);
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -73,7 +73,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/verify/email', name: 'app_verify_email')]
+    #[Route('/verify/email', name: 'verifyUserEmail')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
