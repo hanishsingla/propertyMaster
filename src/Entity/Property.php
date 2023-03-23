@@ -30,7 +30,7 @@ class Property extends AbstractEntity
     private string $propertyDescription;
 
     #[ORM\Column(nullable: true)]
-    private ?string $propertyImage = null;
+    private ?array $propertyImage = null;
 
     #[ORM\Column]
     private string $propertyPrice;
@@ -119,17 +119,17 @@ class Property extends AbstractEntity
     }
 
     /**
-     * @return string|null
+     * @return array|null
      */
-    public function getPropertyImage(): ?string
+    public function getPropertyImage(): ?array
     {
         return $this->propertyImage;
     }
 
     /**
-     * @param string|null $propertyImage
+     * @param array|null $propertyImage
      */
-    public function setPropertyImage(?string $propertyImage): void
+    public function setPropertyImage(?array $propertyImage): void
     {
         $this->propertyImage = $propertyImage;
     }
