@@ -12,13 +12,21 @@
   font-weight: normal;
   text-transform: capitalize;
   transition: .3s;
+  text-decoration: none;
 }
 
 .footer .btn.btn-link::before {
   position: relative;
-  content: "\f105";
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  transform: rotate(45deg);
+  margin-right: 0.25em;
   font-weight: 900;
-  margin-right: 10px;
+
 }
 
 .footer .btn.btn-link:hover {
