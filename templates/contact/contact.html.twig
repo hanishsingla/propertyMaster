@@ -9,10 +9,29 @@
         <div class="col-md-2"></div>
         <div class="col-md-4 mt-4">
             {{ form_start(helpData) }}
-                {{ form_row(helpData.username,{'attr':{'class':'form-control'}})}}
-                {{ form_row(helpData.email,{'attr':{'class':'form-control'}})}}
-                {{ form_row(helpData.message,{'attr':{'class':'form-control'}})}}
-                <input type="submit" id="contact_btn" name="submit" class="btn btn-success" value="submit">
+                <h1 class="title text-center mb-4">Talk to Us</h1>
+
+                <!-- Name -->
+            <div class="input-group">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                {{ form_widget(helpData.username,{'attr':{'class':'form-control', 'placeholder':'Name'}})}}
+            </div>
+
+                <!-- E-mail -->
+            <div class="input-group mt-4">
+                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                {{ form_widget(helpData.email,{'attr':{'class':'form-control', 'placeholder':'Email'}})}}
+            </div>
+
+            <!-- Message -->
+            <div class="input-group mt-4">
+                <span class="input-group-text"><i class="fa-solid fa-paper-plane"></i></span>
+                {{ form_widget(helpData.message,{'attr':{'class':'form-control', 'placeholder':'Message'}})}}
+            </div>
+
+                <!-- Submit btn -->
+            <input type="submit" id="contact_btn" name="submit" class="btn btn-success" value="submit">
+
             {{ form_end(helpData) }}
         </div>
     </div>
