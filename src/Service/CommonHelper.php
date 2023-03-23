@@ -6,7 +6,6 @@ use DateTime;
 
 class CommonHelper
 {
-
     public function setInformation($form, $ownerId): void
     {
         $information = $form->getData();
