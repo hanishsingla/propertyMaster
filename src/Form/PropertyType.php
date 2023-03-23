@@ -57,10 +57,24 @@ class PropertyType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
-            ->add('propertyType', TextType::class, [
+            ->add('propertyType', ChoiceType::class, [
                 'attr' => [
                     'placeholder' => 'Type',
                     'class' => 'form-control',
+                ],
+
+                'choices' => [
+                    'Open this select menu' => '',
+                    'Home' => 'home',
+                    'Shop' => 'shop',
+                    'Garage' => 'garage',
+                    'Villa' => 'villa',
+                    'Office' => 'office',
+                    'Building' => 'building',
+                    'Town House' => 'townhouse',
+
+                    'Apartment' => 'apartment',
+
                 ],
             ])
             ->add('propertyStatus', ChoiceType::class, [

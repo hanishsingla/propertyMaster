@@ -6,6 +6,7 @@ use App\Entity\Property;
 use App\Form\PropertyType;
 use App\Repository\AgentRepository;
 use App\Repository\PropertyRepository;
+use App\Service\CommonHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,19 +18,23 @@ class UserPropertyController extends AbstractController
 {
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/userProperty', name: 'app_userProperty')]
-    public function userProperty(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository):Response{
+    #[Route('/userProperty', name: 'userProperty')]
+    public function userProperty(Request $request,CommonHelper $commonHelper, EntityManagerInterface $em, PropertyRepository $propertyRepository):Response{
+        $ownerId = $request->getSession()->get('ownerId');
+
         $propertyForm = new Property();
         $form = $this->createForm(PropertyType::class, $propertyForm);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $commonHelper->setInformation($form,$ownerId);
+
             $em->persist($propertyForm);
 
             $em->flush();
 
-            return $this->redirectToRoute('app_userProperty');
+            return $this->redirectToRoute('userProperty');
         }
         return $this->render('user_property.html.twig',[
             'propertyForm' => $form->createView(),
