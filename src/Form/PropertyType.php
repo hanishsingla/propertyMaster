@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -11,8 +15,64 @@ class PropertyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('propertyName')
-        ;
+            ->add('propertyTitle', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Title',
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('propertyPrice', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Price',
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('propertyArea', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Area',
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('propertyAddress', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Address',
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('shortDescription', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Short Description',
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('propertyDescription', TextareaType::class, [
+                'attr' => [
+                    'placeholder' => 'Description',
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('propertyRooms', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Rooms',
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('propertyType', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Type',
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('propertyStatus', ChoiceType::class, [
+                'choices' => [
+                    'Open this select menu' => '',
+                    'For Sale' => 'sale',
+                    'For Rent' => 'rent',
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -38,6 +38,16 @@ class Property extends AbstractEntity
     private string $propertyDescription;
 
 
+    #[ORM\Column]
+    private string $propertyRooms;
+
+
+    #[ORM\Column]
+    private string $propertyStatus;
+
+    #[ORM\Column]
+    private string $propertyType;
+
     public function getId(): ?string
     {
         return $this->id;
@@ -155,4 +165,53 @@ class Property extends AbstractEntity
     {
         $this->propertyDescription = $propertyDescription;
     }
+
+    /**
+     * @return string
+     */
+    public function getPropertyRooms(): string
+    {
+        return $this->propertyRooms;
+    }
+
+    /**
+     * @param string $propertyRooms
+     */
+    public function setPropertyRooms(string $propertyRooms): void
+    {
+        $this->propertyRooms = $propertyRooms;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyStatus(): string
+    {
+        return $this->propertyStatus;
+    }
+
+    /**
+     * @param string $propertyStatus
+     */
+    public function setPropertyStatus(string $propertyStatus): void
+    {
+        $this->propertyStatus = $propertyStatus;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyType(): string
+    {
+        return $this->propertyType;
+    }
+
+    /**
+     * @param string $propertyType
+     */
+    public function setPropertyType(string $propertyType): void
+    {
+        $this->propertyType = $propertyType;
+    }
+
 }
