@@ -11,12 +11,13 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    app.menu_builder:
-        class: App\Menu\MainMenu
-        arguments: ["@knp_menu.factory"]
 
+
+    app.menu_builder_main_menu:
+        class: App\Menu\MainMenu
+        arguments: ['@knp_menu.factory']
         tags:
-            - { name: knp_menu.menu_builder, method: createMainMenu, alias: mainMenu } }
+            - { name: knp_menu.menu_builder, method: createMainMenu, alias: mainMenu }
 
     knp_menu.renderer.twig:
         class: Knp\Menu\Renderer\TwigRenderer
