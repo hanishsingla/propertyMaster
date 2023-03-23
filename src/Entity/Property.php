@@ -21,32 +21,33 @@ class Property extends AbstractEntity
     private string $ownerId;
 
     #[ORM\Column]
-    private string $propertyTitle;
-
-    #[ORM\Column]
-    private string $propertyPrice;
+    private string $propertyAddress;
 
     #[ORM\Column]
     private string $propertyArea;
 
     #[ORM\Column]
-    private string $propertyAddress;
-
-    #[ORM\Column]
-    private string $shortDescription;
-    #[ORM\Column]
     private string $propertyDescription;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $propertyImage = null;
+
+    #[ORM\Column]
+    private string $propertyPrice;
 
     #[ORM\Column]
     private string $propertyRooms;
-
 
     #[ORM\Column]
     private string $propertyStatus;
 
     #[ORM\Column]
+    private string $propertyTitle;
+
+    #[ORM\Column]
     private string $propertyType;
+    #[ORM\Column]
+    private string $shortDescription;
 
     public function getId(): ?string
     {
@@ -69,37 +70,20 @@ class Property extends AbstractEntity
         $this->ownerId = $ownerId;
     }
 
-
     /**
      * @return string
      */
-    public function getPropertyTitle(): string
+    public function getPropertyAddress(): string
     {
-        return $this->propertyTitle;
+        return $this->propertyAddress;
     }
 
     /**
-     * @param string $propertyTitle
+     * @param string $propertyAddress
      */
-    public function setPropertyTitle(string $propertyTitle): void
+    public function setPropertyAddress(string $propertyAddress): void
     {
-        $this->propertyTitle = $propertyTitle;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPropertyPrice(): string
-    {
-        return $this->propertyPrice;
-    }
-
-    /**
-     * @param string $propertyPrice
-     */
-    public function setPropertyPrice(string $propertyPrice): void
-    {
-        $this->propertyPrice = $propertyPrice;
+        $this->propertyAddress = $propertyAddress;
     }
 
     /**
@@ -121,38 +105,6 @@ class Property extends AbstractEntity
     /**
      * @return string
      */
-    public function getPropertyAddress(): string
-    {
-        return $this->propertyAddress;
-    }
-
-    /**
-     * @param string $propertyAddress
-     */
-    public function setPropertyAddress(string $propertyAddress): void
-    {
-        $this->propertyAddress = $propertyAddress;
-    }
-
-    /**
-     * @return string
-     */
-    public function getShortDescription(): string
-    {
-        return $this->shortDescription;
-    }
-
-    /**
-     * @param string $shortDescription
-     */
-    public function setShortDescription(string $shortDescription): void
-    {
-        $this->shortDescription = $shortDescription;
-    }
-
-    /**
-     * @return string
-     */
     public function getPropertyDescription(): string
     {
         return $this->propertyDescription;
@@ -164,6 +116,38 @@ class Property extends AbstractEntity
     public function setPropertyDescription(string $propertyDescription): void
     {
         $this->propertyDescription = $propertyDescription;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPropertyImage(): ?string
+    {
+        return $this->propertyImage;
+    }
+
+    /**
+     * @param string|null $propertyImage
+     */
+    public function setPropertyImage(?string $propertyImage): void
+    {
+        $this->propertyImage = $propertyImage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyPrice(): string
+    {
+        return $this->propertyPrice;
+    }
+
+    /**
+     * @param string $propertyPrice
+     */
+    public function setPropertyPrice(string $propertyPrice): void
+    {
+        $this->propertyPrice = $propertyPrice;
     }
 
     /**
@@ -201,6 +185,22 @@ class Property extends AbstractEntity
     /**
      * @return string
      */
+    public function getPropertyTitle(): string
+    {
+        return $this->propertyTitle;
+    }
+
+    /**
+     * @param string $propertyTitle
+     */
+    public function setPropertyTitle(string $propertyTitle): void
+    {
+        $this->propertyTitle = $propertyTitle;
+    }
+
+    /**
+     * @return string
+     */
     public function getPropertyType(): string
     {
         return $this->propertyType;
@@ -214,4 +214,19 @@ class Property extends AbstractEntity
         $this->propertyType = $propertyType;
     }
 
+    /**
+     * @return string
+     */
+    public function getShortDescription(): string
+    {
+        return $this->shortDescription;
+    }
+
+    /**
+     * @param string $shortDescription
+     */
+    public function setShortDescription(string $shortDescription): void
+    {
+        $this->shortDescription = $shortDescription;
+    }
 }
