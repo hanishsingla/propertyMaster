@@ -18,6 +18,9 @@ class Property extends AbstractEntity
     private ?string $id = null;
 
     #[ORM\Column]
+    private string $ownerId;
+
+    #[ORM\Column]
     private string $propertyTitle;
 
     #[ORM\Column]
@@ -39,6 +42,23 @@ class Property extends AbstractEntity
     {
         return $this->id;
     }
+
+    /**
+     * @return string
+     */
+    public function getOwnerId(): string
+    {
+        return $this->ownerId;
+    }
+
+    /**
+     * @param string $ownerId
+     */
+    public function setOwnerId(string $ownerId): void
+    {
+        $this->ownerId = $ownerId;
+    }
+
 
     /**
      * @return string

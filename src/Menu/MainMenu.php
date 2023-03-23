@@ -29,22 +29,42 @@ class MainMenu
             'route' => 'app_home',
             'attribute' => 'nav-link',
             'label' => 'Home',
-            'attributes' => ['class' => 'nav-item'],
+            'attributes' => ['class' => 'nav-item py-3'],
             'labelAttributes' => ['icon' => 'fa-home'],
-            'linkAttributes' => ['class' =>   'nav-link'],
-        ]);
-
-        $menu->addChild('Properties', [
-            'route' => 'app_property',
-            'attributes' => ['class' => 'nav-item'],
-            'labelAttributes' => ['icon' => 'fa-building'],
             'linkAttributes' => ['class' => 'nav-link'],
         ]);
+
+        $dropdown = $menu->addChild('Property', [
+            'route' => 'app_property_list',
+            'attributes' => ['class' => 'nav-item dropdown py-3'],
+            'labelAttributes' => ['icon' => 'fa-building'],
+            'linkAttributes' => ['class' => 'nav-link dropdown-toggle',
+                'role' => 'button',
+                'data-bs-toggle' => 'dropdown',
+                'aria-expanded' => 'false'
+            ],
+        ]);
+        $dropdown->addChild('Property List', [
+            'route' => 'app_property_list',
+                'labelAttributes' => ['icon' => 'fa-list'],
+            'linkAttributes' => ['class' => 'dropdown-item'],
+        ]);
+        $dropdown->addChild('Property Type', [
+            'route' => 'app_property_list',
+            'labelAttributes' => ['icon' => 'fa-buildings'],
+            'linkAttributes' => ['class' => 'dropdown-item'],
+        ]);
+        $dropdown->addChild(' Property Agent', [
+
+        ]);
+
+        $dropdown->setChildrenAttributes(['class' => 'dropdown-menu']);
+
 
         $menu->addChild('About', [
             'label' => 'About',
             'route' => 'app_about',
-            'attributes' => ['class' => 'nav-item'],
+            'attributes' => ['class' => 'nav-item py-3'],
             'labelAttributes' => ['icon' => 'fa-circle-info'],
             'linkAttributes' => ['class' => 'nav-link'],
         ]);
@@ -52,10 +72,10 @@ class MainMenu
         $menu->addChild('Contact', [
             'label' => 'Contact',
             'route' => 'app_contact',
-            'attributes' => ['class' => 'nav-item'],
+            'attributes' => ['class' => 'nav-item py-3'],
             'labelAttributes' => ['icon' => 'fa-location-dot'],
             'linkAttributes' => ['class' => 'nav-link'],
         ]);
-        return $menu;
+        return $menu->setChildrenAttributes(['class' => 'navbar-nav  mb-2 mb-lg-0']);
     }
 }
