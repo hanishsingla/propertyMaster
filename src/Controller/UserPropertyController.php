@@ -57,10 +57,41 @@ class UserPropertyController extends AbstractController
 
             $em->flush();
 
-            return $this->redirectToRoute('userProperty');
+            return $this->redirectToRoute('createProperty');
         }
         return $this->render('form/user_property_form.html.twig', [
-            'propertyForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
+    }
+    #[Route('/editProperty/{id}', name: 'userPropertyEdit')]
+    public function userPropertyEdit(Request $request, PropertyRepository $propertyRepository, EntityManagerInterface $em, $id):Response
+    {
+
+        $ownerId = $request->getSession()->get('ownerId');
+        $userPropertyEditData = $propertyRepository->findOneBy(['id'=> $id,'ownerId'=> $ownerId]);
+
+        $form = $this->createForm(PropertyType::class, $userPropertyEditData);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($userPropertyEditData);
+
+            $em->flush();
+
+            return $this->redirectToRoute('userProperty');
+        }
+
+        return $this->render('form/user_property_form.html.twig',[
+            'form' => $form->createView(),
+        ]);
+    }
+    #[Route('/propertyDelete{id}', name: 'propertyDelete')]
+    public function delete(Request $request,EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
+    {
+        $ownerId = $request->getSession()->get('ownerId');
+        $propertyData = $propertyRepository ->findOneBy(['id'=>$id,'ownerId'=>$ownerId]);
+        $em -> remove($propertyData);
+        $em -> flush();
+        return $this->redirectToRoute('userProperty');
     }
 }

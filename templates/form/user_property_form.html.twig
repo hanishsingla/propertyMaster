@@ -1,73 +1,72 @@
-{{ form_start(propertyForm) }}
+{{ form_start(form,{'attr':{'id':'propertyCreate'}}) }}
 <div class="row">
     <div class="col-md-6">
         <h2>Register Your Property Here</h2>
 
 
         <div class="row ">
-            <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.propertyTitle) }}
-                {{ form_widget(propertyForm.propertyTitle) }}
-                <span class="error">{{ form_errors(propertyForm.propertyTitle) }}</span>
+            <div class="col-md-12 mt-2">
+                {{ form_label(form.propertyTitle) }}
+                {{ form_widget(form.propertyTitle) }}
+                <span class="error">{{ form_errors(form.propertyTitle) }}</span>
             </div>
             <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.propertyImage) }}
-                {{ form_widget(propertyForm.propertyImage) }}
-                <span class="error">{{ form_errors(propertyForm.propertyImage) }}</span>
+                {{ form_label(form.propertyImage) }}
+                {{ form_widget(form.propertyImage) }}
+                <span class="error">{{ form_errors(form.propertyImage) }}</span>
             </div>
             <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.propertyPrice) }}
-                {{ form_widget(propertyForm.propertyPrice) }}
-                <span class="error">{{ form_errors(propertyForm.propertyPrice) }}</span>
-            </div>
-
-            <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.propertyArea) }}
-                {{ form_widget(propertyForm.propertyArea) }}
-                <span class="error">{{ form_errors(propertyForm.propertyArea) }}</span>
+                {{ form_label(form.propertyPrice) }}
+                {{ form_widget(form.propertyPrice) }}
+                <span class="error">{{ form_errors(form.propertyPrice) }}</span>
             </div>
 
             <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.propertyAddress) }}
-                {{ form_widget(propertyForm.propertyAddress) }}
-                <span class="error">{{ form_errors(propertyForm.propertyAddress) }}</span>
+                {{ form_label(form.propertyArea) }}
+                {{ form_widget(form.propertyArea) }}
+                <span class="error">{{ form_errors(form.propertyArea) }}</span>
             </div>
 
             <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.shortDescription) }}
-                {{ form_widget(propertyForm.shortDescription) }}
-                <span class="error">{{ form_errors(propertyForm.shortDescription) }}</span>
+                {{ form_label(form.propertyAddress) }}
+                {{ form_widget(form.propertyAddress) }}
+                <span class="error">{{ form_errors(form.propertyAddress) }}</span>
             </div>
 
             <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.propertyDescription) }}
-                {{ form_widget(propertyForm.propertyDescription) }}
-                <span class="error">{{ form_errors(propertyForm.propertyDescription) }}</span>
+                {{ form_label(form.shortDescription) }}
+                {{ form_widget(form.shortDescription) }}
+                <span class="error">{{ form_errors(form.shortDescription) }}</span>
+            </div>
+
+
+
+            <div class="col-md-6 mt-2">
+                {{ form_label(form.propertyRooms) }}
+                {{ form_widget(form.propertyRooms) }}
+                <span class="error">{{ form_errors(form.propertyRooms) }}</span>
             </div>
 
             <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.propertyRooms) }}
-                {{ form_widget(propertyForm.propertyRooms) }}
-                <span class="error">{{ form_errors(propertyForm.propertyRooms) }}</span>
+                {{ form_label(form.propertyType) }}
+                {{ form_widget(form.propertyType) }}
+                <span class="error">{{ form_errors(form.propertyType) }}</span>
             </div>
 
             <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.propertyType) }}
-                {{ form_widget(propertyForm.propertyType) }}
-                <span class="error">{{ form_errors(propertyForm.propertyType) }}</span>
+                {{ form_label(form.propertyStatus) }}
+                {{ form_widget(form.propertyStatus) }}
+                <span class="error">{{ form_errors(form.propertyStatus) }}</span>
             </div>
-
-            <div class="col-md-6 mt-2">
-                {{ form_label(propertyForm.propertyStatus) }}
-                {{ form_widget(propertyForm.propertyStatus) }}
-                <span class="error">{{ form_errors(propertyForm.propertyStatus) }}</span>
+            <div class="col-md-12 mt-2">
+                {{ form_label(form.propertyDescription) }}
+                {{ form_widget(form.propertyDescription) }}
+                <span class="error">{{ form_errors(form.propertyDescription) }}</span>
             </div>
-
         </div>
-        <input type="submit" id="contact_btn" name="submit" class="btn btn-success" value="submit">
     </div>
     <div class="col-md-6">
         <img class="img-fluid" src="{{ asset('image/property/North Carolina.jpg') }}">
     </div>
 </div>
-{{ form_end(propertyForm) }}
+{{ form_end(form) }}
