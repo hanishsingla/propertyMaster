@@ -1,0 +1,22 @@
+{% for list in propertyLists %}
+    <div class="col-lg-3 col-md-4 col-12">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    {% if list.propertyImage is defined and list.propertyImage is not null and list.propertyImage|length > 0 %}
+                        <a href=""><img src="{{ asset('uploads/propertyImages/' ~ list.propertyImage[0] ) }}" class="card-img-top img-size" alt="property image"></a>
+                    {% else %}
+                        <img src="{{ asset('uploads/propertyImages/property.jpg') }}" class="card-img-top img-size" alt="property image">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ list.propertyTitle }}</h5>
+                        <p class="card-text">{{ list.propertyAddress }}</p>
+                        <p class="card-text"><small class="text-muted">{{ list.propertyArea }}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
