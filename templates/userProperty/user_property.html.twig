@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block pageContent %}
+    <table class="table table table-striped table-hover table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Sr No.</th>
+            <th scope="col">Room No.</th>
+        </tr>
+        </thead>
+        <tbody id="available_rooms_table_body">
+
+        {% set sno = 0 %}
+        {% for  list in propertyLists %}
+            {% set sno = sno +1 %}
+            <tr>
+                <td>{{ sno }}</td>
+                <td>{{ list.propertyTitle }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

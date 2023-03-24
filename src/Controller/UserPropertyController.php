@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Property;
 use App\Form\PropertyType;
+use App\Repository\PropertyRepository;
 use App\Service\CommonHelper;
 use App\Service\PropertyUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +20,19 @@ class UserPropertyController extends AbstractController
 
     #[IsGranted('ROLE_USER')]
     #[Route('/userProperty', name: 'userProperty')]
-    public function userProperty(Request $request, CommonHelper $commonHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader): Response
+    public function userProperty(Request $request,PropertyRepository $propertyRepository): Response
+    {
+        $ownerId = $request->getSession()->get('ownerId');
+       $propertyLists = $propertyRepository->findBy(['ownerId' => $ownerId]);
+
+      return   $this->render('userProperty/user_property.html.twig',[
+         'propertyLists' => $propertyLists,
+      ]);
+    }
+
+    #[IsGranted('ROLE_USER')]
+    #[Route('/createProperty', name: 'createProperty')]
+    public function createProperty(Request $request,CommonHelper $commonHelper,EntityManagerInterface $em, PropertyUploader $propertyUploader)
     {
         $ownerId = $request->getSession()->get('ownerId');
 
@@ -46,9 +59,8 @@ class UserPropertyController extends AbstractController
 
             return $this->redirectToRoute('userProperty');
         }
-        return $this->render('user_property.html.twig', [
+        return $this->render('form/user_property_form.html.twig', [
             'propertyForm' => $form->createView(),
         ]);
     }
-
 }
