@@ -17,7 +17,6 @@ class CommonHelper
     {
         $date = new DateTime;
         $information->setIsCreatedAt($date);
-
     }
 
 }

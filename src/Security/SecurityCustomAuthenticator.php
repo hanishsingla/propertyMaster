@@ -23,7 +23,7 @@ class SecurityCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'login';
 
-    public function __construct(private readonly UrlGeneratorInterface $urlGenerator,private readonly Session $session)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly Session $session)
     {
     }
 
@@ -48,10 +48,9 @@ class SecurityCustomAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+        $session = $this->session;
         $user = $token->getUser();
-
-       $this->session->session($user,$request);
-
+        $session->session($user, $request);
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 
