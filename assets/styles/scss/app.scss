@@ -230,7 +230,77 @@ ul li {
 /*========== custom color css end ===========*/
 
 /*========== listing Property Card css start ===========*/
+.properties-list li a {
+  font-weight: 600;
+  padding: 10px 25px;
+  border: 1px solid #0d6efd;
+  border-radius: 50px;
+  margin: 0 8px;
+  color: black;
+}
+.properties-list li a.active, .properties-list li a:hover {
+  color: #ffffff;
+  background: #0d6efd;
+}
 
+.single-property {
+  position: relative;
+}
+
+.property-img {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+}
+
+.property-img a {
+  display: block;
+  border-radius: 10px 10px 0 0;
+}
+.property-img a img {
+  width: 100%;
+}
+
+.level-stryker, .level-stryker-2 {
+  position: absolute;
+  top: 20px;
+  left: -10px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 4px 20px;
+  background: #19cfa3;
+  color: #ffffff;
+}
+.property-desc {
+  background: #f1f1ff;
+  padding: 20px 20px;
+  text-align: center;
+  border-radius: 0 0 10px 10px;
+}
+
+.property-desc h4 {
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 12px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.property-desc h4::after {
+  background: #ddd;
+  position: absolute;
+  content: '';
+  height: 1px;
+  width: 190px;
+  left: 50%;
+  bottom: 0;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.property-desc p {
+  font-weight: 300;
+}
 /*========== listing Property Card css end ===========*/
 
 
