@@ -1,5 +1,4 @@
 import bootbox from 'bootbox';
-import './slider';
 const body = 'body';
 
 $(body).on('click', '[data-popup="submit"]', function (e) {
