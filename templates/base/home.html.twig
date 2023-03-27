@@ -40,36 +40,42 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="{{ listType }}" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                         <div class="row">
-                            {% for list in propertyLists %}
-                                <div class="col-lg-3 col-md-4 col-12">
-                                    <div class="single-property mt-30">
-                                        <div class="property-img">
-                                            {% if list.propertyImage %}
-                                                {% for image in list.propertyImage %}
+                            {% if propertyLists|length > 0  %}
+                                {% for list in propertyLists %}
+                                    <div class="col-lg-3 col-md-4 col-12">
+                                        <div class="single-property mt-30">
+                                            <div class="property-img">
+                                                {% if list.propertyImage %}
+                                                    {% for image in list.propertyImage %}
+                                                        <a href="">
+                                                            <img src="{{ asset('uploads/propertyImages/' ~ image) }}" alt="{{ image }}">
+                                                        </a>
+                                                    {% endfor %}
+                                                {% else %}
                                                     <a href="">
-                                                        <img src="{{ asset('uploads/propertyImages/' ~ image) }}" alt="{{ image }}">
+                                                        <img src="{{ asset('uploads/propertyImages/property.jpg') }}" alt="property">
                                                     </a>
-                                                {% endfor %}
-                                            {% else %}
-                                                <a href="">
-                                                    <img src="{{ asset('uploads/propertyImages/property.jpg') }}" alt="property">
-                                                </a>
-                                            {% endif %}
-                                            <span class="level-stryker">{{ list.propertyStatus|capitalize }}</span>
-                                        </div>
-                                        <div class="property-desc">
-                                            <h4><a href="">Mariyasa de Casel </a></h4>
-                                            <p>
-                                                <span class="location">22 First street, Chicago, USA</span>
-                                                <span class="property-info">1200 Sqft, 3 Bed, 2 Bath, 1 Garage </span>
-                                            </p>
-                                            <div class="price-box">
-                                                <p>Price $ 1,59,000</p>
+                                                {% endif %}
+                                                <span class="level-stryker">{{ list.propertyStatus|capitalize }}</span>
                                             </div>
-                                        </div>
-                                    </div><!-- single-property End -->
+                                            <div class="property-desc">
+                                                <h4><a href="">Mariyasa de Casel </a></h4>
+                                                <p>
+                                                    <span class="location">22 First street, Chicago, USA</span>
+                                                    <span class="property-info">{{ list.propertyArea }}, {{ list.propertyRooms}}, 2 Bath, 1 Garage </span>
+                                                </p>
+                                                <div class="price-box">
+                                                    <p>{{ list.propertyPrice }}</p>
+                                                </div>
+                                            </div>
+                                        </div><!-- single-property End -->
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="col-md-12 text-center">
+                                    <h1>No record Found</h1>
                                 </div>
-                            {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
