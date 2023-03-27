@@ -75,7 +75,6 @@ class PropertyType extends AbstractType
                     'Office' => 'office',
                     'Building' => 'building',
                     'Town House' => 'townhouse',
-
                     'Apartment' => 'apartment',
 
                 ],

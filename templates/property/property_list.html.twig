@@ -1,3 +1,30 @@
 {% for list in propertyLists %}
-
+    <div class="col-lg-3 col-md-4 col-12">
+        <div class="single-property mt-30">
+            <div class="property-img">
+                {% if list.propertyImage %}
+                    {% for image in list.propertyImage %}
+                        <a href="">
+                            <img src="{{ asset('uploads/propertyImages/' ~ image) }}" alt="{{ image }}">
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <a href="">
+                        <img src="{{ asset('uploads/propertyImages/property.jpg') }}" alt="property">
+                    </a>
+                {% endif %}
+                <span class="level-stryker">FOR RENT</span>
+            </div>
+            <div class="property-desc">
+                <h4><a href="">Mariyasa de Casel </a></h4>
+                <p>
+                    <span class="location">22 First street, Chicago, USA</span>
+                    <span class="property-info">1200 Sqft, 3 Bed, 2 Bath, 1 Garage </span>
+                </p>
+                <div class="price-box">
+                    <p>Price $ 1,59,000</p>
+                </div>
+            </div>
+        </div><!-- single-property End -->
+    </div>
 {% endfor %}
