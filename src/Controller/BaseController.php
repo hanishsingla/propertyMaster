@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\SearchType;
+
 use App\Repository\PropertyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,17 +11,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BaseController extends AbstractController
 {
-    #[Route('/', name: 'home')]
-    public function home(Request $request, PropertyRepository $propertyRepository): Response
+    #[Route('//{listType}', name: 'home' , requirements: ['listType' => 'buy|rent|sale'])]
+    public function home(Request $request, PropertyRepository $propertyRepository, $listType = 'all'): Response
     {
-        $queryBuilder = $propertyRepository->createQueryBuilder('p');
-
-
-       $properties =  $propertyRepository->findBy(['propertyStatus' => ['rent', 'sale']]);
-
+        if ($listType == 'rent') {
+            $propertyLists = $propertyRepository->findBy(['propertyStatus' => 'rent']);
+        } elseif ($listType == 'sale') {
+            $propertyLists = $propertyRepository->findBy(['propertyStatus' => 'sale']);
+        } elseif ($listType == 'buy') {
+            $propertyLists = $propertyRepository->findBy(['propertyStatus' => 'buy']);
+        } else {
+            $propertyLists = $propertyRepository->findBy(['propertyStatus' => ['buy', 'rent', 'sale']]);
+        }
 
         return $this->render('base/home.html.twig', [
-           'properties' => $properties,
+            'propertyLists' => $propertyLists,
+            'listType' => $listType,
         ]);
     }
 }

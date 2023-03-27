@@ -12,36 +12,67 @@
                     </h2>
                 </div>
                 <div class="col-lg-6 text-lg-end">
-                    <p>
-                        <a href="#" target="_blank" class="btn btn-primary text-white py-3 px-4">
-                            View all properties
-                        </a>
-                    </p>
+                    <ul class="nav properties-list justify-content-end mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a href="{{ path('home') }}" class="nav-link {{ listType == 'all' ? 'active' : '' }} " data-bs-target="#all" type="button" role="tab"
+                               aria-controls="pills-home"
+                               aria-selected="true">All</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a href="{{ path('home', {'listType' : 'buy'}) }}" class="nav-link {{ listType == 'buy' ? 'active' : '' }}" data-bs-target="#buy" type="button"
+                               role="tab" aria-controls="pills-profile"
+                               aria-selected="false">For Buy</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a href="{{ path('home', {'listType' : 'sale'}) }}" class="nav-link {{ listType == 'sale' ? 'active' : '' }}" data-bs-target="#sale" type="button"
+                               role="tab" aria-controls="pills-contact"
+                               aria-selected="false">For Sale</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a href="{{ path('home', {'listType' : 'rent'}) }}" class="nav-link {{ listType == 'rent' ? 'active' : '' }}" data-bs-target="#rent" type="button"
+                               role="tab" aria-controls="pills-disabled"
+                               aria-selected="false">For Rent</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-
-                {% for  property in properties %}
-                    <div class="col">
-                        <div class="card">
-                            <a href="#" class="img">
-                                {% if property.propertyImage %}
-                                    {% for  image in   property.propertyImage %}
-                                        <img src="{{ asset('uploads/propertyImages/' ~ image) }}" alt="{{ image }}" class="card-img-top"/>
-                                    {% endfor %}
-                                {% else %}
-                                    <img src="{{ asset('uploads/propertyImages/property.jpg') }}" alt="property Image" class="card-img-top"/>
-                                {% endif %}
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit
-                                    longer.</p>
-                            </div>
+            <div class="container">
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="{{ listType }}" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                        <div class="row">
+                            {% for list in propertyLists %}
+                                <div class="col-lg-3 col-md-4 col-12">
+                                    <div class="single-property mt-30">
+                                        <div class="property-img">
+                                            {% if list.propertyImage %}
+                                                {% for image in list.propertyImage %}
+                                                    <a href="">
+                                                        <img src="{{ asset('uploads/propertyImages/' ~ image) }}" alt="{{ image }}">
+                                                    </a>
+                                                {% endfor %}
+                                            {% else %}
+                                                <a href="">
+                                                    <img src="{{ asset('uploads/propertyImages/property.jpg') }}" alt="property">
+                                                </a>
+                                            {% endif %}
+                                            <span class="level-stryker">{{ list.propertyStatus|capitalize }}</span>
+                                        </div>
+                                        <div class="property-desc">
+                                            <h4><a href="">Mariyasa de Casel </a></h4>
+                                            <p>
+                                                <span class="location">22 First street, Chicago, USA</span>
+                                                <span class="property-info">1200 Sqft, 3 Bed, 2 Bath, 1 Garage </span>
+                                            </p>
+                                            <div class="price-box">
+                                                <p>Price $ 1,59,000</p>
+                                            </div>
+                                        </div>
+                                    </div><!-- single-property End -->
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
-                {% endfor %}
-
+                </div>
             </div>
         </div>
     </div>
