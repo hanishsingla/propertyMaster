@@ -59,12 +59,13 @@ class UserPropertyController extends AbstractController
 
             return $this->redirectToRoute('createProperty');
         }
-        return $this->render('form/user_property_form.html.twig', [
+        return $this->render('userProperty/create_user_property.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+    #[IsGranted('ROLE_USER')]
     #[Route('/editProperty/{id}', name: 'userPropertyEdit')]
-    public function userPropertyEdit(Request $request, PropertyRepository $propertyRepository, EntityManagerInterface $em, $id):Response
+    public function userPropertyEdit(Request $request, CommonHelper $commonHelper ,PropertyRepository $propertyRepository,PropertyUploader $propertyUploader, EntityManagerInterface $em, $id):Response
     {
 
         $ownerId = $request->getSession()->get('ownerId');
@@ -74,6 +75,18 @@ class UserPropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $brochureFile */
+            $imageFiles = $form->get('propertyImage')->getData();
+            if ($imageFiles) {
+                $imageFileNames = [];
+                foreach ($imageFiles as $file) {
+                    $imageFileNames[] = $propertyUploader->upload($file);
+                }
+                $userPropertyEditData->setPropertyImage($imageFileNames);
+            }
+            $commonHelper->setInformation($form, $ownerId);
+
             $em->persist($userPropertyEditData);
 
             $em->flush();
@@ -81,10 +94,11 @@ class UserPropertyController extends AbstractController
             return $this->redirectToRoute('userProperty');
         }
 
-        return $this->render('form/user_property_form.html.twig',[
+        return $this->render('userProperty/edit_user_property.html.twig',[
             'form' => $form->createView(),
         ]);
     }
+    #[IsGranted('ROLE_USER')]
     #[Route('/propertyDelete{id}', name: 'propertyDelete')]
     public function delete(Request $request,EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
     {
