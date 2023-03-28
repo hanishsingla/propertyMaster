@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BaseController extends AbstractController
 {
-    #[Route('//{listType}', name: 'home' , requirements: ['listType' => 'buy|rent|sale'])]
+    #[Route('/{listType}', name: 'home' , requirements: ['listType' => 'buy|rent|sale'])]
     public function home(Request $request, PropertyRepository $propertyRepository, $listType = 'all'): Response
     {
 
@@ -21,7 +21,7 @@ class BaseController extends AbstractController
 
             $propertyLists = $propertyRepository->getPropertyByListType($listType);
 
-            return $this->render('listing/home_listing.html.twig',[
+            return $this->render('listing/home/home_listing.html.twig',[
                 'propertyLists' => $propertyLists,
             ]);
         }
