@@ -5,6 +5,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -36,12 +37,34 @@ class PropertyType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
-            ->add('propertyAddress', TextType::class, [
+            ->add('propertyCity', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Address',
+                    'placeholder' => 'City',
                     'class' => 'form-control',
                 ],
             ])
+
+            ->add('propertyState', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'City',
+                    'class' => 'form-control',
+                ],
+            ])
+
+            ->add('country', countryType::class, [
+                'placeholder' => 'Choose an option',
+                'required' => true,
+                'disabled' =>true,
+                'choices' => [
+                    'Choose an option' => ''
+                ],
+                'preferred_choices' => ['IN'],
+                'data'        => 'IN',
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+            ])
+
             ->add('shortDescription', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Short Description',
