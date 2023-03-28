@@ -63,4 +63,19 @@ class PropertyRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function getPropertyByListType($listType)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        if ($listType !== 'all') {
+            $qb->andWhere('p.propertyStatus = :listType')
+                ->setParameter('listType', $listType);
+        }
+
+        $qb->setMaxResults(4);
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

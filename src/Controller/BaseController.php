@@ -14,14 +14,16 @@ class BaseController extends AbstractController
     #[Route('//{listType}', name: 'home' , requirements: ['listType' => 'buy|rent|sale'])]
     public function home(Request $request, PropertyRepository $propertyRepository, $listType = 'all'): Response
     {
-        if ($listType == 'rent') {
-            $propertyLists = $propertyRepository->findBy(['propertyStatus' => 'rent']);
-        } elseif ($listType == 'sale') {
-            $propertyLists = $propertyRepository->findBy(['propertyStatus' => 'sale']);
-        } elseif ($listType == 'buy') {
-            $propertyLists = $propertyRepository->findBy(['propertyStatus' => 'buy']);
-        } else {
-            $propertyLists = $propertyRepository->findBy(['propertyStatus' => ['buy', 'rent', 'sale']]);
+
+        $propertyLists = $propertyRepository->getPropertyByListType($listType);
+
+        if($request->isXmlHttpRequest()){
+
+            $propertyLists = $propertyRepository->getPropertyByListType($listType);
+
+            return $this->render('listing/home_listing.html.twig',[
+                'propertyLists' => $propertyLists,
+            ]);
         }
 
         return $this->render('base/home.html.twig', [

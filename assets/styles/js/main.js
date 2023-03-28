@@ -50,7 +50,22 @@ $(body).on('click', '[data-popup="submit"]', function (e) {
     })
 })
 
+/*========== home page Nav tab js start ===========*/
+$(body).on('click', '[data-popup="navTab"]', function (e) {
+    e.preventDefault();
 
+    $('.nav-link').removeClass('active');
+    $(this).addClass('active');
 
-
-
+    const $panelbtn = $(this);
+    const url = $panelbtn.attr('href');
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(data) {
+            // Replace the content of the main section with the response data
+            $('#content').html(data);
+        }
+    })
+})
+/*========== home page Nav tab js end ===========*/

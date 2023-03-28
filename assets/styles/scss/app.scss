@@ -261,14 +261,23 @@ ul li {
   width: 100%;
 }
 
-.level-stryker, .level-stryker-2 {
+.sale,.buy{
   position: absolute;
   top: 20px;
-  left: -10px;
   font-weight: 600;
   font-size: 14px;
   padding: 4px 20px;
   background: #19cfa3;
+  color: #ffffff;
+}
+
+.rent{
+  position: absolute;
+  top: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 4px 20px;
+  background: #0d6efd;
   color: #ffffff;
 }
 .property-desc {
