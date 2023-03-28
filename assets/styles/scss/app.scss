@@ -2,7 +2,6 @@
 @import '@fortawesome/fontawesome-free/css/all.css';
 @import 'animate.css';
 @import "footer";
-@import "contact";
 
 a {
   text-decoration: none;
@@ -253,11 +252,7 @@ ul li {
   border-radius: 10px 10px 0 0;
 }
 
-.property-img a {
-  display: block;
-  border-radius: 10px 10px 0 0;
-}
-.property-img a img {
+.property-img img {
   width: 100%;
 }
 
