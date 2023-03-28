@@ -3,10 +3,10 @@ const body = 'body';
 
 $(body).on('click', '[data-popup="submit"]', function (e) {
     e.preventDefault();
-    const $panelbtn = $(this);
-    const url = $panelbtn.attr('href');
-    const title = $panelbtn.data('title');
-    const size = $panelbtn.data('size');
+    const $panelBtn = $(this);
+    const url = $panelBtn.attr('href');
+    const title = $panelBtn.data('title');
+    const size = $panelBtn.data('size');
     $.ajax({
         type: 'GET',
         url: url,
@@ -57,14 +57,14 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
     $('.nav-link').removeClass('active');
     $(this).addClass('active');
 
-    const $panelbtn = $(this);
-    const url = $panelbtn.attr('href');
+    const $panelBtn = $(this);
+    const url = $panelBtn.attr('href');
     $.ajax({
         type: 'GET',
         url: url,
         success: function(data) {
             // Replace the content of the main section with the response data
-            $('#content').html(data);
+            $('#homeListing').html(data);
         }
     })
 })
