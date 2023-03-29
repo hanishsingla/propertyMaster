@@ -264,6 +264,7 @@ ul li {
   padding: 4px 20px;
   background: #19cfa3;
   color: #ffffff;
+  left: 1px;
 }
 
 .rent{
@@ -274,6 +275,7 @@ ul li {
   padding: 4px 20px;
   background: #0d6efd;
   color: #ffffff;
+  left: 1px;
 }
 .property-desc {
   background: #f1f1ff;
@@ -305,6 +307,21 @@ ul li {
 .property-desc p {
   font-weight: 300;
 }
+
+@media (max-width: 768px) {
+  .properties-list li a {
+    padding: 10px 13px;
+    margin: 0 0 0 1px;
+  }
+}
+@media(max-width: 1200px) and (min-width: 768px)
+{
+  .properties-list li a {
+    padding: 9px 11px 9px 12px;
+    margin: 0 5px;
+  }
+}
+
 /*========== listing Property Card css end ===========*/
 
 /*========== Create Property Form css end ===========*/
