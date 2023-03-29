@@ -21,10 +21,19 @@ class Property extends AbstractEntity
     private string $ownerId;
 
     #[ORM\Column]
-    private string $propertyAddress;
+    private string $propertyArea;
 
     #[ORM\Column]
-    private string $propertyArea;
+    private string $propertyBed;
+
+    #[ORM\Column]
+    private string $propertyCategory;
+
+    #[ORM\Column]
+    private string $propertyCity;
+
+    #[ORM\Column]
+    private string $propertyCountry = 'india';
 
     #[ORM\Column]
     private string $propertyDescription;
@@ -39,15 +48,19 @@ class Property extends AbstractEntity
     private string $propertyRooms;
 
     #[ORM\Column]
-    private string $propertyStatus;
+    private string $propertyState;
 
     #[ORM\Column]
     private string $propertyTitle;
 
     #[ORM\Column]
     private string $propertyType;
+
     #[ORM\Column]
     private string $shortDescription;
+
+    #[ORM\Column]
+    private string $squareType;
 
     public function getId(): ?string
     {
@@ -73,22 +86,6 @@ class Property extends AbstractEntity
     /**
      * @return string
      */
-    public function getPropertyAddress(): string
-    {
-        return $this->propertyAddress;
-    }
-
-    /**
-     * @param string $propertyAddress
-     */
-    public function setPropertyAddress(string $propertyAddress): void
-    {
-        $this->propertyAddress = $propertyAddress;
-    }
-
-    /**
-     * @return string
-     */
     public function getPropertyArea(): string
     {
         return $this->propertyArea;
@@ -100,6 +97,70 @@ class Property extends AbstractEntity
     public function setPropertyArea(string $propertyArea): void
     {
         $this->propertyArea = $propertyArea;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyBed(): string
+    {
+        return $this->propertyBed;
+    }
+
+    /**
+     * @param string $propertyBed
+     */
+    public function setPropertyBed(string $propertyBed): void
+    {
+        $this->propertyBed = $propertyBed;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyCategory(): string
+    {
+        return $this->propertyCategory;
+    }
+
+    /**
+     * @param string $propertyCategory
+     */
+    public function setPropertyCategory(string $propertyCategory): void
+    {
+        $this->propertyCategory = $propertyCategory;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyCity(): string
+    {
+        return $this->propertyCity;
+    }
+
+    /**
+     * @param string $propertyCity
+     */
+    public function setPropertyCity(string $propertyCity): void
+    {
+        $this->propertyCity = $propertyCity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyCountry(): string
+    {
+        return $this->propertyCountry;
+    }
+
+    /**
+     * @param string $propertyCountry
+     */
+    public function setPropertyCountry(string $propertyCountry): void
+    {
+        $this->propertyCountry = $propertyCountry;
     }
 
     /**
@@ -169,17 +230,17 @@ class Property extends AbstractEntity
     /**
      * @return string
      */
-    public function getPropertyStatus(): string
+    public function getPropertyState(): string
     {
-        return $this->propertyStatus;
+        return $this->propertyState;
     }
 
     /**
-     * @param string $propertyStatus
+     * @param string $propertyState
      */
-    public function setPropertyStatus(string $propertyStatus): void
+    public function setPropertyState(string $propertyState): void
     {
-        $this->propertyStatus = $propertyStatus;
+        $this->propertyState = $propertyState;
     }
 
     /**
@@ -229,4 +290,22 @@ class Property extends AbstractEntity
     {
         $this->shortDescription = $shortDescription;
     }
+
+    /**
+     * @return string
+     */
+    public function getSquareType(): string
+    {
+        return $this->squareType;
+    }
+
+    /**
+     * @param string $squareType
+     */
+    public function setSquareType(string $squareType): void
+    {
+        $this->squareType = $squareType;
+    }
+
+
 }

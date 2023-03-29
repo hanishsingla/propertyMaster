@@ -37,6 +37,18 @@ class PropertyType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
+
+            ->add('squareType', ChoiceType::class, [
+                'attr' => [
+                    'placeholder' => 'select option',
+                    'class' => 'form-control',
+                ],
+                'choices' => [
+                    'Choose an option' => '',
+                    'sq ft' => 'sq_ft',
+                    'm²' => 'm2',
+                ],
+            ])
             ->add('propertyCity', TextType::class, [
                 'attr' => [
                     'placeholder' => 'City',
@@ -46,12 +58,12 @@ class PropertyType extends AbstractType
 
             ->add('propertyState', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'City',
+                    'placeholder' => 'State',
                     'class' => 'form-control',
                 ],
             ])
 
-            ->add('country', countryType::class, [
+            ->add('propertyCountry', countryType::class, [
                 'placeholder' => 'Choose an option',
                 'required' => true,
                 'disabled' =>true,
@@ -71,6 +83,7 @@ class PropertyType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
+
             ->add('propertyDescription', TextareaType::class, [
                 'attr' => [
                     'placeholder' => 'Description',
@@ -83,6 +96,15 @@ class PropertyType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
+
+            ->add('propertyBed', NumberType::class, [
+                'attr' => [
+                    'placeholder' => 'Rooms',
+                    'class' => 'form-control',
+                ],
+            ])
+
+
             ->add('propertyType', ChoiceType::class, [
                 'attr' => [
                     'placeholder' => 'Type',
@@ -102,7 +124,7 @@ class PropertyType extends AbstractType
 
                 ],
             ])
-            ->add('propertyStatus', ChoiceType::class, [
+            ->add('propertyCategory', ChoiceType::class, [
                 'choices' => [
                     'Open this select menu' => '',
                     'For Sale' => 'sale',
