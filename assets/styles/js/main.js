@@ -69,3 +69,13 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
     })
 })
 /*========== home page Nav tab js end ===========*/
+/*========== create Property Advance js start ===========*/
+$('#property_propertyAdvance').on('change', function() {
+
+    if ($(this).is(':checked')) {
+        $('.property-garage').removeClass('d-none');
+    } else {
+        $('.property-garage').addClass('d-none');
+    }
+});
+/*========== create Property Advance js end ===========*/
