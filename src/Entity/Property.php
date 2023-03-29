@@ -38,8 +38,8 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $propertyDescription;
 
-    #[ORM\Column]
-    private string $propertyGarage;
+    #[ORM\Column (nullable: true)]
+    private ?string $propertyGarage = null;
 
     #[ORM\Column(nullable: true)]
     private ?array $propertyImage = null;
@@ -187,17 +187,17 @@ class Property extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPropertyGarage(): string
+    public function getPropertyGarage(): ?string
     {
         return $this->propertyGarage;
     }
 
     /**
-     * @param string $propertyGarage
+     * @param string|null $propertyGarage
      */
-    public function setPropertyGarage(string $propertyGarage): void
+    public function setPropertyGarage(?string $propertyGarage): void
     {
         $this->propertyGarage = $propertyGarage;
     }

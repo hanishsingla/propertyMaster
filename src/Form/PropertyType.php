@@ -141,10 +141,17 @@ class PropertyType extends AbstractType
                 ],
             ])
 
-            ->add('roomBed', NumberType::class, [
+            ->add('roomBed', ChoiceType::class, [
                 'attr' => [
                     'placeholder' => 'Room Bed',
                     'class' => 'form-control',
+                ],
+                'choices' => [
+                    'Open this select menu'  => '',
+                    '1 Bed /Room' => '1 Bed /Room',
+                    '2 Bed /Room' => '2 Bed /Room' ,
+                    '3 Bed /Room' => '3 Bed /Room' ,
+                    '4 Bed /Room' => '4 Bed /Room' ,
                 ],
             ])
 
