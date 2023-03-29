@@ -57,7 +57,7 @@ class UserPropertyController extends AbstractController
 
             $em->flush();
 
-            return $this->redirectToRoute('createProperty');
+            return $this->redirectToRoute('userProperty');
         }
         return $this->render('userProperty/create_user_property.html.twig', [
             'form' => $form->createView(),
@@ -70,7 +70,7 @@ class UserPropertyController extends AbstractController
 
         $ownerId = $request->getSession()->get('ownerId');
         $userPropertyEditData = $propertyRepository->findOneBy(['id'=> $id,'ownerId'=> $ownerId]);
-
+        $isGarage = $userPropertyEditData->isPropertyIsGarage();
         $form = $this->createForm(PropertyType::class, $userPropertyEditData);
         $form->handleRequest($request);
 
@@ -96,6 +96,7 @@ class UserPropertyController extends AbstractController
 
         return $this->render('userProperty/edit_user_property.html.twig',[
             'form' => $form->createView(),
+            'isGarage' => $isGarage,
         ]);
     }
     #[IsGranted('ROLE_USER')]

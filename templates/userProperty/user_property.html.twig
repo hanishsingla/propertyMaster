@@ -16,14 +16,16 @@
                     <thead>
                     <tr>
                         <th scope="col">Sno</th>
-                        <th scope="col">Property Title</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">City</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Rooms</th>
+                        <th scope="col">Beds</th>
                         <th scope="col">Price</th>
                         <th scope="col">Area</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Beds</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Country</th>
                         <th colspan="3" scope="col">Action</th>
                     </tr>
                     </thead>
@@ -34,14 +36,16 @@
                         <tr>
 
                             <td> {{ sNo }}</td>
-                            <td> {{ lists.propertyTitle }}</td>
-                            <td> {{ lists.propertyPrice }}</td>
-                            <td> {{ lists.propertyArea }}</td>
-                            <td> {{ lists.propertyAddress }}</td>
-                            <td> {{ lists.propertyDescription }}</td>
-                            <td> {{ lists.propertyRooms }}</td>
+                            <td> <a href="{{ path('propertyDetails',{'propertyId' : lists.id}) }}">{{ lists.propertyTitle }}</a> </td>
                             <td> {{ lists.propertyType }}</td>
-                            <td> {{ lists.propertyStatus }}</td>
+                            <td> {{ lists.propertyCity }}</td>
+                            <td> {{ lists.propertyState }}</td>
+                            <td> {{ lists.propertyRooms }}</td>
+                            <td> {{ lists.roomBed }}</td>
+                            <td> {{ lists.propertyPrice }}</td>
+                            <td> {{ lists.propertyArea  }} {{ lists.squareType }}</td>
+                            <td> {{ lists.propertyCategory }}</td>
+                            <td> {{ lists.propertyCountry }}</td>
                             <td><a href="{{ path('userPropertyEdit',{'id' : lists.id}) }}"><i
                                             class="fa-regular fa-pen-to-square"></i></a></td>
                             <td><a href="{{ path('propertyDelete',{'id' : lists.id}) }}"><i
