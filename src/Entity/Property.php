@@ -21,7 +21,7 @@ class Property extends AbstractEntity
     private string $ownerId;
 
     #[ORM\Column(type: 'boolean' ,options: ['default' => 0])]
-    private bool $propertyAdvance = false;
+    private bool $propertyIsGarage = false;
 
     #[ORM\Column]
     private string $propertyArea;
@@ -92,17 +92,17 @@ class Property extends AbstractEntity
     /**
      * @return bool
      */
-    public function isPropertyAdvance(): bool
+    public function isPropertyIsGarage(): bool
     {
-        return $this->propertyAdvance;
+        return $this->propertyIsGarage;
     }
 
     /**
-     * @param bool $propertyAdvance
+     * @param bool $propertyIsGarage
      */
-    public function setPropertyAdvance(bool $propertyAdvance): void
+    public function setPropertyIsGarage(bool $propertyIsGarage): void
     {
-        $this->propertyAdvance = $propertyAdvance;
+        $this->propertyIsGarage = $propertyIsGarage;
     }
 
 

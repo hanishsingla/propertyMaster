@@ -20,21 +20,20 @@ class PropertyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('propertyAdvance', CheckboxType::class, [
+            ->add('propertyIsGarage', CheckboxType::class, [
                 'attr' => [
                     'placeholder' => 'Area',
                     'class' => 'form-check-input',
+                    'data-checked' => "input",
                 ],
                 'required' => false,
             ])
-
             ->add('propertyArea', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Area',
                     'class' => 'form-control',
                 ],
             ])
-
             ->add('propertyCategory', ChoiceType::class, [
                 'attr' => [
                     'placeholder' => 'Area',
@@ -46,14 +45,12 @@ class PropertyType extends AbstractType
                     'For Rent' => 'rent',
                 ]
             ])
-
             ->add('propertyCity', TextType::class, [
                 'attr' => [
                     'placeholder' => 'City',
                     'class' => 'form-control',
                 ],
             ])
-
             ->add('propertyCountry', countryType::class, [
                 'placeholder' => 'Choose an option',
                 'required' => true,
@@ -67,22 +64,20 @@ class PropertyType extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
-
             ->add('propertyDescription', TextareaType::class, [
                 'attr' => [
                     'placeholder' => 'Description',
                     'class' => 'form-control',
                 ],
             ])
-
             ->add('propertyGarage', NumberType::class, [
                 'attr' => [
                     'placeholder' => 'Number of garage',
                     'class' => 'form-control',
+                    'data-change' => "class",
                 ],
                 'required' => false,
             ])
-
             ->add('propertyImage', FileType::class, [
                 'label' => 'Property Image',
                 'mapped' => false,
@@ -92,35 +87,30 @@ class PropertyType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
-
             ->add('propertyPrice', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Price',
                     'class' => 'form-control',
                 ],
             ])
-
             ->add('propertyRooms', NumberType::class, [
                 'attr' => [
                     'placeholder' => 'Rooms',
                     'class' => 'form-control',
                 ],
             ])
-
             ->add('propertyState', TextType::class, [
                 'attr' => [
                     'placeholder' => 'State',
                     'class' => 'form-control',
                 ],
             ])
-
             ->add('propertyTitle', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Title',
                     'class' => 'form-control',
                 ],
             ])
-
             ->add('propertyType', ChoiceType::class, [
                 'attr' => [
                     'placeholder' => 'Type',
@@ -140,28 +130,25 @@ class PropertyType extends AbstractType
 
                 ],
             ])
-
             ->add('roomBed', ChoiceType::class, [
                 'attr' => [
                     'placeholder' => 'Room Bed',
                     'class' => 'form-control',
                 ],
                 'choices' => [
-                    'Open this select menu'  => '',
+                    'Open this select menu' => '',
                     '1 Bed /Room' => '1 Bed /Room',
-                    '2 Bed /Room' => '2 Bed /Room' ,
-                    '3 Bed /Room' => '3 Bed /Room' ,
-                    '4 Bed /Room' => '4 Bed /Room' ,
+                    '2 Bed /Room' => '2 Bed /Room',
+                    '3 Bed /Room' => '3 Bed /Room',
+                    '4 Bed /Room' => '4 Bed /Room',
                 ],
             ])
-
             ->add('shortDescription', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Short Description',
                     'class' => 'form-control',
                 ],
             ])
-
             ->add('squareType', ChoiceType::class, [
                 'attr' => [
                     'placeholder' => 'select option',
@@ -172,8 +159,7 @@ class PropertyType extends AbstractType
                     'sq ft' => 'sq_ft',
                     'm²' => 'm2',
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
