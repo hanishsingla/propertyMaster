@@ -10,7 +10,7 @@
                     {% else %}
                         <img src="{{ asset('uploads/propertyImages/property.jpg') }}" alt="property">
                     {% endif %}
-                    <span class="{{ list.propertyStatus == 'sale' or list.propertyStatus == 'buy' ? 'sale' : 'rent' }}">{{ list.propertyStatus|capitalize }}</span>
+                    <span class="{{ list.propertyCategory == 'sale' or list.propertyCategory == 'buy' ? 'sale' : 'rent' }}">{{ list.propertyCategory|capitalize }}</span>
                 </div>
                 <div class="property-desc">
                     <h4>{{ list.propertyTitle }}</h4>
