@@ -1,107 +1,128 @@
-
-<div class="row">
-    <div class="col-xl-12">
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.propertyTitle) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.propertyTitle) }}
-                {{ form_errors(form.propertyTitle) }}
-            </div>
-        </div>
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.propertyPrice) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.propertyPrice) }}
-                {{ form_errors(form.propertyPrice) }}
-            </div>
-        </div>
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.propertyType) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.propertyType) }}
-                {{ form_errors(form.propertyType) }}
-            </div>
-        </div>
-
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.propertyStatus) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.propertyStatus) }}
-                {{ form_errors(form.propertyStatus) }}
-            </div>
-        </div>
-
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.propertyRooms) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.propertyRooms) }}
-                {{ form_errors(form.propertyRooms) }}
-            </div>
-        </div>
-
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.propertyArea) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.propertyArea) }}
-                {{ form_errors(form.propertyArea) }}
-            </div>
-        </div>
-
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.propertyAddress) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.propertyAddress) }}
-                {{ form_errors(form.propertyAddress) }}
-            </div>
-        </div>
-
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.propertyImage) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.propertyImage) }}
-                {{ form_errors(form.propertyImage) }}
-            </div>
-        </div>
-
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.shortDescription) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.shortDescription) }}
-                {{ form_errors(form.shortDescription) }}
-            </div>
-        </div>
-
-        <div class="form-group row my-2">
-            <div class="col-md-3">
-                {{ form_label(form.propertyDescription) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_widget(form.propertyDescription) }}
-                {{ form_errors(form.propertyDescription) }}
-            </div>
-        </div>
-
+<div class="form-group row my-2">
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyTitle) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyTitle) }}
+        {{ form_errors(form.propertyTitle) }}
     </div>
 
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyPrice) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyPrice) }}
+        {{ form_errors(form.propertyPrice) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyType) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyType) }}
+        {{ form_errors(form.propertyType) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyCategory) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyCategory) }}
+        {{ form_errors(form.propertyCategory) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyRooms) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyRooms) }}
+        {{ form_errors(form.propertyRooms) }}
+    </div>
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.roomBed) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.roomBed) }}
+        {{ form_errors(form.roomBed) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyArea) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        <div class="input-group">
+            {{ form_widget(form.propertyArea) }}
+            {{ form_widget(form.squareType) }}
+        </div>
+        {{ form_errors(form.propertyArea) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyCity) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyCity) }}
+        {{ form_errors(form.propertyCity) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyState) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyState) }}
+        {{ form_errors(form.propertyState) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyCountry) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyCountry) }}
+        {{ form_errors(form.propertyCountry) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyImage) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyImage) }}
+        {{ form_errors(form.propertyImage) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.shortDescription) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.shortDescription) }}
+        {{ form_errors(form.shortDescription) }}
+    </div>
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyAdvance) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        <div class="form-check form-switch">
+            {{ form_widget(form.propertyAdvance) }}
+        </div>
+        {{ form_errors(form.propertyAdvance) }}
+    </div>
+
+    <div class="col-lg-3 col-xxl-2 my-2">
+        {{ form_label(form.propertyGarage) }}
+    </div>
+    <div class="col-lg-9 col-xxl-4 my-2">
+        {{ form_widget(form.propertyGarage) }}
+        {{ form_errors(form.propertyGarage) }}
+    </div>
+
+    <div class="col-12 my-2">
+        {{ form_label(form.propertyDescription) }}
+    </div>
+    <div class="col-12 my-2">
+        {{ form_widget(form.propertyDescription) }}
+        {{ form_errors(form.propertyDescription) }}
+    </div>
 </div>
+
 
 
 
