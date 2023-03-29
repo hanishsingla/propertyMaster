@@ -161,7 +161,7 @@ class PropertyType extends AbstractType
                     'class' => 'form-control',
                 ],
                 'choices' => [
-                    'Choose an option' => '',
+                    'select' => '',
                     'sq ft' => 'sq_ft',
                     'm²' => 'm2',
                 ],

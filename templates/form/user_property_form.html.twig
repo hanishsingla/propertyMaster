@@ -96,9 +96,19 @@
         {{ form_widget(form.shortDescription) }}
         {{ form_errors(form.shortDescription) }}
     </div>
+
+    <div class="col-lg-2 my-2">
+        {{ form_label(form.propertyDescription) }}
+    </div>
+    <div class="col-lg-10 my-2">
+        {{ form_widget(form.propertyDescription) }}
+        {{ form_errors(form.propertyDescription) }}
+    </div>
+
     <div class="col-lg-3 col-xxl-2 my-2">
         {{ form_label(form.propertyAdvance) }}
     </div>
+
     <div class="col-lg-9 col-xxl-4 my-2">
         <div class="form-check form-switch">
             {{ form_widget(form.propertyAdvance) }}
@@ -106,20 +116,12 @@
         {{ form_errors(form.propertyAdvance) }}
     </div>
 
-    <div class="col-lg-3 col-xxl-2 my-2">
+    <div class="col-lg-3 col-xxl-2 my-2 property-garage d-none">
         {{ form_label(form.propertyGarage) }}
     </div>
-    <div class="col-lg-9 col-xxl-4 my-2">
+    <div class="col-lg-9 col-xxl-4 my-2 property-garage d-none">
         {{ form_widget(form.propertyGarage) }}
         {{ form_errors(form.propertyGarage) }}
-    </div>
-
-    <div class="col-12 my-2">
-        {{ form_label(form.propertyDescription) }}
-    </div>
-    <div class="col-12 my-2">
-        {{ form_widget(form.propertyDescription) }}
-        {{ form_errors(form.propertyDescription) }}
     </div>
 </div>
 
