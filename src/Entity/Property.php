@@ -20,11 +20,11 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $ownerId;
 
-    #[ORM\Column]
-    private string $propertyArea;
+    #[ORM\Column(type: 'boolean' ,options: ['default' => 0])]
+    private bool $propertyAdvance = false;
 
     #[ORM\Column]
-    private string $roomBed;
+    private string $propertyArea;
 
     #[ORM\Column]
     private string $propertyCategory;
@@ -37,6 +37,9 @@ class Property extends AbstractEntity
 
     #[ORM\Column]
     private string $propertyDescription;
+
+    #[ORM\Column]
+    private string $propertyGarage;
 
     #[ORM\Column(nullable: true)]
     private ?array $propertyImage = null;
@@ -55,6 +58,9 @@ class Property extends AbstractEntity
 
     #[ORM\Column]
     private string $propertyType;
+
+    #[ORM\Column]
+    private string $roomBed;
 
     #[ORM\Column]
     private string $shortDescription;
@@ -84,6 +90,23 @@ class Property extends AbstractEntity
     }
 
     /**
+     * @return bool
+     */
+    public function isPropertyAdvance(): bool
+    {
+        return $this->propertyAdvance;
+    }
+
+    /**
+     * @param bool $propertyAdvance
+     */
+    public function setPropertyAdvance(bool $propertyAdvance): void
+    {
+        $this->propertyAdvance = $propertyAdvance;
+    }
+
+
+    /**
      * @return string
      */
     public function getPropertyArea(): string
@@ -97,22 +120,6 @@ class Property extends AbstractEntity
     public function setPropertyArea(string $propertyArea): void
     {
         $this->propertyArea = $propertyArea;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRoomBed(): string
-    {
-        return $this->roomBed;
-    }
-
-    /**
-     * @param string $roomBed
-     */
-    public function setRoomBed(string $roomBed): void
-    {
-        $this->roomBed = $roomBed;
     }
 
     /**
@@ -178,6 +185,23 @@ class Property extends AbstractEntity
     {
         $this->propertyDescription = $propertyDescription;
     }
+
+    /**
+     * @return string
+     */
+    public function getPropertyGarage(): string
+    {
+        return $this->propertyGarage;
+    }
+
+    /**
+     * @param string $propertyGarage
+     */
+    public function setPropertyGarage(string $propertyGarage): void
+    {
+        $this->propertyGarage = $propertyGarage;
+    }
+
 
     /**
      * @return array|null
@@ -275,6 +299,23 @@ class Property extends AbstractEntity
         $this->propertyType = $propertyType;
     }
 
+    /**
+     * @return string
+     */
+    public function getRoomBed(): string
+    {
+        return $this->roomBed;
+    }
+
+    /**
+     * @param string $roomBed
+     */
+    public function setRoomBed(string $roomBed): void
+    {
+        $this->roomBed = $roomBed;
+    }
+
+    
     /**
      * @return string
      */
