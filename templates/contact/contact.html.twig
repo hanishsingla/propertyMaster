@@ -1,39 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block pageContent %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="svg"><img id="envelope" src="{{ asset('image/property/symbol-sms.png') }}"></div>
-        </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-4 mt-4">
-            {{ form_start(helpData) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="svg"><img id="envelope" src="{{ asset('image/property/symbol-sms.png') }}" alt="contact"></div>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-4 mt-4">
+                {{ form_start(helpData) }}
                 <h1 class="title text-center mb-4">Talk to Us</h1>
 
                 <!-- Name -->
-            <div class="input-group">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
-                {{ form_widget(helpData.username,{'attr':{'class':'form-control contact_message', 'placeholder':'Name'}})}}
-            </div>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    {{ form_widget(helpData.username,{'attr':{'class':'form-control contact_message', 'placeholder':'Name'}}) }}
+                </div>
 
                 <!-- E-mail -->
-            <div class="input-group mt-4">
-                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-                {{ form_widget(helpData.email,{'attr':{'class':'form-control contact_message', 'placeholder':'Email'}})}}
-            </div>
+                <div class="input-group mt-4">
+                    <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                    {{ form_widget(helpData.email,{'attr':{'class':'form-control contact_message', 'placeholder':'Email'}}) }}
+                </div>
 
-            <!-- Message -->
-            <div class="input-group mt-4">
-                <span class="input-group-text"><i class="fa-solid fa-paper-plane"></i></span>
-                {{ form_widget(helpData.message,{'attr':{'class':'form-control contact_message', 'placeholder':'Message'}})}}
-            </div>
+                <!-- Message -->
+                <div class="input-group mt-4">
+                    <span class="input-group-text"><i class="fa-solid fa-paper-plane"></i></span>
+                    {{ form_widget(helpData.message,{'attr':{'class':'form-control contact_message', 'placeholder':'Message'}}) }}
+                </div>
 
                 <!-- Submit btn -->
-            <input type="submit" id="contact_btn" name="submit" class="btn btn-success" value="submit">
+                <input type="submit" id="contact_btn" name="submit" class="btn btn-success" value="submit">
 
-            {{ form_end(helpData) }}
+                {{ form_end(helpData) }}
+            </div>
         </div>
     </div>
-</div>
+{% endblock %}
+
+{% block pageCss %}
+    {{ encore_entry_link_tags('contactCss/app') }}
 {% endblock %}

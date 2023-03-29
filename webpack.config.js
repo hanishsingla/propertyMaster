@@ -60,6 +60,7 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
     .addStyleEntry("css/app", "./assets/styles/scss/app.scss")
+    .addStyleEntry("contactCss/app", "./assets/styles/scss/contact.scss")
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
