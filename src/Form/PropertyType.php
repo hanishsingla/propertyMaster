@@ -97,9 +97,9 @@ class PropertyType extends AbstractType
                 ],
             ])
 
-            ->add('propertyBed', NumberType::class, [
+            ->add('roomBed', NumberType::class, [
                 'attr' => [
-                    'placeholder' => 'Rooms',
+                    'placeholder' => 'Room Bed',
                     'class' => 'form-control',
                 ],
             ])

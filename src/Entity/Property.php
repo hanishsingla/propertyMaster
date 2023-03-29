@@ -24,7 +24,7 @@ class Property extends AbstractEntity
     private string $propertyArea;
 
     #[ORM\Column]
-    private string $propertyBed;
+    private string $roomBed;
 
     #[ORM\Column]
     private string $propertyCategory;
@@ -102,17 +102,17 @@ class Property extends AbstractEntity
     /**
      * @return string
      */
-    public function getPropertyBed(): string
+    public function getRoomBed(): string
     {
-        return $this->propertyBed;
+        return $this->roomBed;
     }
 
     /**
-     * @param string $propertyBed
+     * @param string $roomBed
      */
-    public function setPropertyBed(string $propertyBed): void
+    public function setRoomBed(string $roomBed): void
     {
-        $this->propertyBed = $propertyBed;
+        $this->roomBed = $roomBed;
     }
 
     /**
