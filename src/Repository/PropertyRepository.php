@@ -78,4 +78,24 @@ class PropertyRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getSearchProperty(?string $city, ?string $propertyType, ?string $status)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->Where('p.propertyCity = :city')
+            ->andWhere('p.propertyType = :propertyType')
+            ->andWhere('p.propertyStatus = :status')
+            ->setParameter('city', $city)
+            ->setParameter('propertyType', $propertyType)
+            ->setParameter('status', $status);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getProperty(?string $propertyId): ?Property
+    {
+        return $this->findOneBy([
+            'id' => $propertyId,
+        ]);
+    }
+
 }

@@ -14,11 +14,8 @@ class PropertyController extends AbstractDashboardController
     #[Route('/property-list', name: 'propertyList')]
     public function propertyList(Request $request, PropertyRepository $propertyRepository): Response
     {
-        $propertyLists = $propertyRepository->findBy(['propertyStatus' => ['sale','rent']]);
-
         return $this->render('property/property.html.twig', [
             'site_meta_title_name' => 'properties',
-            'propertyLists' => $propertyLists,
         ]);
     }
 
@@ -35,6 +32,27 @@ class PropertyController extends AbstractDashboardController
     {
         return $this->render('property/property_agent.html.twig', [
             'site_meta_title_name' => 'properties',
+        ]);
+    }
+    #[Route('/property-details/{propertyId}', name: 'propertyDetails')]
+    public function propertyDetails(Request $request, PropertyRepository $propertyRepository,$propertyId): Response
+    {
+        $information = $propertyRepository->getProperty($propertyId);
+
+        return $this->render('property/detail.html.twig');
+    }
+    #[Route('/property-search', name: 'propertySearch')]
+    public function propertySearch(Request $request, PropertyRepository $propertyRepository): Response
+    {
+        $city = $request->get('city');
+        $propertyType = $request->get('propertyType');
+        $status = $request->get('status');
+
+        $propertyList = $propertyRepository->getSearchProperty($city,$propertyType,$status);
+
+        return $this->render('listing/property/property_listing.html.twig', [
+            'site_meta_title_name' => 'properties',
+            'propertyList' => $propertyList,
         ]);
     }
 }
