@@ -69,7 +69,21 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
     })
 })
 /*========== home page Nav tab js end ===========*/
+
 /*========== create Property Advance js start ===========*/
+$('#property_propertyType').on('change' , function (){
+    const $panelBtn = $(this);
+    const $val = $panelBtn.val();
+    if($val === 'shop' ||  $val === 'garage' )
+    {
+        $('.roomInformation').addClass('d-none');
+    }
+    else{
+        $('.roomInformation').removeClass('d-none');
+    }
+})
+
+
 $('#property_propertyIsGarage').on('change', function() {
 
     if ($(this).is(':checked')) {
@@ -78,4 +92,5 @@ $('#property_propertyIsGarage').on('change', function() {
         $('.property-garage').addClass('d-none');
     }
 });
+
 /*========== create Property Advance js end ===========*/
