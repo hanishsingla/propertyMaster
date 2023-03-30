@@ -2,9 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\PropertyRepository;
+use App\Repository\Property\PropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'property')]
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
