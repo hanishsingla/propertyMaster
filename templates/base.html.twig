@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ (site_meta_title_name is defined ? (site_meta_title_name |trans) ~ " | " : "") ~ "The Property" }}{% endblock %}</title>
-    <link rel="icon" type="image/x-icon" href="{{  asset('image/logo/logo.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/logo/logo.png') }}">
     {% block stylesheets %}
         {{ encore_entry_link_tags('css/app') }}
     {% endblock %}
@@ -31,16 +31,23 @@
                 <div class="d-flex align-items-center">
                     <h2 class="text-white fw-bold m-0">Property</h2>
                     <div class="ms-auto d-flex align-items-center">
-                        <small class="ms-4"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</small>
-                        <small class="ms-4"><i class="fa fa-envelope me-3"></i>info@example.com</small>
-                        <small class="ms-4"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</small>
+                        <a href="https://www.google.com/maps/search/?api=1&query=123+Main+St,+Anytown,+USA" target="_blank" class="text-white">
+                            <small class="ms-4">
+                                <i class="fa fa-map-marker-alt me-3"></i>123 Main St, Anytown, USA
+                            </small>
+                        </a>
+                        <a href="mailto:info@example.com" class="text-white"><small class="ms-4"><i class="fa fa-envelope me-3"></i>info@example.com</small></a>
+                        <a href="tel:+012 345 67890" class="text-white"><small class="ms-4"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</small></a>
                         <div class="ms-3 d-flex">
-                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i
-                                        class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i
-                                        class="fab fa-twitter"></i></a>
-                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i
-                                        class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -65,14 +72,14 @@
 
                     <div class="ms-auto d-lg-block ">
                         {% if app.user and  is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <button class="btn"  type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
+                            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
                                 {% if is_granted('ROLE_USER') and  userGender == 'male' or is_granted('ROLE_USER') and  userGender == 'female' or  is_granted('ROLE_USER') and  userGender == 'other' %}
                                     {% if  not userImage %}
                                         <img src="{{ asset('image/userImage/'~userGender ~ '.png') }}"
                                              id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userGender ~'.png' }}" width="50">
                                     {% else %}
                                         <img src="{{ asset('image/userImages/' ~ userImage ) }}"
-                                            id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}" width="50">
+                                             id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}" width="50">
                                     {% endif %}
                                 {% endif %}
                             </button>
