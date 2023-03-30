@@ -4,6 +4,7 @@ namespace App\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -14,7 +15,8 @@ class MainMenu
     public function __construct(
         private readonly FactoryInterface    $factory,
         private readonly RequestStack        $requestStack,
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
+        private readonly Security            $security
     )
     {
     }
@@ -24,6 +26,7 @@ class MainMenu
         $menu = $this->factory->createItem('root');
         $trans = $this->translator;
         $request = $this->requestStack;
+        $security = $this->security;
 
         $menu->setChildrenAttribute('class', 'navbar-nav  mb-2 mb-lg-0');
         $currentRoute = $this->requestStack->getCurrentRequest();;
@@ -83,6 +86,16 @@ class MainMenu
             'labelAttributes' => ['icon' => 'fa-location-dot'],
             'linkAttributes' => ['class' => 'nav-link'],
         ]);
+        if ($security->isGranted('ROLE_AGENT')) {
+            $menu->addChild('User Property', [
+                'label' => 'Property Details',
+                'route' => 'userProperty',
+                'attributes' => ['class' => 'nav-item py-3'],
+                'labelAttributes' => ['icon' => 'fa-building'],
+                'linkAttributes' => ['class' => 'nav-link'],
+            ]);
+        }
+
 
         return $menu->setChildrenAttributes(['class' => 'navbar-nav  mb-2 mb-lg-0']);
     }
