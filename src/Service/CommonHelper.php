@@ -11,4 +11,10 @@ class CommonHelper
         $date = new DateTime;
         $information->setIsCreatedAt($date);
     }
+    public function setUpdateDate($form): void
+    {
+        $information = $form->getData();
+        $date = new DateTime;
+        $information->setIsUpdatedAt($date);
+    }
 }
