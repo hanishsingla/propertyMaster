@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact;
-use App\Form\ContactType;
+use App\Entity\Contact\Contact;
+use App\Form\Contact\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class ContactController extends AbstractController
 
             $em->flush();
 
-            return $this->redirectToRoute('app_contact');
+            return $this->redirectToRoute('contact');
         }
         return $this->render('contact/contact.html.twig',[
             'helpData' => $form->createView(),

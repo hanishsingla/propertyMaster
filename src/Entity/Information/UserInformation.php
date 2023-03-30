@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Information;
 
-use App\Repository\UserInformationRepository;
+use App\Entity\AbstractAccount;
+use App\Entity\Security\User;
+use App\Repository\Information\UserInformationRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'security_user_information')]
 #[ORM\Entity(repositoryClass: UserInformationRepository::class)]

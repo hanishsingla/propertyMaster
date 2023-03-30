@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Agent;
 
-use App\Repository\AgentRepository;
+use App\Entity\AbstractEntity;
+use App\Repository\Agent\AgentRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'agent')]
 #[ORM\Entity(repositoryClass: AgentRepository::class)]

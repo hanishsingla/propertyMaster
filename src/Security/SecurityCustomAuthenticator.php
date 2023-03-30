@@ -2,7 +2,7 @@
 
 namespace App\Security;
 
-use App\Service\Session;
+use App\Service\Session\Session;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

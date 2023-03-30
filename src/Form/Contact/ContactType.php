@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Contact;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AgentType extends AbstractType
+class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('agentNumber')
-            ->add('agentName')
+            ->add('username')
+            ->add('email')
+            ->add('message', TextareaType::class)
         ;
     }
 

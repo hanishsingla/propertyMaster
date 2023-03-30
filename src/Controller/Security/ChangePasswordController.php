@@ -3,11 +3,8 @@
 namespace App\Controller\Security;
 
 
-use App\Entity\ResetPassword;
-use App\Form\ChangeUserPasswordFormType;
-use App\Repository\UserRepository;
-use Exception;
-use RuntimeException;
+use App\Form\Security\ChangeUserPasswordFormType;
+use App\Repository\Security\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

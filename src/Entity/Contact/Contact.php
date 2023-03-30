@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Contact;
 
-use App\Repository\ContactRepository;
+use App\Entity\AbstractEntity;
+use App\Repository\Contact\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 

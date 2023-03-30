@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Security;
 
-use App\Repository\ResetPasswordRepository;
+use App\Repository\Security\ResetPasswordRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;

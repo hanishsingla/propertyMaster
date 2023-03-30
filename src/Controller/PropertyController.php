@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\PropertyRepository;
+use App\Repository\Property\PropertyRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

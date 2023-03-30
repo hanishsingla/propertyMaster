@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Property;
 use App\Form\PropertyType;
-use App\Repository\PropertyRepository;
+use App\Repository\Property\PropertyRepository;
+use App\Service\AttachmentHelper\PropertyUploader;
 use App\Service\CommonHelper;
-use App\Service\PropertyUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,7 +51,7 @@ class UserPropertyController extends AbstractController
                 }
                 $propertyForm->setPropertyImage($imageFileNames);
             }
-            $commonHelper->setInformation($form, $ownerId);
+            $commonHelper->setPropertyInformation($form, $ownerId);
 
             $em->persist($propertyForm);
 
@@ -85,7 +85,7 @@ class UserPropertyController extends AbstractController
                 }
                 $userPropertyEditData->setPropertyImage($imageFileNames);
             }
-            $commonHelper->setInformation($form, $ownerId);
+            $commonHelper->setPropertyInformation($form, $ownerId);
 
             $em->persist($userPropertyEditData);
 
