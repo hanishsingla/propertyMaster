@@ -52,14 +52,16 @@ class PropertyController extends AbstractDashboardController
     #[Route('/property-details/{propertyId}', name: 'propertyDetails')]
     public function propertyDetails(Request $request, PropertyRepository $propertyRepository,$propertyId): Response
     {
+        $ownerId = $request->getSession()->get('ownerId');
         $userGender = $request->getSession()->get('gender');
         $userImage = $request->getSession()->get('userImage');
+        $information = $propertyRepository->getProperty($propertyId,$ownerId);
 
-        $information = $propertyRepository->getProperty($propertyId);
 
         return $this->render('property/detail.html.twig',[
             'userGender' => $userGender,
             'userImage' => $userImage,
+            'propertyDisplayData' => $information,
         ]);
     }
     #[Route('/property-search', name: 'propertySearch')]
