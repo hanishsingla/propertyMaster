@@ -84,6 +84,7 @@ class UserPropertyController extends AbstractController
 
         $userPropertyEditData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
         $isGarage = $userPropertyEditData->isPropertyIsGarage();
+        $propertyType = $userPropertyEditData->getPropertyType();
         $form = $this->createForm(PropertyType::class, $userPropertyEditData);
         $form->handleRequest($request);
 
@@ -112,6 +113,7 @@ class UserPropertyController extends AbstractController
             'isGarage' => $isGarage,
             'userGender' => $userGender,
             'userImage' => $userImage,
+            'propertyType' => $propertyType,
         ]);
     }
 
