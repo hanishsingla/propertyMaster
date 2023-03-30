@@ -7,6 +7,7 @@ use App\Form\PropertyType;
 use App\Repository\Property\PropertyRepository;
 use App\Service\AttachmentHelper\PropertyUploader;
 use App\Service\CommonHelper;
+use App\Service\Helper\PropertyHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,21 +21,28 @@ class UserPropertyController extends AbstractController
 
     #[IsGranted('ROLE_USER')]
     #[Route('/userProperty', name: 'userProperty')]
-    public function userProperty(Request $request,PropertyRepository $propertyRepository): Response
+    public function userProperty(Request $request, PropertyRepository $propertyRepository): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-       $propertyLists = $propertyRepository->findBy(['ownerId' => $ownerId]);
+        $userGender = $request->getSession()->get('gender');
+        $userImage = $request->getSession()->get('userImage');
 
-      return   $this->render('userProperty/user_property.html.twig',[
-         'propertyLists' => $propertyLists,
-      ]);
+        $propertyLists = $propertyRepository->findBy(['ownerId' => $ownerId]);
+
+        return $this->render('userProperty/user_property.html.twig', [
+            'propertyLists' => $propertyLists,
+            'userGender' => $userGender,
+            'userImage' => $userImage,
+        ]);
     }
 
     #[IsGranted('ROLE_USER')]
     #[Route('/createProperty', name: 'createProperty')]
-    public function createProperty(Request $request,CommonHelper $commonHelper,EntityManagerInterface $em, PropertyUploader $propertyUploader)
+    public function createProperty(Request $request, PropertyHelper $propertyHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader) :Response
     {
         $ownerId = $request->getSession()->get('ownerId');
+        $userGender = $request->getSession()->get('gender');
+        $userImage = $request->getSession()->get('userImage');
 
         $propertyForm = new Property();
         $form = $this->createForm(PropertyType::class, $propertyForm);
@@ -51,7 +59,7 @@ class UserPropertyController extends AbstractController
                 }
                 $propertyForm->setPropertyImage($imageFileNames);
             }
-            $commonHelper->setPropertyInformation($form, $ownerId);
+            $propertyHelper->setPropertyInformation($form, $ownerId);
 
             $em->persist($propertyForm);
 
@@ -61,15 +69,20 @@ class UserPropertyController extends AbstractController
         }
         return $this->render('userProperty/create_user_property.html.twig', [
             'form' => $form->createView(),
+            'userGender' => $userGender,
+            'userImage' => $userImage,
         ]);
     }
+
     #[IsGranted('ROLE_USER')]
     #[Route('/editProperty/{id}', name: 'userPropertyEdit')]
-    public function userPropertyEdit(Request $request, CommonHelper $commonHelper ,PropertyRepository $propertyRepository,PropertyUploader $propertyUploader, EntityManagerInterface $em, $id):Response
+    public function userPropertyEdit(Request $request, CommonHelper $commonHelper, PropertyRepository $propertyRepository, PropertyUploader $propertyUploader, EntityManagerInterface $em, $id): Response
     {
-
         $ownerId = $request->getSession()->get('ownerId');
-        $userPropertyEditData = $propertyRepository->findOneBy(['id'=> $id,'ownerId'=> $ownerId]);
+        $userGender = $request->getSession()->get('gender');
+        $userImage = $request->getSession()->get('userImage');
+
+        $userPropertyEditData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
         $isGarage = $userPropertyEditData->isPropertyIsGarage();
         $form = $this->createForm(PropertyType::class, $userPropertyEditData);
         $form->handleRequest($request);
@@ -85,7 +98,7 @@ class UserPropertyController extends AbstractController
                 }
                 $userPropertyEditData->setPropertyImage($imageFileNames);
             }
-            $commonHelper->setPropertyInformation($form, $ownerId);
+            $commonHelper->setUpdateDate($form,);
 
             $em->persist($userPropertyEditData);
 
@@ -94,19 +107,22 @@ class UserPropertyController extends AbstractController
             return $this->redirectToRoute('userProperty');
         }
 
-        return $this->render('userProperty/edit_user_property.html.twig',[
+        return $this->render('userProperty/edit_user_property.html.twig', [
             'form' => $form->createView(),
             'isGarage' => $isGarage,
+            'userGender' => $userGender,
+            'userImage' => $userImage,
         ]);
     }
+
     #[IsGranted('ROLE_USER')]
     #[Route('/propertyDelete{id}', name: 'propertyDelete')]
-    public function delete(Request $request,EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
+    public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-        $propertyData = $propertyRepository ->findOneBy(['id'=>$id,'ownerId'=>$ownerId]);
-        $em -> remove($propertyData);
-        $em -> flush();
+        $propertyData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
+        $em->remove($propertyData);
+        $em->flush();
         return $this->redirectToRoute('userProperty');
     }
 }
