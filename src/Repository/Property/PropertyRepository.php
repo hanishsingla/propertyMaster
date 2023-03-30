@@ -91,10 +91,11 @@ class PropertyRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function getProperty(?string $propertyId): ?Property
+    public function getProperty(?string $propertyId, $ownerId): ?Property
     {
         return $this->findOneBy([
             'id' => $propertyId,
+            'ownerId'=>$ownerId,
         ]);
     }
 
