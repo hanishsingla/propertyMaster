@@ -17,6 +17,9 @@ abstract class AbstractAccount extends AbstractEntity
     #[ORM\Column]
     private string $gender;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $image = null;
+
     /**
      * @return string
      */
@@ -48,4 +51,22 @@ abstract class AbstractAccount extends AbstractEntity
     {
         $this->gender = $gender;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string|null $image
+     */
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
+    }
+
+    
 }
