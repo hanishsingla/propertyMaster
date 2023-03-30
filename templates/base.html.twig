@@ -62,8 +62,22 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     {{ knp_menu_render('mainMenu') }}
-                    <div class="ms-auto d-none d-lg-block">
-                        <a href="" class="btn btn-primary rounded-pill py-2 px-3">Quote</a>
+
+                    <div class="ms-auto d-lg-block ">
+                        {% if app.user and  is_granted('IS_AUTHENTICATED_FULLY') %}
+                                {% if is_granted('ROLE_USER') and  userGender == 'male' or is_granted('ROLE_USER') and  userGender == 'female' or  is_granted('ROLE_USER') and  userGender == 'other' %}
+                                    {% if  not userImage %}
+                                        <img src="{{ asset('uploads/userImages/male.png') }}"
+                                             class="img-fluid img-thumbnail rounded-circle" alt="{{ userGender }}'.png'"  width="50">
+                                    {% else %}
+                                        <img src="{{ asset('image/userImages/' ~ userImage ) }}"
+                                             class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}" width="50">
+                                    {% endif %}
+                                {% endif %}
+                        {% else %}
+                            <a href="{{ path('login') }}" class="pe-1"> Login </a>/
+                            <a href="{{ path('register') }}" class="pe-1">Register</a>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -79,7 +93,7 @@
             <div class="container mt-5">
                 <div class="card bg-primary">
                     <div class="card-body text-center">
-                        <h1 class="text-white"> Welcome home {{ app.user.username }} ...</h1>
+                        <h1 class="text-white"> Welcome home {{ app.user.userInformation.name }} ...</h1>
                         <h5>Please verified your email</h5>
                         <span class="text-white">{{ app.user.email }}</span>
                     </div>
@@ -87,7 +101,7 @@
             </div>
         {% endif %}
     {% endblock %}
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-5 {% block contentClass %}{% endblock %}">
         {% block pageContent %}{% endblock %}
     </div>
 
