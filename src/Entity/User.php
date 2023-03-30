@@ -16,13 +16,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Column(type: 'guid')]
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
-    #[Groups(['read'])]
-    private ?string $id = null;
-
 
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
@@ -42,15 +35,6 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?UserInformation $userInformation = null;
-
-    /**
-     * @return string|null
-     */
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
 
 
     public function getEmail(): ?string

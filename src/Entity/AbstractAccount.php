@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 #[ORM\MappedSuperclass]
@@ -11,31 +12,10 @@ abstract class AbstractAccount extends AbstractEntity
 {
 
     #[ORM\Column]
-    private string $ownerId;
-
-    #[ORM\Column]
     private string $name;
 
     #[ORM\Column]
     private string $gender;
-
-
-    /**
-     * @return string
-     */
-    public function getOwnerId(): string
-    {
-        return $this->ownerId;
-    }
-
-    /**
-     * @param string $ownerId
-     */
-    public function setOwnerId(string $ownerId): void
-    {
-        $this->ownerId = $ownerId;
-    }
-
 
     /**
      * @return string

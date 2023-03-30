@@ -11,20 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class UserInformation extends AbstractAccount
 {
 
-    #[ORM\Column(type: 'guid')]
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
-    #[Groups(['read'])]
-    private ?string $id = null;
-
     #[ORM\OneToOne(mappedBy: 'userInformation', cascade: ['persist', 'remove'])]
     private ?User $user = null;
-
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
 
     public function getUser(): ?User
     {

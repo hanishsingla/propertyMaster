@@ -10,12 +10,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: AgentRepository::class)]
 class Agent extends AbstractEntity
 {
-    #[ORM\Column(type: 'guid')]
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
-    #[Groups(['read'])]
-    private ?string $id = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $agentNumber = null ;
@@ -23,11 +17,6 @@ class Agent extends AbstractEntity
     #[ORM\Column]
     private string $agentName;
 
-
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
 
     /**
      * @return string|null

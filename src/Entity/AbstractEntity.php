@@ -5,9 +5,8 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\MappedSuperclass]
-#[ORM\HasLifecycleCallbacks]
-abstract class AbstractEntity
+
+abstract class AbstractEntity extends AbstractId
 {
     #[ORM\Column(type: 'boolean' ,options: ['default' => 0] )]
     protected bool $isDeleted = false;

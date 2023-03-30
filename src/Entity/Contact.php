@@ -10,12 +10,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Table(name: 'helpdesk')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class Contact
+class Contact extends AbstractEntity
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[ORM\Column]
     private string $username ;
@@ -25,10 +21,6 @@ class Contact
 
     #[ORM\Column]
     private ?string $message = null;
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     /**
      * @return string
