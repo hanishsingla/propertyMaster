@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Property;
 
+use App\Entity\AbstractEntity;
 use App\Repository\Property\PropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
 

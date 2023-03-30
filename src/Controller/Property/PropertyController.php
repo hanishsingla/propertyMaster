@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Property;
 
 use App\Repository\Property\PropertyRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;

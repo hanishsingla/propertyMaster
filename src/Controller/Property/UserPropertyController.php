@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Property;
 
-use App\Entity\Property;
+use App\Entity\Property\Property;
 use App\Form\PropertyType;
 use App\Repository\Property\PropertyRepository;
 use App\Service\AttachmentHelper\PropertyUploader;
