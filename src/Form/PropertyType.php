@@ -85,7 +85,7 @@ class PropertyType extends AbstractType
                 'label'=> 'Garage',
             ])
             ->add('propertyImage', FileType::class, [
-                'label' => 'Property Image',
+                'label' => 'Images',
                 'mapped' => false,
                 'multiple' => true,
                 'required' => false,
@@ -159,7 +159,7 @@ class PropertyType extends AbstractType
                     'placeholder' => 'Short Description',
                     'class' => 'form-control',
                 ],
-                'label' => 'Short Description',
+                'label' => 'Short',
             ])
             ->add('squareType', ChoiceType::class, [
                 'attr' => [
