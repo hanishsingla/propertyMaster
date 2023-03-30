@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserPropertyController extends AbstractController
 {
 
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_AGENT')]
     #[Route('/userProperty', name: 'userProperty')]
     public function userProperty(Request $request, PropertyRepository $propertyRepository): Response
     {
@@ -36,7 +36,7 @@ class UserPropertyController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_AGENT')]
     #[Route('/createProperty', name: 'createProperty')]
     public function createProperty(Request $request, PropertyHelper $propertyHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader) :Response
     {
@@ -74,7 +74,7 @@ class UserPropertyController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_AGENT')]
     #[Route('/editProperty/{id}', name: 'userPropertyEdit')]
     public function userPropertyEdit(Request $request, CommonHelper $commonHelper, PropertyRepository $propertyRepository, PropertyUploader $propertyUploader, EntityManagerInterface $em, $id): Response
     {
@@ -115,7 +115,7 @@ class UserPropertyController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_AGENT')]
     #[Route('/propertyDelete{id}', name: 'propertyDelete')]
     public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
     {
