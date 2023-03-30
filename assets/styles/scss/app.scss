@@ -52,6 +52,14 @@ ul li {
   background-position: center;
 }
 
+.max-width-1400{
+  max-width: 1400px !important;
+}
+
+.max-width-1920{
+  max-width: 1920px !important;
+}
+
 /*========== home page carousel button css End ===========*/
 
 /*========== About page css start ===========*/
@@ -226,6 +234,7 @@ ul li {
   border-bottom: solid 5px #0d6efd;
   margin-bottom: 20px;
 }
+
 /*========== custom color css end ===========*/
 
 /*========== listing Property Card css start ===========*/
@@ -237,6 +246,7 @@ ul li {
   margin: 0 8px;
   color: black;
 }
+
 .properties-list li a.active, .properties-list li a:hover {
   color: #ffffff;
   background: #0d6efd;
@@ -256,7 +266,7 @@ ul li {
   width: 100%;
 }
 
-.sale,.buy{
+.sale, .buy {
   position: absolute;
   top: 20px;
   font-weight: 600;
@@ -267,7 +277,7 @@ ul li {
   left: 1px;
 }
 
-.rent{
+.rent {
   position: absolute;
   top: 20px;
   font-weight: 600;
@@ -277,6 +287,7 @@ ul li {
   color: #ffffff;
   left: 1px;
 }
+
 .property-desc {
   background: #f1f1ff;
   padding: 20px 20px;
@@ -314,8 +325,8 @@ ul li {
     margin: 0 0 0 1px;
   }
 }
-@media(max-width: 1200px) and (min-width: 768px)
-{
+
+@media(max-width: 1200px) and (min-width: 768px) {
   .properties-list li a {
     padding: 9px 11px 9px 12px;
     margin: 0 5px;
@@ -329,9 +340,17 @@ ul li {
 input#property_propertyArea {
   width: 17rem;
 }
-select#property_squareType{
+
+select#property_squareType {
   background-color: #e9ecef;
 }
+
+@media(max-width: 1900px) and (min-width: 242px) {
+  input#property_propertyArea {
+    width: 5rem;
+  }
+}
+
 /*========== Create Property Form css end ===========*/
 
 
