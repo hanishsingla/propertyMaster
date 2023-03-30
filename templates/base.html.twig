@@ -80,8 +80,8 @@
                     </button>
                 {% else %}
                     <div class="d-lg-none">
-                        <a href="{{ path('login') }}" class="pe-1 d-lg-none"> Login /</a>
-                        <a href="{{ path('register') }}" class="pe-1 d-lg-none">Register</a>
+                        <a href="{{ path('login') }}" class="pe-1 d-lg-none"><i class="fa-solid fa-lock"></i>  Login </a>
+                        <a href="{{ path('register') }}" class="pe-1 d-lg-none">/ <i class="fa-solid fa-user-plus"></i> Register</a>
                     </div>
 
                 {% endif %}
@@ -104,8 +104,8 @@
                             </button>
                         {% else %}
                             <div class="d-sm-none">
-                                <a href="{{ path('login') }}" class="pe-1 d-sm-none"> Login /</a>
-                                <a href="{{ path('register') }}" class="pe-1 d-sm-none">Register</a>
+                                <a href="{{ path('login') }}" class="pe-1 d-sm-none"> <i class="fa-solid fa-lock"></i> Login /</a>
+                                <a href="{{ path('register') }}" class="pe-1 d-sm-none"> <i class="fa-solid fa-user-plus"></i> Register</a>
                             </div>
                         {% endif %}
                     </div>
