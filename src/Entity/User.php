@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: 'security_login')]
+#[ORM\Table(name: 'security_user')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -23,8 +23,6 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[Groups(['read'])]
     private ?string $id = null;
 
-    #[ORM\Column]
-    private string $username ;
 
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
@@ -41,6 +39,10 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
+    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?UserInformation $userInformation = null;
+
     /**
      * @return string|null
      */
@@ -49,21 +51,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
 
-    /**
-     * @param string $username
-     */
-    public function setUsername(string $username): void
-    {
-        $this->username = $username;
-    }
 
     public function getEmail(): ?string
     {
@@ -138,6 +126,18 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getUserInformation(): ?UserInformation
+    {
+        return $this->userInformation;
+    }
+
+    public function setUserInformation(UserInformation $userInformation): self
+    {
+        $this->userInformation = $userInformation;
 
         return $this;
     }
