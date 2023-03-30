@@ -68,10 +68,10 @@
                     {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                         <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
                             {% if is_granted('ROLE_USER') and userGender == 'male' or is_granted('ROLE_USER') and userGender == 'female' or is_granted('ROLE_USER') and userGender == 'other' %}
-                                {% if not userImage %}
-                                    <img src="{{ asset('image/userImage/'~userGender ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userGender ~'.png' }}" width="50">
-                                {% else %}
+                                {% if  userImage %}
                                     <img src="{{ asset('image/userImages/' ~ userImage ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}" width="50">
+                                {% else %}
+                                    <img src="{{ asset('image/userImage/'~ userGender ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userGender ~'.png' }}" width="50">
                                 {% endif %}
                             {% endif %}
                         </button>
@@ -86,10 +86,10 @@
                         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                             <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
                                 {% if is_granted('ROLE_USER') and userGender == 'male' or is_granted('ROLE_USER') and userGender == 'female' or is_granted('ROLE_USER') and userGender == 'other' %}
-                                    {% if not userImage %}
-                                        <img src="{{ asset('image/userImage/'~userGender ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userGender ~'.png' }}" width="50">
-                                    {% else %}
+                                    {% if  userImage %}
                                         <img src="{{ asset('image/userImages/' ~ userImage ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}" width="50">
+                                    {% else %}
+                                        <img src="{{ asset('image/userImage/'~ userGender ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userGender ~'.png' }}" width="50">
                                     {% endif %}
                                 {% endif %}
                             </button>
