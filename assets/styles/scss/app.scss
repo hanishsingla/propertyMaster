@@ -33,6 +33,34 @@ ul li {
 .navbar .navbar-nav .nav-link.active {
   color: var(--primary);
 }
+.navbar-brand {
+  margin-right: 0 !important;
+}
+
+.navbar-toggler {
+  margin-left: auto;
+}
+
+.d-sm-none{
+  display: block !important;
+}
+
+.d-lg-none{
+  display: block !important;
+}
+@media (max-width: 992px)
+{
+  .d-sm-none{
+    display: none !important;
+  }
+}
+@media (min-width: 992px)
+{
+  .d-lg-none{
+    display: none !important;
+  }
+}
+
 
 
 /*========== navbar css End ===========*/
@@ -191,6 +219,9 @@ ul li {
   font-size: 140px;
   opacity: 0.8;
 }
+.font-sm-19{
+  font-size: 1.75rem;
+}
 
 .font-size-140:hover {
   opacity: 1;
@@ -201,7 +232,12 @@ ul li {
     font-size: 50px;
     opacity: 0.8;
   }
+  .font-sm-19{
+    font-size: 19px;
+  }
+
 }
+
 
 
 /*========== About page css end ===========*/
@@ -360,7 +396,7 @@ select#property_squareType {
   background-color: #e9ecef;
 }
 
-@media(max-width: 1900px) and (min-width: 242px) {
+@media(max-width: 1900px) and (min-width: 235px) {
   input#property_propertyArea {
     width: 5rem;
   }
