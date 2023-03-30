@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BaseController extends AbstractController
 {
-    #[Route('/{listType}', name: 'home' , requirements: ['listType' => 'buy|rent|sale'])]
+    #[Route('/{listType}', name: 'home', requirements: ['listType' => 'buy|rent|sale'])]
     public function home(Request $request, PropertyRepository $propertyRepository, $listType = 'all'): Response
     {
         $userGender = $request->getSession()->get('gender');
@@ -19,11 +19,11 @@ class BaseController extends AbstractController
 
         $propertyLists = $propertyRepository->getPropertyByListType($listType);
 
-        if($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
 
             $propertyLists = $propertyRepository->getPropertyByListType($listType);
 
-            return $this->render('listing/home/home_listing.html.twig',[
+            return $this->render('listing/home/home_listing.html.twig', [
                 'propertyLists' => $propertyLists,
             ]);
         }
@@ -31,6 +31,18 @@ class BaseController extends AbstractController
         return $this->render('base/home.html.twig', [
             'propertyLists' => $propertyLists,
             'listType' => $listType,
+            'userGender' => $userGender,
+            'userImage' => $userImage,
+        ]);
+    }
+
+    #[Route('/account', name: 'account')]
+    public function account(Request $request): Response
+    {
+        $userGender = $request->getSession()->get('gender');
+        $userImage = $request->getSession()->get('userImage');
+
+        return $this->render('base/user_profile.html.twig',[
             'userGender' => $userGender,
             'userImage' => $userImage,
         ]);
