@@ -79,9 +79,11 @@
                         {% endif %}
                     </button>
                 {% else %}
+                    <div class="d-lg-none">
+                        <a href="{{ path('login') }}" class="pe-1 d-lg-none"> Login /</a>
+                        <a href="{{ path('register') }}" class="pe-1 d-lg-none">Register</a>
+                    </div>
 
-                    <a href="{{ path('login') }}" class="pe-1 d-lg-none"> Login </a>/
-                    <a href="{{ path('register') }}" class="pe-1 d-lg-none">Register</a>
                 {% endif %}
 
                 <div class="collapse navbar-collapse ms-auto overflow-sm-auto" id="navbarCollapse">
@@ -101,8 +103,10 @@
                                 {% endif %}
                             </button>
                         {% else %}
-                            <a href="{{ path('login') }}" class="pe-1 d-sm-none"> Login </a>/
-                            <a href="{{ path('register') }}" class="pe-1 d-sm-none">Register</a>
+                            <div class="d-sm-none">
+                                <a href="{{ path('login') }}" class="pe-1 d-sm-none"> Login /</a>
+                                <a href="{{ path('register') }}" class="pe-1 d-sm-none">Register</a>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
