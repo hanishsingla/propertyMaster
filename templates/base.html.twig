@@ -153,9 +153,9 @@
             <div class="container mt-5">
                 <div class="card bg-primary">
                     <div class="card-body text-center">
-                        <h1 class="text-white"> Welcome home {{ app.user.userInformation.name }} ...</h1>
+                        <h1 class="text-white"> Welcome home {{ app.session.get('userName') }} ...</h1>
                         <h5>Please verified your email</h5>
-                        <span class="text-white">{{ app.user.email }}</span>
+                        <span class="text-white">{{ app.session.get('email') }}</span>
                     </div>
                 </div>
             </div>
