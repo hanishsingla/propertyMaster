@@ -39,6 +39,13 @@ class UserInformationRepository extends ServiceEntityRepository
         }
     }
 
+    public function getUserInformation($ownerId): ?UserInformation
+    {
+        return $this->findOneBy([
+            'ownerId'=>$ownerId,
+        ]);
+    }
+
 //    /**
 //     * @return UserInformation[] Returns an array of UserInformation objects
 //     */
