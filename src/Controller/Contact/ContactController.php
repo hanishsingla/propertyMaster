@@ -15,8 +15,6 @@ class ContactController extends AbstractController
     #[Route('/contact', name: 'contact')]
     public function contact(Request $request, EntityManagerInterface $em,): Response
     {
-        $userGender = $request->getSession()->get('gender');
-        $userImage = $request->getSession()->get('userImage');
 
         $helpData = new Contact();
         $form = $this->createForm(ContactType::class, $helpData);
@@ -32,8 +30,7 @@ class ContactController extends AbstractController
         }
         return $this->render('contact/contact.html.twig',[
             'helpData' => $form->createView(),
-            'userGender' => $userGender,
-            'userImage' => $userImage,
+
         ]);
     }
 }

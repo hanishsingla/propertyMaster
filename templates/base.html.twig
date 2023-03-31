@@ -68,13 +68,13 @@
                 {#        small screen show user profile  we can hide with  class d-lg-none      #}
                 {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                     <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
-                        {% if is_granted('ROLE_USER') and userGender == 'male' or is_granted('ROLE_USER') and userGender == 'female' or is_granted('ROLE_USER') and userGender == 'other' %}
-                            {% if  userImage %}
-                                <img src="{{ asset('image/userImages/' ~ userImage ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}"
+                        {% if is_granted('ROLE_USER') and app.session.get('gender') == 'male' or is_granted('ROLE_USER') and app.session.get('gender') == 'female' or is_granted('ROLE_USER') and app.session.get('gender') == 'other' %}
+                            {% if  app.session.get('image') %}
+                                <img src="{{ asset('image/userImages/' ~ app.session.get('image') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}"
                                      width="50">
                             {% else %}
-                                <img src="{{ asset('image/userImage/'~ userGender ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
-                                     alt="{{ userGender ~'.png' }}" width="50">
+                                <img src="{{ asset('image/userImage/'~ app.session.get('gender') ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
+                                     alt="{{ app.session.get('gender') ~'.png' }}" width="50">
                             {% endif %}
                         {% endif %}
                     </button>
@@ -92,13 +92,13 @@
                     <div class="ms-auto d-sm-none">
                         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                             <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
-                                {% if is_granted('ROLE_USER') and userGender == 'male' or is_granted('ROLE_USER') and userGender == 'female' or is_granted('ROLE_USER') and userGender == 'other' %}
-                                    {% if  userImage %}
-                                        <img src="{{ asset('image/userImages/' ~ userImage ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}"
+                                {% if is_granted('ROLE_USER') and app.session.get('gender') == 'male' or is_granted('ROLE_USER') and app.session.get('gender') == 'female' or is_granted('ROLE_USER') and app.session.get('gender') == 'other' %}
+                                    {% if  app.session.get('image') %}
+                                        <img src="{{ asset('image/userImages/' ~ app.session.get('image') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}"
                                              width="50">
                                     {% else %}
-                                        <img src="{{ asset('image/userImage/'~ userGender ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
-                                             alt="{{ userGender ~'.png' }}" width="50">
+                                        <img src="{{ asset('image/userImage/'~ app.session.get('gender') ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
+                                             alt="{{ app.session.get('gender') ~'.png' }}" width="50">
                                     {% endif %}
                                 {% endif %}
                             </button>

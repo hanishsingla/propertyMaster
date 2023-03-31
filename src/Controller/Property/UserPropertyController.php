@@ -24,15 +24,13 @@ class UserPropertyController extends AbstractController
     public function userProperty(Request $request, PropertyRepository $propertyRepository): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-        $userGender = $request->getSession()->get('gender');
-        $userImage = $request->getSession()->get('userImage');
+
 
         $propertyLists = $propertyRepository->findBy(['ownerId' => $ownerId]);
 
         return $this->render('userProperty/user_property.html.twig', [
             'propertyLists' => $propertyLists,
-            'userGender' => $userGender,
-            'userImage' => $userImage,
+
         ]);
     }
 
@@ -41,8 +39,7 @@ class UserPropertyController extends AbstractController
     public function createProperty(Request $request, PropertyHelper $propertyHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader) :Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-        $userGender = $request->getSession()->get('gender');
-        $userImage = $request->getSession()->get('userImage');
+
 
         $propertyForm = new Property();
         $form = $this->createForm(PropertyType::class, $propertyForm);
@@ -69,8 +66,7 @@ class UserPropertyController extends AbstractController
         }
         return $this->render('userProperty/create_user_property.html.twig', [
             'form' => $form->createView(),
-            'userGender' => $userGender,
-            'userImage' => $userImage,
+
         ]);
     }
 
@@ -79,8 +75,7 @@ class UserPropertyController extends AbstractController
     public function userPropertyEdit(Request $request, CommonHelper $commonHelper, PropertyRepository $propertyRepository, PropertyUploader $propertyUploader, EntityManagerInterface $em, $id): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-        $userGender = $request->getSession()->get('gender');
-        $userImage = $request->getSession()->get('userImage');
+
 
         $userPropertyEditData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
         $isGarage = $userPropertyEditData->isPropertyIsGarage();
@@ -111,8 +106,7 @@ class UserPropertyController extends AbstractController
         return $this->render('userProperty/edit_user_property.html.twig', [
             'form' => $form->createView(),
             'isGarage' => $isGarage,
-            'userGender' => $userGender,
-            'userImage' => $userImage,
+
             'propertyType' => $propertyType,
         ]);
     }
