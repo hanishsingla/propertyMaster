@@ -1,6 +1,65 @@
 {% extends 'base.html.twig' %}
-
+{% block contentClass %}max-width-1920{% endblock %}
 {% block pageContent %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card profile-nav">
+                <div class="card-header bg-primary text-center">
+                    {% if is_granted('ROLE_USER') and app.session.get('gender') == 'male' or is_granted('ROLE_USER') and app.session.get('gender') == 'female' or is_granted('ROLE_USER') and app.session.get('gender') == 'other' %}
+                        {% if  app.session.get('userImage') %}
+                            <img src="{{ asset('image/userImages/' ~ app.session.get('userImage') ) }}" id="profile"
+                                 class="img-fluid img-thumbnail rounded-circle" alt="{{ app.session.get('userImage') }}"
+                                 width="70%">
+                        {% else %}
+                            <img src="{{ asset('image/userImage/'~ app.session.get('gender') ~ '.png') }}" id="profile"
+                                 class="img-fluid img-thumbnail rounded-circle"
+                                 alt="{{ app.session.get('gender') ~'.png' }}" width="70%">
+                        {% endif %}
+                    {% endif %}
+                    <h1 class="text-white font-sm-19">{{ app.session.get('userName') }}</h1>
+                    <h5 class="text-white">{{ app.session.get('email') }}</h5>
+                </div>
 
+                <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary active" id="v-pills-home-tab" data-bs-toggle="pill"
+                           data-bs-target="#profileTab"
+                           type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            <i class="fa-solid fa-user"></i> profile
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="profileTab" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab"
+                     tabindex="0">
+                    {{ form_start(form) }}
+                    <div class="container-fluid">
+                        <div class="row bottom-border-primary">
+                            <div class="col-8">
+                                <h1 class="text-primary">Profile</h1>
+                            </div>
+                            <div class="col-4 text-end">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            {{ include('form/user_profile_form.html.twig') }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
 

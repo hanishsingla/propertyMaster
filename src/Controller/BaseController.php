@@ -3,7 +3,11 @@
 namespace App\Controller;
 
 
+use App\Form\Information\UserInformationType;
+use App\Repository\Information\UserInformationRepository;
 use App\Repository\Property\PropertyRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,11 +36,22 @@ class BaseController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/account', name: 'account')]
-    public function account(Request $request): Response
+    public function account(Request $request, UserInformationRepository $informationRepository, EntityManagerInterface $em): Response
     {
+        $ownerId = $request->getSession()->get('ownerId');
+        $userInformation = $informationRepository->getUserInformation($ownerId);
+        $form = $this->createForm(UserInformationType::class, $userInformation);
+        $form->handleRequest($request);
 
-        return $this->render('base/user_profile.html.twig',[
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($userInformation);
+            $em->flush();
+            return $this->redirectToRoute('account');
+        }
+        return $this->render('base/user_profile.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
