@@ -286,8 +286,13 @@ ul li {
   background-color: rgba(var(--bs-purple-rgb), var(--bs-bg-opacity)) !important;
 }
 
-.bottom-border {
+.bottom-border-primary {
   border-bottom: solid 5px #0d6efd;
+  margin-bottom: 20px;
+}
+
+.bottom-border-white {
+  border-bottom: solid 5px #f7f8fa;
   margin-bottom: 20px;
 }
 
