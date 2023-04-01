@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Form\Information\UserInformationType;
 use App\Repository\Information\UserInformationRepository;
 use App\Repository\Property\PropertyRepository;
+use App\Service\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +17,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class BaseController extends AbstractController
 {
     #[Route('/{listType}', name: 'home', requirements: ['listType' => 'buy|rent|sale'])]
-    public function home(Request $request, PropertyRepository $propertyRepository, $listType = 'all'): Response
+    public function home(Request $request, Session $session, PropertyRepository $propertyRepository, $listType = 'all'): Response
     {
-
+        $user = $this->getUser();
+        $session->session($user, $request);
         $propertyLists = $propertyRepository->getPropertyByListType($listType);
 
         if ($request->isXmlHttpRequest()) {
