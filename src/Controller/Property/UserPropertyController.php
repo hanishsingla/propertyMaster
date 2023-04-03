@@ -5,7 +5,7 @@ namespace App\Controller\Property;
 use App\Entity\Property\Property;
 use App\Form\PropertyType;
 use App\Repository\Property\PropertyRepository;
-use App\Service\AttachmentHelper\PropertyUploader;
+use App\Service\UploadHelper\PropertyUploader;
 use App\Service\CommonHelper;
 use App\Service\Helper\Helper;
 use Doctrine\ORM\EntityManagerInterface;

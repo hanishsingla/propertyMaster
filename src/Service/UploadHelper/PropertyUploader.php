@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\AttachmentHelper;
+namespace App\Service\UploadHelper;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

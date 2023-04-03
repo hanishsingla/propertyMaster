@@ -39,7 +39,7 @@ class UserAddressRepository extends ServiceEntityRepository
         }
     }
 
-    public function getUserInformation($ownerId): ?UserAddress
+    public function getUserAddress($ownerId): ?UserAddress
     {
         return $this->findOneBy([
             'user'=> $ownerId,
