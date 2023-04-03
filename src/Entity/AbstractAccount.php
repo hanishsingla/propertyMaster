@@ -10,11 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class AbstractAccount extends AbstractEntity
 {
 
-    #[ORM\Column]
-    private string $name;
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $name;
 
-    #[ORM\Column]
-    private string $gender;
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $gender;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $image = null;
@@ -44,33 +44,33 @@ abstract class AbstractAccount extends AbstractEntity
     private ?string $state = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGender(): string
+    public function getGender(): ?string
     {
         return $this->gender;
     }
 
     /**
-     * @param string $gender
+     * @param string|null $gender
      */
-    public function setGender(string $gender): void
+    public function setGender(?string $gender): void
     {
         $this->gender = $gender;
     }
