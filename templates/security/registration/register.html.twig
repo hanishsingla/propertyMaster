@@ -64,6 +64,7 @@
                 <div class="col-md-12 text-center mt-2">
                     <button type="submit" class="btn btn-success">Register</button>
                 </div>
+                {{ form_row(registrationForm._token,{'attr': { 'type' : 'hidden' }}) }}
                 {{ form_end(registrationForm,{render_rest: false}) }}
                 <div class="col-12 mt-4 text-center">
                     <span>
