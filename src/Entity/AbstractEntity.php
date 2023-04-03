@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\MappedSuperclass]
 #[ORM\HasLifecycleCallbacks]
-abstract class AbstractEntity extends AbstractId
+abstract class AbstractEntity
 {
     #[ORM\Column(type: 'guid')]
     #[ORM\Id]
