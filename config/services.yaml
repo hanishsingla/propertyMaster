@@ -13,6 +13,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             $propertyDirectory: '%property_image%'
+            $userImageDirectory: '%user_images%'
 
 
     app.menu_builder_main_menu:

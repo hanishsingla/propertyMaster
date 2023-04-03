@@ -7,9 +7,11 @@ use App\Form\Information\UserAddressType;
 use App\Repository\Information\UserAddressRepository;
 use App\Repository\Property\PropertyRepository;
 use App\Service\Session\Session;
+use App\Service\UploadHelper\UserImageUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,16 +46,26 @@ class BaseController extends AbstractController
 
     #[IsGranted('ROLE_USER')]
     #[Route('/account', name: 'account')]
-    public function account(Request $request, UserAddressRepository $informationRepository, EntityManagerInterface $em): Response
+    public function account(Request $request, UserAddressRepository $addressRepository,UserImageUploader $imageUploader, EntityManagerInterface $em): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-        $userInformation = $informationRepository->getUserInformation($ownerId);
-        $form = $this->createForm(UserAddressType::class, $userInformation);
+        $userAddress = $addressRepository->getUserAddress($ownerId);
+        $form = $this->createForm(UserAddressType::class, $userAddress);
         $form->handleRequest($request);
+        /** @var UploadedFile $brochureFile */
+        $brochureFile = $form->get('image')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($userInformation);
+
+            if ($brochureFile) {
+
+                $brochureFileName = $imageUploader->upload($brochureFile);
+
+                $userAddress->setImage($brochureFileName);
+            }
+            $em->persist($userAddress);
             $em->flush();
+
             return $this->redirectToRoute('account');
         }
         return $this->render('base/user_profile.html.twig', [
