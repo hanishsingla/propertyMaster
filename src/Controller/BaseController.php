@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 
-use App\Form\Information\UserInformationType;
-use App\Repository\Information\UserInformationRepository;
+use App\Form\Information\UserAddressType;
+use App\Repository\Information\UserAddressRepository;
 use App\Repository\Property\PropertyRepository;
 use App\Service\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,7 +20,11 @@ class BaseController extends AbstractController
     public function home(Request $request, Session $session, PropertyRepository $propertyRepository, $listType = 'all'): Response
     {
         $user = $this->getUser();
-        $session->session($user, $request);
+
+        if($user){
+            $session->session($user, $request);
+        }
+
         $propertyLists = $propertyRepository->getPropertyByListType($listType);
 
         if ($request->isXmlHttpRequest()) {
@@ -40,11 +44,11 @@ class BaseController extends AbstractController
 
     #[IsGranted('ROLE_USER')]
     #[Route('/account', name: 'account')]
-    public function account(Request $request, UserInformationRepository $informationRepository, EntityManagerInterface $em): Response
+    public function account(Request $request, UserAddressRepository $informationRepository, EntityManagerInterface $em): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
         $userInformation = $informationRepository->getUserInformation($ownerId);
-        $form = $this->createForm(UserInformationType::class, $userInformation);
+        $form = $this->createForm(UserAddressType::class, $userInformation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

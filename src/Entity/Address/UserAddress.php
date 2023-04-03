@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Entity\Information;
+namespace App\Entity\Address;
 
 use App\Entity\AbstractAccount;
 use App\Entity\Security\User;
-use App\Repository\Information\UserInformationRepository;
+use App\Repository\Information\UserAddressRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Table(name: 'security_user_information')]
-#[ORM\Entity(repositoryClass: UserInformationRepository::class)]
-class UserInformation extends AbstractAccount
+#[ORM\Table(name: 'security_user_address')]
+#[ORM\Entity(repositoryClass: UserAddressRepository::class)]
+class UserAddress extends AbstractAccount
 {
-    #[ORM\OneToOne(inversedBy: 'userInformation', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'userAddress', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 

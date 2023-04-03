@@ -4,7 +4,7 @@ namespace App\Entity\Security;
 
 
 use App\Entity\AbstractEntity;
-use App\Entity\Information\UserInformation;
+use App\Entity\Address\UserAddress;
 use App\Repository\Security\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -34,7 +34,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     private bool $isVerified = false;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?UserInformation $userInformation = null;
+    private ?UserAddress $userAddress = null;
 
 
     public function getEmail(): ?string
@@ -114,19 +114,19 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
         return $this;
     }
 
-    public function getUserInformation(): ?UserInformation
+    public function getUserAddress(): ?UserAddress
     {
-        return $this->userInformation;
+        return $this->userAddress;
     }
 
-    public function setUserInformation(UserInformation $userInformation): self
+    public function setUserAddress(UserAddress $userAddress): self
     {
         // set the owning side of the relation if necessary
-        if ($userInformation->getUser() !== $this) {
-            $userInformation->setUser($this);
+        if ($userAddress->getUser() !== $this) {
+            $userAddress->setUser($this);
         }
 
-        $this->userInformation = $userInformation;
+        $this->userAddress = $userAddress;
 
         return $this;
     }

@@ -3,7 +3,7 @@
 namespace App\Form\Security;
 
 use App\Entity\Security\User;
-use App\Form\Information\UserInformationType;
+use App\Form\Information\UserAddressType;
 use App\Form\UserInformation\UserInformationFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -76,7 +76,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
             ])
 
-            ->add('userInformation', UserInformationType::class);;
+            ->add('userInformation', UserAddressType::class);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
