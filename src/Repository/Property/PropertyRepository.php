@@ -64,6 +64,12 @@ class PropertyRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    public function getProperty(mixed $ownerId): array
+    {
+        return $this->findBy([
+            'ownerId'=>$ownerId,
+        ]);
+    }
     public function getPropertyByListType($listType)
     {
         $qb = $this->createQueryBuilder('p');
@@ -91,7 +97,7 @@ class PropertyRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function getProperty(?string $propertyId, $ownerId): ?Property
+    public function getPropertyById(?string $propertyId, $ownerId): ?Property
     {
         return $this->findOneBy([
             'id' => $propertyId,
