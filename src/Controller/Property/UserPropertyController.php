@@ -7,7 +7,7 @@ use App\Form\PropertyType;
 use App\Repository\Property\PropertyRepository;
 use App\Service\AttachmentHelper\PropertyUploader;
 use App\Service\CommonHelper;
-use App\Service\Helper\PropertyHelper;
+use App\Service\Helper\Helper;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,7 +35,7 @@ class UserPropertyController extends AbstractController
 
     #[IsGranted('ROLE_AGENT')]
     #[Route('/createProperty', name: 'createProperty')]
-    public function createProperty(Request $request, PropertyHelper $propertyHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader) :Response
+    public function createProperty(Request $request, CommonHelper $commonHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader) :Response
     {
         $ownerId = $request->getSession()->get('ownerId');
 
@@ -55,7 +55,8 @@ class UserPropertyController extends AbstractController
                 }
                 $propertyForm->setPropertyImage($imageFileNames);
             }
-            $propertyHelper->setPropertyInformation($form, $ownerId);
+
+            $commonHelper->setPropertyInformation($form, $ownerId);
 
             $em->persist($propertyForm);
 
