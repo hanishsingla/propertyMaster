@@ -36,7 +36,6 @@ class UserInformationType extends AbstractType
                     'Female' => 'female',
                     'other' => 'other',
                 ],
-                'preferred_choices' => ['male', 'female'],
             ])
 
             ->add('image', FileType::class, [
