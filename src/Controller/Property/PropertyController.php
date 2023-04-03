@@ -15,7 +15,6 @@ class PropertyController extends AbstractDashboardController
     public function propertyList(Request $request, PropertyRepository $propertyRepository): Response
     {
 
-
         return $this->render('property/property.html.twig', [
             'site_meta_title_name' => 'properties',
 
@@ -36,8 +35,6 @@ class PropertyController extends AbstractDashboardController
     #[Route('/property-agent', name: 'propertyAgent')]
     public function propertyAgent(Request $request, PropertyRepository $propertyRepository): Response
     {
-
-
         return $this->render('property/property_agent.html.twig', [
             'site_meta_title_name' => 'properties',
 
@@ -48,12 +45,10 @@ class PropertyController extends AbstractDashboardController
     {
         $ownerId = $request->getSession()->get('ownerId');
 
-        $information = $propertyRepository->getProperty($propertyId,$ownerId);
-
+        $propertyInformation = $propertyRepository->getPropertyById($propertyId,$ownerId);
 
         return $this->render('property/detail.html.twig',[
-
-            'propertyDisplayData' => $information,
+            'propertyInformation' => $propertyInformation,
         ]);
     }
     #[Route('/property-search', name: 'propertySearch')]
