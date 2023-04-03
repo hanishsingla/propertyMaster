@@ -6,6 +6,7 @@ use App\Entity\Security\User;
 use App\Form\Security\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Security\SecurityCustomAuthenticator;
+use App\Service\CommonHelper;
 use App\Service\Helper\RegisterHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -29,7 +30,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'register')]
-    public function register(Request $request, RegisterHelper $registerHelper, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $authenticator, SecurityCustomAuthenticator $customAuthenticator): Response
+    public function register(Request $request, CommonHelper $commonHelper, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $authenticator, SecurityCustomAuthenticator $customAuthenticator): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
@@ -48,7 +49,7 @@ class RegistrationController extends AbstractController
                 )
             );
             $data =$form->getData();
-            $registerHelper->setRegisterUser($data);
+            $commonHelper->setRegisterUser($data);
             $entityManager->persist($user);
             $entityManager->flush();
 
