@@ -11,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: UserInformationRepository::class)]
 class UserInformation extends AbstractAccount
 {
-
-    #[ORM\OneToOne(mappedBy: 'userInformation', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'userInformation', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     public function getUser(): ?User
@@ -22,11 +22,6 @@ class UserInformation extends AbstractAccount
 
     public function setUser(User $user): self
     {
-        // set the owning side of the relation if necessary
-        if ($user->getUserInformation() !== $this) {
-            $user->setUserInformation($this);
-        }
-
         $this->user = $user;
 
         return $this;

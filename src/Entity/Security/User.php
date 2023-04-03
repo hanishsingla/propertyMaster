@@ -33,8 +33,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?UserInformation $userInformation = null;
 
 
@@ -122,8 +121,15 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
     public function setUserInformation(UserInformation $userInformation): self
     {
+        // set the owning side of the relation if necessary
+        if ($userInformation->getUser() !== $this) {
+            $userInformation->setUser($this);
+        }
+
         $this->userInformation = $userInformation;
 
         return $this;
     }
+
+
 }
