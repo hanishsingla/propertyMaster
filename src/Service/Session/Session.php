@@ -8,8 +8,8 @@ class Session
     {
         $request->getSession()->set('email'    , $user->getEmail());
         $request->getSession()->set('ownerId'  , $user->getId());
-        $request->getSession()->set('gender'  , $user->getUserinformation()->getGender());
-        $request->getSession()->set('userImage'  , $user->getUserinformation()->getImage());
-        $request->getSession()->set('userName' , $user->getUserinformation()->getName());
+        $request->getSession()->set('gender'  , $user->getUserAddress()->getGender());
+        $request->getSession()->set('userImage'  , $user->getUserAddress()->getImage());
+        $request->getSession()->set('userName' , $user->getUserAddress()->getName());
     }
 }

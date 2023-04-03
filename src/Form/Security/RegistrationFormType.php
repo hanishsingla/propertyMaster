@@ -76,7 +76,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
             ])
 
-            ->add('userInformation', UserAddressType::class);;
+            ->add('userAddress', UserAddressType::class);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
