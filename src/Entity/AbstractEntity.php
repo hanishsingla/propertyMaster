@@ -17,9 +17,6 @@ abstract class AbstractEntity
     #[Groups(['read'])]
     private ?string $id = null;
 
-    #[ORM\Column]
-    private string $ownerId;
-
     #[ORM\Column(type: 'boolean' ,options: ['default' => 0] )]
     protected bool $isDeleted = false;
 
@@ -47,23 +44,6 @@ abstract class AbstractEntity
     public function setId(?string $id): void
     {
         $this->id = $id;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getOwnerId(): string
-    {
-        return $this->ownerId;
-    }
-
-    /**
-     * @param string $ownerId
-     */
-    public function setOwnerId(string $ownerId): void
-    {
-        $this->ownerId = $ownerId;
     }
 
     /**
