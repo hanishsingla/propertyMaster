@@ -25,8 +25,7 @@ class UserPropertyController extends AbstractController
     {
         $ownerId = $request->getSession()->get('ownerId');
 
-
-        $propertyLists = $propertyRepository->findBy(['ownerId' => $ownerId]);
+        $propertyLists = $propertyRepository->getProperty( $ownerId);
 
         return $this->render('userProperty/user_property.html.twig', [
             'propertyLists' => $propertyLists,
