@@ -1,4 +1,5 @@
 import bootbox from 'bootbox';
+import  'slick-carousel'
 
 const body = 'body';
 
@@ -94,6 +95,13 @@ $(checkedBox).trigger('change');
 
 /*==========  Property details  js start ===========*/
 
+$('.property-carousel').slick({
+    dots: true,
+    infinite: true,
+    speed: 500,
+    fade: true,
+    cssEase: 'linear',
+});
 
 /*==========  Property details  js end ===========*/
 
