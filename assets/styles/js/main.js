@@ -1,4 +1,5 @@
 import bootbox from 'bootbox';
+
 const body = 'body';
 
 $(body).on('click', '[data-popup="submit"]', function (e) {
@@ -62,7 +63,7 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
     $.ajax({
         type: 'GET',
         url: url,
-        success: function(data) {
+        success: function (data) {
             // Replace the content of the main section with the response data
             $('#homeListing').html(data);
         }
@@ -71,23 +72,21 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
 /*========== home page Nav tab js end ===========*/
 
 /*==========  Property create  js start ===========*/
-$('#property_propertyType').on('change' , function (){
+$('#property_propertyType').on('change', function () {
     const $panelBtn = $(this);
     const $val = $panelBtn.val();
-    if($val === 'shop' ||  $val === 'garage' )
-    {
+    if ($val === 'shop' || $val === 'garage') {
         $('.roomInformation').addClass('d-none');
-    }
-    else{
+    } else {
         $('.roomInformation').removeClass('d-none');
     }
 })
-
-$('[type="checkbox"]').on('change', function(){
+var checkedBox = '[type="checkbox"]';
+$(checkedBox).on('change', function () {
     $(this).is(':checked') ? $(this).closest('.form-group').find('.property-garage').removeClass('d-none') : $(this).closest('.form-group').find('.property-garage').addClass('d-none')
 });
 
-$('[type="checkbox"]').trigger('change');
+$(checkedBox).trigger('change');
 
 /*==========  Property create  js end ===========*/
 
