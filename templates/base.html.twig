@@ -70,7 +70,7 @@
                     <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
                         {% if is_granted('ROLE_USER') and app.session.get('gender') == 'male' or is_granted('ROLE_USER') and app.session.get('gender') == 'female' or is_granted('ROLE_USER') and app.session.get('gender') == 'other' %}
                             {% if  app.session.get('userImage') %}
-                                <img src="{{ asset('image/userImages/' ~ app.session.get('userImage') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}"
+                                <img src="{{ asset('image/userImages/' ~ app.session.get('userImage') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ app.session.get('userImage') }}"
                                      width="50">
                             {% else %}
                                 <img src="{{ asset('image/userImage/'~ app.session.get('gender') ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
@@ -94,7 +94,7 @@
                             <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
                                 {% if is_granted('ROLE_USER') and app.session.get('gender') == 'male' or is_granted('ROLE_USER') and app.session.get('gender') == 'female' or is_granted('ROLE_USER') and app.session.get('gender') == 'other' %}
                                     {% if  app.session.get('userImage') %}
-                                        <img src="{{ asset('image/userImages/' ~ app.session.get('userImage') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ userImage }}"
+                                        <img src="{{ asset('image/userImages/' ~ app.session.get('userImage') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ app.session.get('userImage') }}"
                                              width="50">
                                     {% else %}
                                         <img src="{{ asset('image/userImage/'~ app.session.get('gender') ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
