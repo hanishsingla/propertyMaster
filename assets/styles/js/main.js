@@ -81,7 +81,9 @@ $('#property_propertyType').on('change', function () {
         $('.roomInformation').removeClass('d-none');
     }
 })
-var checkedBox = '[type="checkbox"]';
+
+const checkedBox = '[type="checkbox"]';
+
 $(checkedBox).on('change', function () {
     $(this).is(':checked') ? $(this).closest('.form-group').find('.property-garage').removeClass('d-none') : $(this).closest('.form-group').find('.property-garage').addClass('d-none')
 });
