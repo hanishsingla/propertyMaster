@@ -106,6 +106,7 @@ class PropertyType extends AbstractType
                     'class' => 'form-control',
                 ],
                 'label' => 'Rooms',
+                'required' => false,
             ])
             ->add('propertyState', TextType::class, [
                 'attr' => [
@@ -152,6 +153,7 @@ class PropertyType extends AbstractType
                     '4 Bed /Room' => '4 Bed /Room',
                 ],
                 'label' => 'Bed',
+                'required' => false,
             ])
 
             ->add('shortDescription', TextType::class, [

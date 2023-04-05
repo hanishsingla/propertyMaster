@@ -48,8 +48,8 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $propertyPrice;
 
-    #[ORM\Column]
-    private string $propertyRooms;
+    #[ORM\Column(type: "string",nullable: true)]
+    private ?string $propertyRooms = null;
 
     #[ORM\Column]
     private string $propertyState;
@@ -60,8 +60,8 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $propertyType;
 
-    #[ORM\Column]
-    private string $roomBed;
+    #[ORM\Column(type: "string",nullable: true)]
+    private ?string $roomBed = null;
 
     #[ORM\Column]
     private string $shortDescription;
@@ -240,17 +240,17 @@ class Property extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPropertyRooms(): string
+    public function getPropertyRooms(): ?string
     {
         return $this->propertyRooms;
     }
 
     /**
-     * @param string $propertyRooms
+     * @param string|null $propertyRooms
      */
-    public function setPropertyRooms(string $propertyRooms): void
+    public function setPropertyRooms(?string $propertyRooms): void
     {
         $this->propertyRooms = $propertyRooms;
     }
@@ -304,17 +304,17 @@ class Property extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRoomBed(): string
+    public function getRoomBed(): ?string
     {
         return $this->roomBed;
     }
 
     /**
-     * @param string $roomBed
+     * @param string|null $roomBed
      */
-    public function setRoomBed(string $roomBed): void
+    public function setRoomBed(?string $roomBed): void
     {
         $this->roomBed = $roomBed;
     }
