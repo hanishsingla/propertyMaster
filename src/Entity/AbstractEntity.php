@@ -4,19 +4,11 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\MappedSuperclass]
 #[ORM\HasLifecycleCallbacks]
 abstract class AbstractEntity
 {
-    #[ORM\Column(type: 'guid')]
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
-    #[Groups(['read'])]
-    private ?string $id = null;
-
     #[ORM\Column(type: 'boolean' ,options: ['default' => 0] )]
     protected bool $isDeleted = false;
 
@@ -28,23 +20,6 @@ abstract class AbstractEntity
 
     #[ORM\Column(type: 'datetime' , nullable: true)]
     protected DateTime $isDeletedAt ;
-
-
-    /**
-     * @return string|null
-     */
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string|null $id
-     */
-    public function setId(?string $id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return bool

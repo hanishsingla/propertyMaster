@@ -5,11 +5,22 @@ namespace App\Entity\Property;
 use App\Entity\AbstractEntity;
 use App\Repository\Property\PropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'property')]
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 class Property extends AbstractEntity
 {
+    #[ORM\Column(type: 'guid')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
+    #[Groups(['read'])]
+    private ?string $id = null;
+
+    #[ORM\Column(type: "string")]
+    private string $ownerId;
+
     #[ORM\Column(type: 'boolean' ,options: ['default' => 0])]
     private bool $propertyIsGarage = false;
 
@@ -58,6 +69,29 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $squareType;
 
+    /**
+     * @return string|null
+     */
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwnerId(): string
+    {
+        return $this->ownerId;
+    }
+
+    /**
+     * @param string $ownerId
+     */
+    public function setOwnerId(string $ownerId): void
+    {
+        $this->ownerId = $ownerId;
+    }
 
     /**
      * @return bool
