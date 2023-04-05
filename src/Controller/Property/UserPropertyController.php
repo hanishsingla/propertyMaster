@@ -106,7 +106,6 @@ class UserPropertyController extends AbstractController
         return $this->render('userProperty/edit_user_property.html.twig', [
             'form' => $form->createView(),
             'isGarage' => $isGarage,
-
             'propertyType' => $propertyType,
         ]);
     }
