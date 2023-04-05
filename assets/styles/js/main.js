@@ -70,7 +70,7 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
 })
 /*========== home page Nav tab js end ===========*/
 
-/*========== create Property Advance js start ===========*/
+/*==========  Property create  js start ===========*/
 $('#property_propertyType').on('change' , function (){
     const $panelBtn = $(this);
     const $val = $panelBtn.val();
@@ -83,14 +83,16 @@ $('#property_propertyType').on('change' , function (){
     }
 })
 
-
-$('#property_propertyIsGarage').on('change', function() {
-
-    if ($(this).is(':checked')) {
-        $('.property-garage').removeClass('d-none');
-    } else {
-        $('.property-garage').addClass('d-none');
-    }
+$('[type="checkbox"]').on('change', function(){
+    $(this).is(':checked') ? $(this).closest('.form-group').find('.property-garage').removeClass('d-none') : $(this).closest('.form-group').find('.property-garage').addClass('d-none')
 });
 
-/*========== create Property Advance js end ===========*/
+$('[type="checkbox"]').trigger('change');
+
+/*==========  Property create  js end ===========*/
+
+/*==========  Property details  js start ===========*/
+
+
+/*==========  Property details  js end ===========*/
+
