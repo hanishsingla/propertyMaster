@@ -22,17 +22,16 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 property-carousel">
-
-                            {% if propertyInformation.propertyImage %}
-                                {% for  image in  propertyInformation.propertyImage %}
-                                    <div class="">
+                        <div class="col-12">
+                            <div class="container  property-carousel">
+                                {% if propertyInformation.propertyImage %}
+                                    {% for  image in  propertyInformation.propertyImage %}
                                         <img src="{{ asset('uploads/propertyImages/' ~ image) }}" class="img-fluid" alt="{{ image }}">
-                                    </div>
-                                {% endfor %}
-                            {% else %}
-                                <img src="{{ asset('uploads/propertyImages/property.jpg') }}" class="img-fluid" alt="property">
-                            {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <img src="{{ asset('uploads/propertyImages/property.jpg') }}" class="img-fluid" alt="property">
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -35,6 +35,7 @@ ul li {
 .navbar .navbar-nav .nav-link.active {
   color: var(--primary);
 }
+
 .navbar-brand {
   margin-right: 0 !important;
 }
@@ -43,40 +44,38 @@ ul li {
   margin-left: auto;
 }
 
-.d-sm-none{
+.d-sm-none {
   display: flex !important;
   align-items: center;
   letter-spacing: 2px;
 }
 
-.d-lg-none{
+.d-lg-none {
   display: flex !important;
   align-items: center;
   letter-spacing: 2px;
 }
 
-@media (max-width: 992px)
-{
-  .d-sm-none{
-    display: none !important;
-  }
-}
-@media (min-width: 992px)
-{
-  .d-lg-none{
+@media (max-width: 992px) {
+  .d-sm-none {
     display: none !important;
   }
 }
 
+@media (min-width: 992px) {
+  .d-lg-none {
+    display: none !important;
+  }
+}
 
 
 /*========== navbar css End ===========*/
 /*========== Right Side navbar css Start ===========*/
-#rightSidebar{
-  max-width: 20rem!important;
+#rightSidebar {
+  max-width: 20rem !important;
 }
 
-#profile{
+#profile {
   box-shadow: 0 1px 2px 3px;
 }
 
@@ -85,6 +84,7 @@ ul li {
   font-size: 22px;
   font-weight: 600;
 }
+
 /*========== Right Side navbar css End ===========*/
 
 /*========== home page carousel button css start ===========*/
@@ -102,11 +102,11 @@ ul li {
   background-position: center;
 }
 
-.max-width-1400{
+.max-width-1400 {
   max-width: 1400px !important;
 }
 
-.max-width-1920{
+.max-width-1920 {
   max-width: 1920px !important;
 }
 
@@ -226,7 +226,8 @@ ul li {
   font-size: 140px;
   opacity: 0.8;
 }
-.font-sm-19{
+
+.font-sm-19 {
   font-size: 1.75rem;
 }
 
@@ -239,12 +240,11 @@ ul li {
     font-size: 50px;
     opacity: 0.8;
   }
-  .font-sm-19{
+  .font-sm-19 {
     font-size: 19px;
   }
 
 }
-
 
 
 /*========== About page css end ===========*/
@@ -415,6 +415,12 @@ select#property_squareType {
 }
 
 /*========== Create Property Form css end ===========*/
+/*==========  Property details Form css end ===========*/
+.slick-prev:before, .slick-next:before {
+  color: black;
+}
+
+/*==========  Property details Form css end ===========*/
 
 
 /*========== footer css start ===========*/
