@@ -1,5 +1,5 @@
 import bootbox from 'bootbox';
-import  'slick-carousel'
+import 'slick-carousel'
 
 const body = 'body';
 
@@ -73,15 +73,68 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
 /*========== home page Nav tab js end ===========*/
 
 /*==========  Property create  js start ===========*/
-$('#property_propertyType').on('change', function () {
-    const $panelBtn = $(this);
-    const $val = $panelBtn.val();
-    if ($val === 'shop' || $val === 'garage') {
-        $('.roomInformation').addClass('d-none');
-    } else {
-        $('.roomInformation').removeClass('d-none');
+
+$(document).ready(function() {
+    // Define the options for each property type
+    var propertyTypeOptions = {
+        'residential': {
+            'Single-family home': 'single_family_home',
+            'Apartment': 'apartment',
+            'Condominium': 'condominium',
+            'Townhouse': 'townhouse',
+            'Mobile home': 'mobile_home',
+        },
+        'commercial': {
+            'Office': 'office',
+            'Retail store': 'retail_store',
+            'Hotel': 'hotel',
+            'Warehouse': 'warehouse',
+        },
+        'industrial': {
+            'Factory': 'factory',
+            'Distribution center': 'distribution_center',
+            'Industrial park': 'industrial_park',
+        },
+        'agricultural': {
+            'Crop field': 'crop_field',
+            'Orchard': 'orchard',
+            'Cattle ranch': 'cattle_ranch',
+        },
+        'vacant_land': {
+            'Residential': 'residential_vacant_land',
+            'Commercial': 'commercial_vacant_land',
+            'Agricultural': 'agricultural_vacant_land',
+        },
+        'special_purpose': {
+            'Church': 'church',
+            'School': 'school',
+            'Hospital': 'hospital',
+            'Government building': 'government_building',
+        },
+    };
+
+    var $propertyTypeSelect = $('#property_propertyType');
+
+    var $categorySelect = $('#property_propertyCategory');
+
+    function updateCategorySelectBox() {
+        var propertyTypeValue = $propertyTypeSelect.val();
+        var categoryOptions = propertyTypeOptions[propertyTypeValue];
+        $categorySelect.empty();
+
+        $.each(categoryOptions, function(key, value) {
+            $categorySelect.append($('<option></option>').attr('value', value).text(key));
+        });
     }
-})
+
+    // Update the category select box on page load
+    updateCategorySelectBox();
+
+    // Update the category select box when the property type select box changes
+    $propertyTypeSelect.change(function() {
+        updateCategorySelectBox();
+    });
+});
 
 const checkedBox = '[type="checkbox"]';
 
