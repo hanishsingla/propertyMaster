@@ -73,7 +73,7 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
 /*========== home page Nav tab js end ===========*/
 
 /*==========  Property create  js start ===========*/
-
+//  property type
 $(document).ready(function() {
     // Define the options for each property type
     var propertyTypeOptions = {
@@ -90,26 +90,10 @@ $(document).ready(function() {
             'Hotel': 'hotel',
             'Warehouse': 'warehouse',
         },
-        'industrial': {
-            'Factory': 'factory',
-            'Distribution center': 'distribution_center',
-            'Industrial park': 'industrial_park',
-        },
         'agricultural': {
             'Crop field': 'crop_field',
             'Orchard': 'orchard',
             'Cattle ranch': 'cattle_ranch',
-        },
-        'vacant_land': {
-            'Residential': 'residential_vacant_land',
-            'Commercial': 'commercial_vacant_land',
-            'Agricultural': 'agricultural_vacant_land',
-        },
-        'special_purpose': {
-            'Church': 'church',
-            'School': 'school',
-            'Hospital': 'hospital',
-            'Government building': 'government_building',
         },
     };
 
@@ -136,6 +120,8 @@ $(document).ready(function() {
     });
 });
 
+
+// Create  property checkbox
 const checkedBox = '[type="checkbox"]';
 
 $(checkedBox).on('change', function () {

@@ -158,10 +158,7 @@ class PropertyType extends AbstractType
                 'choices' => [
                     'Residential' => 'residential',
                     'Commercial' => 'commercial',
-                    'Industrial' => 'industrial',
                     'Agricultural' => 'agricultural',
-                    'Vacant land' => 'vacant_land',
-                    'Special purpose' => 'special_purpose',
                 ],
                 'placeholder' => 'Select option',
                 'attr' => [
