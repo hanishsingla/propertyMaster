@@ -86,15 +86,7 @@ class MainMenu
             'labelAttributes' => ['icon' => 'fa-location-dot'],
             'linkAttributes' => ['class' => 'nav-link'],
         ]);
-        if ($security->isGranted('ROLE_AGENT')) {
-            $menu->addChild('User Property', [
-                'label' => 'Property Details',
-                'route' => 'userProperty',
-                'attributes' => ['class' => 'nav-item py-3'],
-                'labelAttributes' => ['icon' => 'fa-building'],
-                'linkAttributes' => ['class' => 'nav-link'],
-            ]);
-        }
+
 
 
         return $menu->setChildrenAttributes(['class' => 'navbar-nav  mb-2 mb-lg-0']);
