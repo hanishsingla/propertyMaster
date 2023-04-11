@@ -7,7 +7,6 @@ use App\Form\PropertyType;
 use App\Repository\Property\PropertyRepository;
 use App\Service\UploadHelper\PropertyUploader;
 use App\Service\CommonHelper;
-use App\Service\Helper\Helper;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +28,6 @@ class UserPropertyController extends AbstractController
 
         return $this->render('userProperty/user_property.html.twig', [
             'propertyLists' => $propertyLists,
-
         ]);
     }
 
@@ -66,7 +64,6 @@ class UserPropertyController extends AbstractController
         }
         return $this->render('userProperty/create_user_property.html.twig', [
             'form' => $form->createView(),
-
         ]);
     }
 
@@ -78,8 +75,6 @@ class UserPropertyController extends AbstractController
 
 
         $userPropertyEditData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
-        $isGarage = $userPropertyEditData->isPropertyIsGarage();
-        $propertyType = $userPropertyEditData->getPropertyType();
         $form = $this->createForm(PropertyType::class, $userPropertyEditData);
         $form->handleRequest($request);
 
@@ -105,8 +100,6 @@ class UserPropertyController extends AbstractController
 
         return $this->render('userProperty/edit_user_property.html.twig', [
             'form' => $form->createView(),
-            'isGarage' => $isGarage,
-            'propertyType' => $propertyType,
         ]);
     }
 

@@ -39,6 +39,9 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $propertyDescription;
 
+    #[ORM\Column]
+    private string $propertyDirection;
+
     #[ORM\Column (nullable: true)]
     private ?string $propertyGarage = null;
 
@@ -55,6 +58,9 @@ class Property extends AbstractEntity
     private string $propertyState;
 
     #[ORM\Column]
+    private string $propertyStatus;
+
+    #[ORM\Column]
     private string $propertyTitle;
 
     #[ORM\Column]
@@ -63,8 +69,6 @@ class Property extends AbstractEntity
     #[ORM\Column(type: "string",nullable: true)]
     private ?string $roomBed = null;
 
-    #[ORM\Column]
-    private string $shortDescription;
 
     #[ORM\Column]
     private string $squareType;
@@ -191,6 +195,22 @@ class Property extends AbstractEntity
     }
 
     /**
+     * @return string
+     */
+    public function getPropertyDirection(): string
+    {
+        return $this->propertyDirection;
+    }
+
+    /**
+     * @param string $propertyDirection
+     */
+    public function setPropertyDirection(string $propertyDirection): void
+    {
+        $this->propertyDirection = $propertyDirection;
+    }
+
+    /**
      * @return string|null
      */
     public function getPropertyGarage(): ?string
@@ -274,6 +294,22 @@ class Property extends AbstractEntity
     /**
      * @return string
      */
+    public function getPropertyStatus(): string
+    {
+        return $this->propertyStatus;
+    }
+
+    /**
+     * @param string $propertyStatus
+     */
+    public function setPropertyStatus(string $propertyStatus): void
+    {
+        $this->propertyStatus = $propertyStatus;
+    }
+
+    /**
+     * @return string
+     */
     public function getPropertyTitle(): string
     {
         return $this->propertyTitle;
@@ -317,23 +353,6 @@ class Property extends AbstractEntity
     public function setRoomBed(?string $roomBed): void
     {
         $this->roomBed = $roomBed;
-    }
-
-    
-    /**
-     * @return string
-     */
-    public function getShortDescription(): string
-    {
-        return $this->shortDescription;
-    }
-
-    /**
-     * @param string $shortDescription
-     */
-    public function setShortDescription(string $shortDescription): void
-    {
-        $this->shortDescription = $shortDescription;
     }
 
     /**

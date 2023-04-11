@@ -25,28 +25,26 @@ class PropertyType extends AbstractType
                     'placeholder' => 'Area',
                     'class' => 'form-check-input',
                 ],
-                'label'=> 'Is Garage',
+                'label' => 'Is Garage',
                 'required' => false,
             ])
+
             ->add('propertyArea', TextType::class, [
                 'attr' => [
                     'placeholder' => 'property Area',
                     'class' => 'form-control',
                 ],
-                'label'=> 'Area',
+                'label' => 'Area',
             ])
+
             ->add('propertyCategory', ChoiceType::class, [
                 'attr' => [
-                    'placeholder' => 'Area',
                     'class' => 'form-control',
                 ],
-                'choices' => [
-                    'Open this select menu' => '',
-                    'For Sale' => 'sale',
-                    'For Rent' => 'rent',
-                ],
-                'label'=> 'Category',
+                'choices' => [], //dynamic value display by id
+                'label' => 'Category',
             ])
+
             ->add('propertyCity', TextType::class, [
                 'attr' => [
                     'placeholder' => 'City',
@@ -54,10 +52,10 @@ class PropertyType extends AbstractType
                 ],
                 'label' => 'City',
             ])
+
             ->add('propertyCountry', countryType::class, [
                 'placeholder' => 'Choose an option',
                 'required' => true,
-                'disabled' => true,
                 'choices' => [
                     'Choose an option' => ''
                 ],
@@ -66,15 +64,31 @@ class PropertyType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label'=> 'Country',
+                'label' => 'Country',
             ])
+
             ->add('propertyDescription', TextareaType::class, [
                 'attr' => [
                     'placeholder' => 'Description',
                     'class' => 'form-control',
                 ],
-                'label'=> 'Description',
+                'label' => 'Description',
             ])
+
+            ->add('propertyDirection', ChoiceType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'choices' => [
+                    'North' => 'north',
+                    'South' => 'south',
+                    'East' => 'east',
+                    'West' => 'west',
+                ],
+                'placeholder' => 'Select option',
+                'label' => 'Direction',
+            ])
+
             ->add('propertyGarage', NumberType::class, [
                 'attr' => [
                     'placeholder' => 'Number of garage',
@@ -82,8 +96,9 @@ class PropertyType extends AbstractType
                     'data-change' => "class",
                 ],
                 'required' => false,
-                'label'=> 'Garage',
+                'label' => 'Garage',
             ])
+
             ->add('propertyImage', FileType::class, [
                 'label' => 'Images',
                 'mapped' => false,
@@ -93,6 +108,7 @@ class PropertyType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
+
             ->add('propertyPrice', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Price',
@@ -100,6 +116,7 @@ class PropertyType extends AbstractType
                 ],
                 'label' => 'Price',
             ])
+
             ->add('propertyRooms', NumberType::class, [
                 'attr' => [
                     'placeholder' => 'Rooms',
@@ -108,6 +125,7 @@ class PropertyType extends AbstractType
                 'label' => 'Rooms',
                 'required' => false,
             ])
+
             ->add('propertyState', TextType::class, [
                 'attr' => [
                     'placeholder' => 'State',
@@ -115,6 +133,19 @@ class PropertyType extends AbstractType
                 ],
                 'label' => 'State',
             ])
+
+            ->add('propertyStatus', ChoiceType::class, [
+                'placeholder' => 'Select option',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'choices' => [
+                    'For Sale' => 'sale',
+                    'For Rent' => 'rent',
+                ],
+                'label' => 'Status',
+            ])
+
             ->add('propertyTitle', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Title',
@@ -122,31 +153,31 @@ class PropertyType extends AbstractType
                 ],
                 'label' => 'Title',
             ])
+
             ->add('propertyType', ChoiceType::class, [
+                'choices' => [
+                    'Residential' => 'residential',
+                    'Commercial' => 'commercial',
+                    'Industrial' => 'industrial',
+                    'Agricultural' => 'agricultural',
+                    'Vacant land' => 'vacant_land',
+                    'Special purpose' => 'special_purpose',
+                ],
+                'placeholder' => 'Select option',
                 'attr' => [
-                    'placeholder' => 'Type',
                     'class' => 'form-control',
                 ],
-                'choices' => [
-                    'Open this select menu' => '',
-                    'Home' => 'home',
-                    'Shop' => 'shop',
-                    'Garage' => 'garage',
-                    'Villa' => 'villa',
-                    'Office' => 'office',
-                    'Building' => 'building',
-                    'Town House' => 'townhouse',
-                    'Apartment' => 'apartment',
-                ],
+                'required' => true,
                 'label' => 'Type',
             ])
+
             ->add('roomBed', ChoiceType::class, [
+                'placeholder' => 'Select option',
                 'attr' => [
-                    'placeholder' => 'Room Bed',
+
                     'class' => 'form-control',
                 ],
                 'choices' => [
-                    'Open this select menu' => '',
                     '1 Bed /Room' => '1 Bed /Room',
                     '2 Bed /Room' => '2 Bed /Room',
                     '3 Bed /Room' => '3 Bed /Room',
@@ -156,13 +187,6 @@ class PropertyType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('shortDescription', TextType::class, [
-                'attr' => [
-                    'placeholder' => 'Short Description',
-                    'class' => 'form-control',
-                ],
-                'label' => 'Short',
-            ])
             ->add('squareType', ChoiceType::class, [
                 'attr' => [
                     'placeholder' => 'select option',
