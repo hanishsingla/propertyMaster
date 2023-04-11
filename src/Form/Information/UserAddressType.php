@@ -69,7 +69,6 @@ class UserAddressType extends AbstractType
                     'Choose an option' => ''
                 ],
                 'preferred_choices' => ['IN'],
-                'data' => 'IN',
                 'attr' => [
                     'class' => 'form-control'
                 ],

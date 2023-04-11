@@ -70,7 +70,8 @@
                     <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
                         {% if is_granted('ROLE_USER') and app.session.get('gender') == 'male' or is_granted('ROLE_USER') and app.session.get('gender') == 'female' or is_granted('ROLE_USER') and app.session.get('gender') == 'other' %}
                             {% if  app.session.get('userImage') %}
-                                <img src="{{ asset('image/userImages/' ~ app.session.get('userImage') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ app.session.get('userImage') }}"
+                                <img src="{{ asset('image/userImages/' ~ app.session.get('userImage') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
+                                     alt="{{ app.session.get('userImage') }}"
                                      width="50">
                             {% else %}
                                 <img src="{{ asset('image/userImage/'~ app.session.get('gender') ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
@@ -80,10 +81,9 @@
                     </button>
                 {% else %}
                     <div class="d-lg-none">
-                        <a href="{{ path('login') }}" class="pe-1 d-lg-none"><i class="fa-solid fa-lock"></i>  Login </a>
+                        <a href="{{ path('login') }}" class="pe-1 d-lg-none"><i class="fa-solid fa-lock"></i> Login </a>
                         <a href="{{ path('register') }}" class="pe-1 d-lg-none">/ <i class="fa-solid fa-user-plus"></i> Register</a>
                     </div>
-
                 {% endif %}
 
                 <div class="collapse navbar-collapse ms-auto overflow-sm-auto" id="navbarCollapse">
@@ -94,7 +94,8 @@
                             <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="offcanvasRight">
                                 {% if is_granted('ROLE_USER') and app.session.get('gender') == 'male' or is_granted('ROLE_USER') and app.session.get('gender') == 'female' or is_granted('ROLE_USER') and app.session.get('gender') == 'other' %}
                                     {% if  app.session.get('userImage') %}
-                                        <img src="{{ asset('image/userImages/' ~ app.session.get('userImage') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle" alt="{{ app.session.get('userImage') }}"
+                                        <img src="{{ asset('image/userImages/' ~ app.session.get('userImage') ) }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
+                                             alt="{{ app.session.get('userImage') }}"
                                              width="50">
                                     {% else %}
                                         <img src="{{ asset('image/userImage/'~ app.session.get('gender') ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
@@ -130,6 +131,12 @@
                     <a class="nav-link sideBarLinks" href="{{ path('account') }}" id="UserProfileNav">
                         <i class="fa-solid fa-user pe-1"></i> Account
                     </a>
+                </li>
+                <li>
+                    <hr class="divider">
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link sideBarLinks " href="{{ path('userProperty') }}"> <i class="fa-solid  fa-building pe-1"></i> Property </a>
                 </li>
                 <li>
                     <hr class="divider">

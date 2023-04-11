@@ -19,11 +19,6 @@
                                aria-selected="true">All</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a href="{{ path('home', {'listType' : 'buy'}) }}" class="nav-link {{ listType == 'buy' ? 'active' : '' }}" data-popup="navTab" data-bs-target="#buy" type="button"
-                               role="tab" aria-controls="pills-profile"
-                               aria-selected="false">For Buy</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
                             <a href="{{ path('home', {'listType' : 'sale'}) }}" class="nav-link {{ listType == 'sale' ? 'active' : '' }}" data-popup="navTab" data-bs-target="#sale" type="button"
                                role="tab" aria-controls="pills-contact"
                                aria-selected="false">For Sale</a>
