@@ -3,10 +3,10 @@
 namespace App\Controller\Property;
 
 use App\Entity\Property\Property;
-use App\Form\PropertyType;
+use App\Form\Property\PropertyType;
 use App\Repository\Property\PropertyRepository;
-use App\Service\UploadHelper\PropertyUploader;
 use App\Service\CommonHelper;
+use App\Service\UploadHelper\PropertyUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,8 +24,7 @@ class UserPropertyController extends AbstractController
     {
         $ownerId = $request->getSession()->get('ownerId');
 
-        $propertyLists = $propertyRepository->getProperty( $ownerId);
-
+        $propertyLists = $propertyRepository->getProperty($ownerId);
         return $this->render('userProperty/user_property.html.twig', [
             'propertyLists' => $propertyLists,
         ]);
@@ -33,7 +32,7 @@ class UserPropertyController extends AbstractController
 
     #[IsGranted('ROLE_AGENT')]
     #[Route('/createProperty', name: 'createProperty')]
-    public function createProperty(Request $request, CommonHelper $commonHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader) :Response
+    public function createProperty(Request $request, CommonHelper $commonHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
 
@@ -89,7 +88,8 @@ class UserPropertyController extends AbstractController
                 }
                 $userPropertyEditData->setPropertyImage($imageFileNames);
             }
-            $commonHelper->setUpdateDate($form,);
+            $information = $form->getData();
+            $commonHelper->setUpdateDate($information);
 
             $em->persist($userPropertyEditData);
 
