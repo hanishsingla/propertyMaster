@@ -2,6 +2,7 @@
 
 namespace App\Form\Agent;
 
+use App\Entity\Agent\Agent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,14 +13,13 @@ class AgentType extends AbstractType
     {
         $builder
             ->add('agentNumber')
-            ->add('agentName')
-        ;
+            ->add('agentName');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Agent::class
         ]);
     }
 }
