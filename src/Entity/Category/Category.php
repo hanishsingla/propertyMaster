@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'category')]
+#[ORM\Index(columns: ['id'], name: 'index_id')]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category extends AbstractEntity
 {

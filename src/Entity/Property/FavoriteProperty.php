@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Entity\Agent;
+namespace App\Entity\Property;
 
 use App\Entity\AbstractEntity;
-use App\Repository\Agent\AgentRepository;
+use App\Repository\Property\FavoritePropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Table(name: 'agent')]
+#[ORM\Table(name: 'FavoriteProperty')]
 #[ORM\Index(columns: ['id'], name: 'index_id')]
-#[ORM\Entity(repositoryClass: AgentRepository::class)]
-class Agent extends AbstractEntity
+#[ORM\Entity(repositoryClass: FavoritePropertyRepository::class)]
+class FavoriteProperty extends AbstractEntity
 {
     #[ORM\Column(type: 'guid')]
     #[ORM\Id]
@@ -22,11 +23,12 @@ class Agent extends AbstractEntity
     #[ORM\Column(type: "string")]
     private string $ownerId;
 
-    #[ORM\Column(nullable: true)]
-    private ?string $agentNumber = null ;
+    #[ORM\Column(type: 'boolean' ,options: ['default' => 0])]
+    private bool $favourite = false;
 
-    #[ORM\Column]
-    private string $agentName;
+    #[ORM\OneToOne(inversedBy: 'favoriteProperty', cascade: ['persist', 'remove'])]
+    private ?Property $property = null;
+
 
     /**
      * @return string|null
@@ -53,35 +55,32 @@ class Agent extends AbstractEntity
     }
 
     /**
-     * @return string|null
+     * @return bool
      */
-    public function getAgentNumber(): ?string
+    public function isFavourite(): bool
     {
-        return $this->agentNumber;
+        return $this->favourite;
     }
 
     /**
-     * @param string|null $agentNumber
+     * @param bool $favourite
      */
-    public function setAgentNumber(?string $agentNumber): void
+    public function setFavourite(bool $favourite): void
     {
-        $this->agentNumber = $agentNumber;
+        $this->favourite = $favourite;
     }
 
-    /**
-     * @return string
-     */
-    public function getAgentName(): string
+
+    public function getProperty(): ?Property
     {
-        return $this->agentName;
+        return $this->property;
     }
 
-    /**
-     * @param string $agentName
-     */
-    public function setAgentName(string $agentName): void
+    public function setProperty(?Property $property): self
     {
-        $this->agentName = $agentName;
+        $this->property = $property;
+
+        return $this;
     }
 
 }

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'property')]
+#[ORM\Index(columns: ['id'], name: 'index_id')]
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 class Property extends AbstractEntity
 {
@@ -72,6 +73,9 @@ class Property extends AbstractEntity
 
     #[ORM\Column]
     private string $squareType;
+
+    #[ORM\OneToOne(mappedBy: 'property', cascade: ['persist', 'remove'])]
+    private ?FavoriteProperty $favoriteProperty = null;
 
     /**
      * @return string|null
@@ -369,6 +373,28 @@ class Property extends AbstractEntity
     public function setSquareType(string $squareType): void
     {
         $this->squareType = $squareType;
+    }
+
+    public function getFavoriteProperty(): ?FavoriteProperty
+    {
+        return $this->favoriteProperty;
+    }
+
+    public function setFavoriteProperty(?FavoriteProperty $favoriteProperty): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($favoriteProperty === null && $this->favoriteProperty !== null) {
+            $this->favoriteProperty->setProperty(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($favoriteProperty !== null && $favoriteProperty->getProperty() !== $this) {
+            $favoriteProperty->setProperty($this);
+        }
+
+        $this->favoriteProperty = $favoriteProperty;
+
+        return $this;
     }
 
 

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'security_user_address')]
+#[ORM\Index(columns: ['id'], name: 'index_id')]
 #[ORM\Entity(repositoryClass: UserAddressRepository::class)]
 class UserAddress extends AbstractAccount
 {
