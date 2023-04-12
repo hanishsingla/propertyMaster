@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 abstract class AbstractAccount extends AbstractEntity
 {
-
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $name;
 

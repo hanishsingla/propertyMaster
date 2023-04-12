@@ -19,9 +19,6 @@ class UserAddress extends AbstractAccount
     #[Groups(['read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: "string")]
-    private string $ownerId;
-
     #[ORM\OneToOne(inversedBy: 'userAddress', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
