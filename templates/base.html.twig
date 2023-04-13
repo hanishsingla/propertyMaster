@@ -23,8 +23,8 @@
     {% endblock %}
 </head>
 <body>
-{% block body %}
-    <!-- Topbar Start -->
+{% block body%}
+    <!-- Top bar Start -->
     <header class="section-header border-y">
         <div class="container-fluid bg-primary text-white d-none d-lg-flex">
             <div class="container py-3">
@@ -54,7 +54,7 @@
             </div>
         </div>
     </header>
-    <!-- Topbar End -->
+    <!-- Top bar End -->
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-white sticky-top">
@@ -115,6 +115,7 @@
         </div>
     </div>
     <!-- Navbar End -->
+
     <!-- Right  Navbar Start -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="rightSidebar" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
@@ -136,8 +137,16 @@
                     <hr class="divider">
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link sideBarLinks " href="{{ path('userProperty') }}"> <i class="fa-solid  fa-building pe-1"></i> Property </a>
+                    <a class="nav-link sideBarLinks " href="{{ path('favouriteProperty') }}"> <i class="fa-solid  fa-building pe-1"></i> Favourite </a>
                 </li>
+                {% if is_granted('ROLE_AGENT') %}
+                    <li>
+                        <hr class="divider">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link sideBarLinks " href="{{ path('userProperty') }}"> <i class="fa-solid  fa-building pe-1"></i> Property </a>
+                    </li>
+                {% endif %}
                 <li>
                     <hr class="divider">
                 </li>
@@ -152,9 +161,6 @@
     </div>
     <!-- Right  Navbar End -->
 
-    <!-- Property Card Start -->
-
-    <!-- Property Card End -->
     {% block verifyEmail %}
         {% if app.user and  not app.user.verified %}
             <div class="container mt-5">
@@ -168,7 +174,8 @@
             </div>
         {% endif %}
     {% endblock %}
-    <div class="container-fluid mt-5 {% block contentClass %}{% endblock %}">
+
+    <div class="container-fluid mt-5 {% block containerClass %}{% endblock %}">
         {% block pageContent %}{% endblock %}
     </div>
 
