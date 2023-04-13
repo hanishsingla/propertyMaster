@@ -3,15 +3,15 @@
 namespace App\Entity\Property;
 
 use App\Entity\AbstractEntity;
-use App\Repository\Property\FavoritePropertyRepository;
+use App\Repository\Property\FavouritePropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Table(name: 'FavoriteProperty')]
+#[ORM\Table(name: 'FavouriteProperty')]
 #[ORM\Index(columns: ['id'], name: 'index_id')]
-#[ORM\Entity(repositoryClass: FavoritePropertyRepository::class)]
-class FavoriteProperty extends AbstractEntity
+#[ORM\Entity(repositoryClass: FavouritePropertyRepository::class)]
+class FavouriteProperty extends AbstractEntity
 {
     #[ORM\Column(type: 'guid')]
     #[ORM\Id]
@@ -23,12 +23,12 @@ class FavoriteProperty extends AbstractEntity
     #[ORM\Column(type: "string")]
     private string $ownerId;
 
-    #[ORM\Column(type: 'boolean' ,options: ['default' => 0])]
-    private bool $favourite = false;
+    #[ORM\Column(type: "string")]
+    private string $favourite;
 
     #[ORM\OneToOne(inversedBy: 'favoriteProperty', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Property $property = null;
-
 
     /**
      * @return string|null
@@ -55,28 +55,27 @@ class FavoriteProperty extends AbstractEntity
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    public function isFavourite(): bool
+    public function getFavourite(): string
     {
         return $this->favourite;
     }
 
     /**
-     * @param bool $favourite
+     * @param string $favourite
      */
-    public function setFavourite(bool $favourite): void
+    public function setFavourite(string $favourite): void
     {
         $this->favourite = $favourite;
     }
-
 
     public function getProperty(): ?Property
     {
         return $this->property;
     }
 
-    public function setProperty(?Property $property): self
+    public function setProperty(Property $property): self
     {
         $this->property = $property;
 

@@ -75,7 +75,7 @@ class Property extends AbstractEntity
     private string $squareType;
 
     #[ORM\OneToOne(mappedBy: 'property', cascade: ['persist', 'remove'])]
-    private ?FavoriteProperty $favoriteProperty = null;
+    private ?FavouriteProperty $favoriteProperty = null;
 
     /**
      * @return string|null
@@ -375,12 +375,12 @@ class Property extends AbstractEntity
         $this->squareType = $squareType;
     }
 
-    public function getFavoriteProperty(): ?FavoriteProperty
+    public function getFavoriteProperty(): ?FavouriteProperty
     {
         return $this->favoriteProperty;
     }
 
-    public function setFavoriteProperty(?FavoriteProperty $favoriteProperty): self
+    public function setFavoriteProperty(?FavouriteProperty $favoriteProperty): self
     {
         // unset the owning side of the relation if necessary
         if ($favoriteProperty === null && $this->favoriteProperty !== null) {

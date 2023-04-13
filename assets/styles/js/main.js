@@ -74,7 +74,7 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
 
 /*==========  Property create  js start ===========*/
 //  property type
-$(document).ready(function() {
+$(document).ready(function () {
     // Define the options for each property type
     var propertyTypeOptions = {
         'residential': {
@@ -106,7 +106,7 @@ $(document).ready(function() {
         var categoryOptions = propertyTypeOptions[propertyTypeValue];
         $categorySelect.empty();
 
-        $.each(categoryOptions, function(key, value) {
+        $.each(categoryOptions, function (key, value) {
             $categorySelect.append($('<option></option>').attr('value', value).text(key));
         });
     }
@@ -115,7 +115,7 @@ $(document).ready(function() {
     updateCategorySelectBox();
 
     // Update the category select box when the property type select box changes
-    $propertyTypeSelect.change(function() {
+    $propertyTypeSelect.change(function () {
         updateCategorySelectBox();
     });
 });
@@ -140,6 +140,42 @@ $('.property-carousel').slick({
     speed: 500,
     fade: true,
     cssEase: 'linear',
+});
+
+$('.heart-icon').on('click', function (e) {
+    e.preventDefault();
+    const $heart = $(this);
+    const $heartIcon = $heart.find('i.fa-heart');
+    const url = $heart.attr('href');
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        success: function (data) {
+
+        }
+    })
+    $heartIcon.toggleClass('fa-regular fa-heart fa-solid fa-heart');
+});
+
+$(document).ready(function () {
+    $(body).on('click', '[data-input="checked"]', function () {
+        const $input = $(this)
+        const id = $input.data('id');
+        const url = $input.data('href');
+        const isChecked = $input.is(':checked');
+        $.ajax({
+            url: '/' + url + '/' + id,
+            method: 'POST',
+            data: {data: isChecked},
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
 });
 
 /*==========  Property details  js end ===========*/

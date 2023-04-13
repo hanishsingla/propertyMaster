@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block containerClass %}max-width-1920{% endblock %}
+
+{% block pageContent %}
+    <div class="row">
+        {% if propertyLists|length > 0 %}
+            {% for list in propertyLists %}
+                <div class="col-lg-3 col-md-4 col-12">
+                    <a class="single-property mt-30" href="{{ path('propertyDetails',{'propertyId': list.property.id}) }}">
+                        <div class="property-img">
+                            {% if list.property.propertyImage %}
+                                {% for image in list.property.propertyImage %}
+                                    <img src="{{ asset('uploads/propertyImages/' ~ image) }}" alt="{{ image }}">
+                                {% endfor %}
+                            {% else %}
+                                <img src="{{ asset('uploads/propertyImages/property.jpg') }}" alt="property">
+                            {% endif %}
+                            <span class="{{ list.property.propertyCategory == 'sale' or list.property.propertyCategory == 'buy' ? 'sale' : 'rent' }}">{{ list.property.propertyCategory|capitalize }}</span>
+                        </div>
+                        <div class="property-desc">
+                            <h4>{{ list.property.propertyTitle }}</h4>
+                            <p>
+                                <span class="location">{{ list.property.propertyCity }} , {{ list.property.propertyState }} ,</span>
+                                <span class="property-info">{{ list.property.propertyArea }}, {{ list.property.propertyRooms }}</span>
+                            </p>
+                            <div class="price-box">
+                                <p>{{ list.property.propertyPrice }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12 text-center">
+                <h1>No record Found</h1>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+

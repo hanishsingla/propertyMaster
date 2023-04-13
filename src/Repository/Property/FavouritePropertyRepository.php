@@ -2,26 +2,26 @@
 
 namespace App\Repository\Property;
 
-use App\Entity\Property\FavoriteProperty;
+use App\Entity\Property\FavouriteProperty;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<FavoriteProperty>
+ * @extends ServiceEntityRepository<FavouriteProperty>
  *
- * @method FavoriteProperty|null find($id, $lockMode = null, $lockVersion = null)
- * @method FavoriteProperty|null findOneBy(array $criteria, array $orderBy = null)
- * @method FavoriteProperty[]    findAll()
- * @method FavoriteProperty[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method FavouriteProperty|null find($id, $lockMode = null, $lockVersion = null)
+ * @method FavouriteProperty|null findOneBy(array $criteria, array $orderBy = null)
+ * @method FavouriteProperty[]    findAll()
+ * @method FavouriteProperty[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FavoritePropertyRepository extends ServiceEntityRepository
+class FavouritePropertyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, FavoriteProperty::class);
+        parent::__construct($registry, FavouriteProperty::class);
     }
 
-    public function save(FavoriteProperty $entity, bool $flush = false): void
+    public function save(FavouriteProperty $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class FavoritePropertyRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(FavoriteProperty $entity, bool $flush = false): void
+    public function remove(FavouriteProperty $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class FavoritePropertyRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return FavoriteProperty[] Returns an array of FavoriteProperty objects
+//     * @return FavouriteProperty[] Returns an array of FavouriteProperty objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class FavoritePropertyRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?FavoriteProperty
+//    public function findOneBySomeField($value): ?FavouriteProperty
 //    {
 //        return $this->createQueryBuilder('f')
 //            ->andWhere('f.exampleField = :val')
@@ -63,11 +63,19 @@ class FavoritePropertyRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-    public function getFavoritePropertyById($propertyId, mixed $ownerId): ?FavoriteProperty
+    public function getFavoritePropertyById($propertyId, mixed $ownerId): array
     {
-        return $this->findOneBy([
+        return $this->findBy([
             'property' => $propertyId,
-            'ownerId'=>$ownerId,
+            'ownerId' => $ownerId,
+        ]);
+    }
+
+    public function getFavoritePropertyByFav($ownerId): array
+    {
+        return $this->findBy([
+            'ownerId' => $ownerId,
+            'favourite'=> 'true'
         ]);
     }
 }

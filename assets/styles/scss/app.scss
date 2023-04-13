@@ -415,9 +415,71 @@ select#property_squareType {
 }
 
 /*========== Create Property Form css end ===========*/
+
+
 /*==========  Property details Form css end ===========*/
+
 .slick-prev:before, .slick-next:before {
   color: black;
+}
+
+.heart-checkbox {
+  display: inline-block;
+  position: relative;
+  margin: 10px;
+  left: 250px;
+}
+
+.heart-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.heart-checkbox label {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.heart-checkbox label i {
+  color: #aaa;
+}
+
+.heart-checkbox input[type="checkbox"]:checked + label i {
+  color: #e74c3c;
+}
+
+
+.page-text .page-title .property-rent{
+font-size: 12px;
+font-weight: 600;
+text-transform: uppercase;
+padding: 3px 10px 2px;
+display: inline-block;
+background: #0166D0;
+color: #ffffff;
+margin-right: 10px;
+}
+.page-text .page-title .property-sell{
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 3px 10px 2px;
+  display: inline-block;
+  background: #198754;
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.page-text .page-title .property-price{
+  font-size: 18px;
+  font-weight: 700;
+  color: #00C89E;
+  margin-bottom: 10px;
+  display: inline-block;
 }
 
 /*==========  Property details Form css end ===========*/
