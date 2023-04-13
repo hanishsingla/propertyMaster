@@ -8,14 +8,13 @@ class CommonHelper
 {
     public function setRegisterUser($data) : void
     {
-        $userInformation = $data->getUserAddress();
         $this->setCreatedDate($data);
+        $userInformation = $data->getUserAddress();
         $this->setCreatedDate($userInformation);
     }
 
     public function setPropertyInformation($form, $ownerId): void
     {
-
         $information = $form->getData();
         $information->setOwnerId($ownerId);
         $this->setCreatedDate($information);
@@ -27,9 +26,8 @@ class CommonHelper
         $information->setIsCreatedAt($date);
     }
 
-    public function setUpdateDate($form): void
+    public function setUpdateDate($information): void
     {
-        $information = $form->getData();
         $date = new DateTime;
         $information->setIsUpdatedAt($date);
     }
