@@ -64,7 +64,7 @@ class PropertyRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function getProperty(mixed $ownerId): array
+    public function getPropertyByOwner(mixed $ownerId): array
     {
         return $this->findBy([
             'ownerId'=>$ownerId,
@@ -97,11 +97,10 @@ class PropertyRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function getPropertyById(?string $propertyId, $ownerId): ?Property
+    public function getPropertyById(?string $propertyId): ?Property
     {
         return $this->findOneBy([
             'id' => $propertyId,
-            'ownerId'=>$ownerId,
         ]);
     }
 

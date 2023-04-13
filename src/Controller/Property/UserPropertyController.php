@@ -24,7 +24,7 @@ class UserPropertyController extends AbstractController
     {
         $ownerId = $request->getSession()->get('ownerId');
 
-        $propertyLists = $propertyRepository->getProperty($ownerId);
+        $propertyLists = $propertyRepository->getPropertyByOwner($ownerId);
         return $this->render('userProperty/user_property.html.twig', [
             'propertyLists' => $propertyLists,
         ]);
@@ -36,9 +36,10 @@ class UserPropertyController extends AbstractController
     {
         $ownerId = $request->getSession()->get('ownerId');
 
-
         $propertyForm = new Property();
+
         $form = $this->createForm(PropertyType::class, $propertyForm);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -47,9 +48,13 @@ class UserPropertyController extends AbstractController
             $imageFiles = $form->get('propertyImage')->getData();
             if ($imageFiles) {
                 $imageFileNames = [];
+
                 foreach ($imageFiles as $file) {
+
                     $imageFileNames[] = $propertyUploader->upload($file);
+
                 }
+
                 $propertyForm->setPropertyImage($imageFileNames);
             }
 
@@ -74,21 +79,33 @@ class UserPropertyController extends AbstractController
 
 
         $userPropertyEditData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
+
         $form = $this->createForm(PropertyType::class, $userPropertyEditData);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             /** @var UploadedFile $brochureFile */
+
             $imageFiles = $form->get('propertyImage')->getData();
+
             if ($imageFiles) {
+
                 $imageFileNames = [];
+
                 foreach ($imageFiles as $file) {
+
                     $imageFileNames[] = $propertyUploader->upload($file);
+
                 }
+
                 $userPropertyEditData->setPropertyImage($imageFileNames);
+
             }
+
             $information = $form->getData();
+
             $commonHelper->setUpdateDate($information);
 
             $em->persist($userPropertyEditData);
@@ -108,9 +125,13 @@ class UserPropertyController extends AbstractController
     public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
+
         $propertyData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
+
         $em->remove($propertyData);
+
         $em->flush();
+
         return $this->redirectToRoute('userProperty');
     }
 }
