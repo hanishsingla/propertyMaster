@@ -31,6 +31,9 @@ class Property extends AbstractEntity
     private string $propertyArea;
 
     #[ORM\Column]
+    private string $propertyBathRooms;
+
+    #[ORM\Column]
     private string $propertyCategory;
 
     #[ORM\Column]
@@ -70,8 +73,7 @@ class Property extends AbstractEntity
     private string $propertyType;
 
     #[ORM\Column(type: "string",nullable: true)]
-    private ?string $roomBed = null;
-
+    private ?string  $propertyBedRooms= null;
 
     #[ORM\Column]
     private string $squareType;
@@ -141,6 +143,22 @@ class Property extends AbstractEntity
     public function setPropertyArea(string $propertyArea): void
     {
         $this->propertyArea = $propertyArea;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyBathRooms(): string
+    {
+        return $this->propertyBathRooms;
+    }
+
+    /**
+     * @param string $propertyBathRooms
+     */
+    public function setPropertyBathRooms(string $propertyBathRooms): void
+    {
+        $this->propertyBathRooms = $propertyBathRooms;
     }
 
     /**
@@ -355,17 +373,17 @@ class Property extends AbstractEntity
     /**
      * @return string|null
      */
-    public function getRoomBed(): ?string
+    public function getPropertyBedRooms(): ?string
     {
-        return $this->roomBed;
+        return $this->propertyBedRooms;
     }
 
     /**
-     * @param string|null $roomBed
+     * @param string|null $propertyBedRooms
      */
-    public function setRoomBed(?string $roomBed): void
+    public function setPropertyBedRooms(?string $propertyBedRooms): void
     {
-        $this->roomBed = $roomBed;
+        $this->propertyBedRooms = $propertyBedRooms;
     }
 
     /**

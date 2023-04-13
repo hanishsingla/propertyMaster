@@ -169,7 +169,7 @@ class PropertyType extends AbstractType
                 'label' => 'Type',
             ])
 
-            ->add('roomBed', ChoiceType::class, [
+            ->add('propertyBedRooms', ChoiceType::class, [
                 'placeholder' => 'Select option',
                 'attr' => [
 
@@ -181,9 +181,26 @@ class PropertyType extends AbstractType
                     '3 Bed /Room' => '3 Bed /Room',
                     '4 Bed /Room' => '4 Bed /Room',
                 ],
-                'label' => 'Bed',
+                'label' => 'BedRooms',
                 'required' => false,
             ])
+
+            ->add('propertyBathRooms', ChoiceType::class, [
+                'placeholder' => 'Select option',
+                'attr' => [
+
+                    'class' => 'form-control',
+                ],
+                'choices' => [
+                    '1' => '1',
+                    '2' => '2',
+                    '3' => '3',
+                    '4' => '4',
+                ],
+                'label' => 'BathRooms',
+                'required' => false,
+            ])
+
 
             ->add('squareType', ChoiceType::class, [
                 'attr' => [
@@ -192,8 +209,8 @@ class PropertyType extends AbstractType
                 ],
                 'choices' => [
                     'select' => '',
-                    'sq ft' => 'sq ft',
-                    'm²' => 'm2',
+                    'sq.ft.' => 'sq.ft.',
+                    'sq.m.' => 'sq.m.',
                 ],
                 'label' => 'square Type',
             ]);
