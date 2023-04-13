@@ -50,7 +50,7 @@
                 <div class="input-group">
                     {{ form_widget(form.propertyPrice) }}
                     <span class="input-group-text">
-                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                        <i class="fa-solid fa-dollar-sign"></i>
                     </span>
                 </div>
                 {{ form_errors(form.propertyPrice) }}
@@ -128,16 +128,16 @@
         </div>
         <div class="form-group row my-2">
             <div class="col-lg-3 col-xxl-4 my-2">
-                {{ form_label(form.roomBed) }}
+                {{ form_label(form.propertyBedRooms) }}
             </div>
             <div class="col-lg-9 col-xxl-8 my-2">
                 <div class="input-group">
-                    {{ form_widget(form.roomBed) }}
+                    {{ form_widget(form.propertyBedRooms) }}
                     <span class="input-group-text">
                 <i class="fas fa-bed"></i>
             </span>
                 </div>
-                {{ form_errors(form.roomBed) }}
+                {{ form_errors(form.propertyBedRooms) }}
             </div>
         </div>
         <div class="form-group row my-2">
@@ -178,7 +178,7 @@
                     <div class="property-garage input-group ms-1">
                         {{ form_widget(form.propertyGarage) }}
                         <span class="input-group-text">
-                        <i class="fas fa-warehouse"></i>
+                       <i class="fa-solid fa-car"></i>
                     </span>
                     </div>
                     {{ form_errors(form.propertyGarage) }}
