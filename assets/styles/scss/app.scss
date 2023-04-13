@@ -424,10 +424,8 @@ select#property_squareType {
 }
 
 .heart-checkbox {
-  display: inline-block;
-  position: relative;
-  margin: 10px;
-  left: 250px;
+  margin: 20px;
+  font-size: 20px;
 }
 
 .heart-checkbox input[type="checkbox"] {
@@ -453,33 +451,31 @@ select#property_squareType {
 }
 
 
-.page-text .page-title .property-rent{
-font-size: 12px;
-font-weight: 600;
-text-transform: uppercase;
-padding: 3px 10px 2px;
-display: inline-block;
-background: #0166D0;
-color: #ffffff;
-margin-right: 10px;
-}
-.page-text .page-title .property-sell{
+.page-text .property-rent {
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   padding: 3px 10px 2px;
   display: inline-block;
+  background: #0166D0;
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.page-text .property-sell {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 3px 10px 2px;
   background: #198754;
   color: #ffffff;
   margin-right: 10px;
 }
 
-.page-text .page-title .property-price{
+.page-text .property-price {
   font-size: 18px;
   font-weight: 700;
   color: #00C89E;
-  margin-bottom: 10px;
-  display: inline-block;
 }
 
 /*==========  Property details Form css end ===========*/

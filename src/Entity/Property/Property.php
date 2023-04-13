@@ -4,6 +4,8 @@ namespace App\Entity\Property;
 
 use App\Entity\AbstractEntity;
 use App\Repository\Property\PropertyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -37,7 +39,7 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $propertyCountry = 'india';
 
-    #[ORM\Column]
+    #[ORM\Column(type: "string" ,length: "1000")]
     private string $propertyDescription;
 
     #[ORM\Column]
@@ -74,8 +76,15 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $squareType;
 
-    #[ORM\OneToOne(mappedBy: 'property', cascade: ['persist', 'remove'])]
-    private ?FavouriteProperty $favoriteProperty = null;
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: FavouriteProperty::class)]
+    private Collection $favouriteProperties;
+
+    public function __construct()
+    {
+        $this->favouriteProperties = new ArrayCollection();
+    }
+
+
 
     /**
      * @return string|null
@@ -375,24 +384,32 @@ class Property extends AbstractEntity
         $this->squareType = $squareType;
     }
 
-    public function getFavoriteProperty(): ?FavouriteProperty
+    /**
+     * @return Collection<int, FavouriteProperty>
+     */
+    public function getFavouriteProperties(): Collection
     {
-        return $this->favoriteProperty;
+        return $this->favouriteProperties;
     }
 
-    public function setFavoriteProperty(?FavouriteProperty $favoriteProperty): self
+    public function addFavouriteProperty(FavouriteProperty $favouriteProperty): self
     {
-        // unset the owning side of the relation if necessary
-        if ($favoriteProperty === null && $this->favoriteProperty !== null) {
-            $this->favoriteProperty->setProperty(null);
+        if (!$this->favouriteProperties->contains($favouriteProperty)) {
+            $this->favouriteProperties->add($favouriteProperty);
+            $favouriteProperty->setProperty($this);
         }
 
-        // set the owning side of the relation if necessary
-        if ($favoriteProperty !== null && $favoriteProperty->getProperty() !== $this) {
-            $favoriteProperty->setProperty($this);
-        }
+        return $this;
+    }
 
-        $this->favoriteProperty = $favoriteProperty;
+    public function removeFavouriteProperty(FavouriteProperty $favouriteProperty): self
+    {
+        if ($this->favouriteProperties->removeElement($favouriteProperty)) {
+            // set the owning side to null (unless already changed)
+            if ($favouriteProperty->getProperty() === $this) {
+                $favouriteProperty->setProperty(null);
+            }
+        }
 
         return $this;
     }

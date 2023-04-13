@@ -47,8 +47,10 @@ class PropertyController extends AbstractDashboardController
         $ownerId = $request->getSession()->get('ownerId');
 
         $propertyInformation = $propertyRepository->getPropertyById($propertyId);
+        $fav = $favoritePropertyRepository->findOneBy(['property' => $propertyId, 'ownerId' => $ownerId]);
         return $this->render('property/detail.html.twig', [
             'propertyInformation' => $propertyInformation,
+            'fav' => $fav,
         ]);
     }
 
@@ -73,32 +75,37 @@ class PropertyController extends AbstractDashboardController
     {
         $ownerId = $request->getSession()->get('ownerId');
         $favourites = $favouritePropertyRepository->getFavoritePropertyByFav($ownerId);
+
         return $this->render('base/favourite_property.html.twig', [
             'propertyLists' => $favourites
         ]);
     }
 
     #[Route('/liked-property/{propertyId}', name: 'likedProperty')]
-    public function likedProperty(Request $request, CommonHelper $commonHelper, PropertyRepository $propertyRepository, EntityManagerInterface $em, $propertyId): Response
+    public function likedProperty(Request $request, CommonHelper $commonHelper, FavouritePropertyRepository $favouritePropertyRepository, PropertyRepository $propertyRepository, EntityManagerInterface $em, $propertyId): Response
     {
-
         $ownerId = $request->getSession()->get('ownerId');
-        $property = $propertyRepository->getPropertyById($propertyId, $ownerId);
-
         $data = $request->get('data');
-        if (empty($property->getFavoriteProperty())) {
-            $fav = new FavouriteProperty();
-            $fav->setOwnerId($ownerId);
-            $commonHelper->setCreatedDate($fav);
+
+        $favourite = $favouritePropertyRepository->findOneBy(['property' => $propertyId, 'ownerId' => $ownerId]);
+
+        if (empty($favourite)) {
+            $property = $propertyRepository->getPropertyById($propertyId);
+            $favourite = new FavouriteProperty();
+            $favourite->setProperty($property);
+            $favourite->setOwnerId($ownerId);
+            $commonHelper->setCreatedDate($favourite);
         } else {
-            $fav = $property->getFavoriteProperty();
-            $commonHelper->setUpdateDate($fav);
+            $commonHelper->setUpdateDate($favourite);
         }
-        $fav->setFavourite($data);
-        $property->setFavoriteProperty($fav);
-        $em->persist($property);
+
+        $favourite->setFavourite($data);
+
+        $em->persist($favourite);
         $em->flush();
+
         return $this->json('data');
     }
+
 
 }

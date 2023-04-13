@@ -26,9 +26,10 @@ class FavouriteProperty extends AbstractEntity
     #[ORM\Column(type: "string")]
     private string $favourite;
 
-    #[ORM\OneToOne(inversedBy: 'favoriteProperty', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'favouriteProperties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Property $property = null;
+
 
     /**
      * @return string|null
@@ -75,11 +76,12 @@ class FavouriteProperty extends AbstractEntity
         return $this->property;
     }
 
-    public function setProperty(Property $property): self
+    public function setProperty(?Property $property): self
     {
         $this->property = $property;
 
         return $this;
     }
+
 
 }

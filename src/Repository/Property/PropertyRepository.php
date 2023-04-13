@@ -2,8 +2,11 @@
 
 namespace App\Repository\Property;
 
+use App\Entity\Property\FavouriteProperty;
 use App\Entity\Property\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -67,9 +70,10 @@ class PropertyRepository extends ServiceEntityRepository
     public function getPropertyByOwner(mixed $ownerId): array
     {
         return $this->findBy([
-            'ownerId'=>$ownerId,
+            'ownerId' => $ownerId,
         ]);
     }
+
     public function getPropertyByListType($listType)
     {
         $qb = $this->createQueryBuilder('p');
@@ -104,4 +108,16 @@ class PropertyRepository extends ServiceEntityRepository
         ]);
     }
 
+
+//    public function getFavoritePropertyOneByFav($propertyId, mixed $ownerId): array
+//    {
+//        $query = $this->createQueryBuilder('p')
+//            ->leftJoin(FavouriteProperty::class, 'f', 'With', 'p.id = f.property')
+//            ->where('p.id = :propertyId')
+//            ->andWhere('p.ownerId = :ownerId')
+//            ->setParameter('propertyId', $propertyId)
+//            ->setParameter('ownerId', $ownerId)
+//            ->getQuery();
+//        return $query->getResult();
+//    }
 }
