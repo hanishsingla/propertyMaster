@@ -33,7 +33,7 @@ class BaseController extends AbstractController
 
             $propertyLists = $propertyRepository->getPropertyByListType($listType);
 
-            return $this->render('listing/home/home_listing.html.twig', [
+            return $this->render('listing/property/property_listing.html.twig', [
                 'propertyLists' => $propertyLists,
             ]);
         }

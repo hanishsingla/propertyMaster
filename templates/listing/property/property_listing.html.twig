@@ -1,3 +1,32 @@
-{% for  list in propertyList %}
-
-{% endfor %}
+{% if propertyLists|length > 0 %}
+    {% for list in propertyLists %}
+        <div class="col-lg-3 col-md-4 col-12">
+            <a class="single-property mt-30" href="{{ path('propertyDetails',{'propertyId': list.id}) }}">
+                <div class="property-img">
+                    {% if list.propertyImage %}
+                        {% for image in list.propertyImage %}
+                            <img src="{{ asset('uploads/propertyImages/' ~ image) }}" alt="{{ image }}">
+                        {% endfor %}
+                    {% else %}
+                        <img src="{{ asset('uploads/propertyImages/property.jpg') }}" alt="property">
+                    {% endif %}
+                    <span class="{{ list.propertyCategory == 'sale' or list.propertyCategory == 'buy' ? 'sale' : 'rent' }}">{{ list.propertyCategory|capitalize }}</span>
+                </div>
+                <div class="property-desc">
+                    <h4>{{ list.propertyTitle }}</h4>
+                    <p>
+                        <span class="location">{{ list.propertyCity }} , {{ list.propertyState }} ,</span>
+                        <span class="property-info">{{ list.propertyArea }}, {{ list.propertyRooms }}</span>
+                    </p>
+                    <div class="price-box">
+                        <p>{{ list.propertyPrice }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="col-md-12 text-center">
+        <h1>No record Found</h1>
+    </div>
+{% endif %}
