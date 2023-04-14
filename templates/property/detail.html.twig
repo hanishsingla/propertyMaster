@@ -3,10 +3,43 @@
 {% block pageContent %}
     <section class="property-details">
         <div class="container">
-            <div class="property-title">
-                <h1>{{ propertyInformation.propertyTitle }}</h1>
-                <h6>{{ propertyInformation.propertyCity|capitalize }} , {{ propertyInformation.propertyState|capitalize }}
-                    ({{ propertyInformation.propertyCountry|capitalize }})</h6>
+            <div class="row mb-5">
+                <div class="col-md-6 property-title">
+                    <h1>{{ propertyInformation.propertyTitle }}</h1>
+                    <h6 class="mt-3"><i class="fa-solid fa-location-dot"></i> {{ propertyInformation.propertyCity|capitalize }} , {{ propertyInformation.propertyState|capitalize }}
+                        ({{ propertyInformation.propertyCountry|capitalize }})</h6>
+                </div>
+                <div class="col-md-6 property-Price text-end">
+
+                    <h1><i class="fa-solid fa-dollar-sign"></i> {{ propertyInformation.propertyPrice }}</h1>
+
+                    <div class="d-flex align-items-center justify-content-end mt-3">
+                        <div class="share mx-2" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-share-nodes"></i>
+                            Share
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fa-brands fa-facebook-f fa-beat-fade"></i> Facebook</a></li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-envelope fa-bounce"></i> email</a></li>
+
+                        </ul>
+
+                        {% if is_granted("ROLE_USER") %}
+                            <label class="heart-checkbox">
+                                <input type="checkbox" id="checkbox1" name="checkbox" data-input="checked" data-href="liked-property"
+                                       data-id="{{ propertyInformation.id }}" {{ fav.favourite is defined and fav.favourite != 'false' ? 'checked' }}>
+                                <div class="favourite"><i class="fa-solid fa-heart fa-beat"></i> Favourite</div>
+                            </label>
+                        {% endif %}
+
+                        <div class="print mx-2">
+                            <i class="fa-solid fa-print"></i>
+                            Print
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-8">
@@ -19,23 +52,7 @@
                             <img src="{{ asset('uploads/propertyImages/property.jpg') }}" class="img-fluid" alt="property">
                         {% endif %}
                     </div>
-                    <div class="page-text">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="d-flex align-items-center">
-                                    <label class="{{ propertyInformation.propertyStatus != 'sell'?  'property-rent': 'property-sell' }}">For {{ propertyInformation.propertyStatus }}</label>
-                                    <label class="property-price"><i class="fa-solid fa-dollar-sign"></i> {{ propertyInformation.propertyPrice }}</label>
-                                    {% if is_granted("ROLE_USER") %}
-                                        <label class="heart-checkbox">
-                                            <input type="checkbox" id="checkbox1" name="checkbox" data-input="checked" data-href="liked-property"
-                                                   data-id="{{ propertyInformation.id }}" {{ fav.favourite is defined and fav.favourite != 'false' ? 'checked' }}>
-                                            <label for="checkbox1"><i class="fas fa-heart"></i></label>
-                                        </label>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     {#       Overview     #}
                     <div class="row mt-3">
                         <div class="card">
@@ -134,38 +151,61 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="col-md-12">
-                            <h3 class="text-uppercase bottom40 mt-3">Advance <span class="color_red">Search</span></h3>
+                <div class="col-md-4 ps-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="text-uppercase text-center bottom40 mt-3">Advance <span class="color_red">Search</span></h3>
+
+                                    <ul class="nav nav-pills  justify-content-center mb-3" id="pills-tab" role="tablist">
+
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab"
+                                                    aria-controls="pills-home" aria-selected="true">For Rent
+                                            </button>
+                                        </li>
+
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab"
+                                                    aria-controls="pills-profile" aria-selected="false">For Sale
+                                            </button>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="container advanceSearchTab">
+
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <form method="get" action="{{ path('propertySearch') }}">
+                                                <div class="form-group">
+                                                    <label>Type</label>
+                                                    <select class="form-select" data-property="type">
+                                                        <option value="">Select type</option>
+                                                        <option value="residential">Residential</option>
+                                                        <option value="commercial">Commercial</option>
+                                                        <option value="agricultural">Agricultural</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group mt-2">
+                                                    <label>Category</label>
+                                                    <select class="form-select" data-property="category"></select>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+                                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+                                    </div>
+
+
+                                </div>
+                            </div>
                         </div>
-                        <form method="get" action="/property-search">
-
-                            <div class="form-group my-2">
-                                <label>Type </label>
-                                <input type="text" placeholder="Search city" name="Type" class="form-control">
-                            </div>
-
-                            <div class="form-group my-2">
-                                <label>Category </label>
-                                <input type="text" placeholder="Search State" name="State" class="form-control">
-                            </div>
-
-                            <div class="form-group my-2">
-                                <label> City </label>
-                                <input type="text" placeholder="Search city" name="city" class="form-control">
-                            </div>
-
-                            <div class="form-group my-2">
-                                <label> State </label>
-                                <input type="text" placeholder="Search State" name="State" class="form-control">
-                            </div>
-
-                            <div class="form-group my-2">
-                                <label> State </label>
-                                <input type="text" placeholder="Search State" name="State" class="form-control">
-                            </div>
-                        </form>
                     </div>
 
                 </div>

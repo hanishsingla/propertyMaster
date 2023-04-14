@@ -423,30 +423,34 @@ select#property_squareType {
   color: black;
 }
 
-.heart-checkbox {
-  margin: 20px;
-  font-size: 20px;
+.heart-checkbox ,.share , .print {
+  padding: 4px 8px;
+  font-size: 15px;
+  background-color: rgba(242, 238, 238, 0.3294117647);
+  text-align: center;
+  /* border: 2px solid rgba(105, 160, 217, 0.85); */
+  border-radius: 4px;
+  box-shadow: 0 10px 5px 0 rgba(7, 152, 255, 0.09);
+  cursor:pointer;
 }
 
 .heart-checkbox input[type="checkbox"] {
   display: none;
 }
 
-.heart-checkbox label {
+ .heart-checkbox div{
   display: inline-block;
-  width: 30px;
-  height: 30px;
   margin: 0;
   position: relative;
   cursor: pointer;
   user-select: none;
 }
 
-.heart-checkbox label i {
+.heart-checkbox div.favourite > i {
   color: #aaa;
 }
 
-.heart-checkbox input[type="checkbox"]:checked + label i {
+.heart-checkbox input[type="checkbox"]:checked + div.favourite > i {
   color: #e74c3c;
 }
 
