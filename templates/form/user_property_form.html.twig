@@ -2,6 +2,25 @@
     <div class="col-md-6">
         <div class="form-group row my-2">
             <div class="col-lg-3 col-xxl-4 my-2">
+                {{ form_label(form.propertyStatus) }}
+            </div>
+            <div class="col-lg-9 col-xxl-8 my-2" id="switch">
+                <input type="radio" name="select" id="option-1" checked>
+                <input type="radio" name="select" id="option-2">
+                <label for="option-1" class="option option-1">
+                    <div class="dot"></div>
+                    <span>Student</span>
+                </label>
+                <label for="option-2" class="option option-2">
+                    <div class="dot"></div>
+                    <span>Teacher</span>
+                </label>
+                {{ form_errors(form.propertyStatus) }}
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <div class="col-lg-3 col-xxl-4 my-2">
                 {{ form_label(form.propertyTitle) }}
             </div>
             <div class="col-lg-9 col-xxl-8 my-2">
@@ -44,6 +63,21 @@
         </div>
         <div class="form-group row my-2">
             <div class="col-lg-3 col-xxl-4 my-2">
+                {{ form_label(form.propertyBathRooms) }}
+            </div>
+            <div class="col-lg-9 col-xxl-8 my-2">
+                <div class="input-group">
+                    {{ form_widget(form.propertyBathRooms) }}
+                    <span class="input-group-text">
+                <i class="fa-sharp fa-solid fa-restroom"></i>
+            </span>
+                </div>
+                {{ form_errors(form.propertyBathRooms) }}
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <div class="col-lg-3 col-xxl-4 my-2">
                 {{ form_label(form.propertyPrice) }}
             </div>
             <div class="col-lg-9 col-xxl-8 my-2">
@@ -70,32 +104,8 @@
                 {{ form_errors(form.propertyType) }}
             </div>
         </div>
-        <div class="form-group row my-2">
-            <div class="col-lg-3 col-xxl-4 my-2">
-                {{ form_label(form.propertyArea) }}
-            </div>
-            <div class="col-lg-9 col-xxl-8 my-2">
-                <div class="input-group">
-                    {{ form_widget(form.propertyArea) }}
-                    {{ form_widget(form.squareType) }}
-                </div>
-                {{ form_errors(form.propertyArea) }}
-            </div>
-        </div>
-        <div class="form-group row my-2">
-            <div class="col-lg-3 col-xxl-4 my-2">
-                {{ form_label(form.propertyStatus) }}
-            </div>
-            <div class="col-lg-9 col-xxl-8 my-2">
-                <div class="input-group">
-                    {{ form_widget(form.propertyStatus) }}
-                    <span class="input-group-text">
-                        <i class="fa-solid fa-hand-holding-dollar"></i>
-                    </span>
-                </div>
-                {{ form_errors(form.propertyStatus) }}
-            </div>
-        </div>
+
+
     </div>
     <div class="col-md-6">
         <div class="form-group row my-2">
@@ -168,6 +178,20 @@
                 {{ form_errors(form.propertyCategory) }}
             </div>
         </div>
+
+        <div class="form-group row my-2">
+            <div class="col-lg-3 col-xxl-4 my-2">
+                {{ form_label(form.propertyArea) }}
+            </div>
+            <div class="col-lg-9 col-xxl-8 my-2">
+                <div class="input-group">
+                    {{ form_widget(form.propertyArea) }}
+                    {{ form_widget(form.squareType) }}
+                </div>
+                {{ form_errors(form.propertyArea) }}
+            </div>
+        </div>
+
         <div class="form-group row my-2">
             <div class="col-lg-3 col-xxl-4 my-2">
                 {{ form_label(form.propertyGarage) }}
@@ -185,19 +209,18 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row my-2">
-            <div class="col-lg-3 col-xxl-4 my-2">
-                {{ form_label(form.propertyImage) }}
-            </div>
-            <div class="col-lg-9 col-xxl-8 my-2">
-                <div class="input-group">
-                    {{ form_widget(form.propertyImage) }}
-                    <span class="input-group-text">
-                        <i class="fa-regular fa-images"></i>
-                    </span>
-                </div>
-                {{ form_errors(form.propertyImage) }}
-            </div>
+    </div>
+
+    <div class="col-lg-2  my-2">
+        {{ form_label(form.propertyImage) }}
+    </div>
+    <div class="col-lg-10 my-2">
+        <div class="input-group">
+            {{ form_widget(form.propertyImage) }}
+            <span class="input-group-text">
+                <i class="fa-regular fa-images"></i>
+            </span>
+            {{ form_errors(form.propertyImage) }}
         </div>
     </div>
 

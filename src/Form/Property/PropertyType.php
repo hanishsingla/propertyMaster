@@ -23,7 +23,7 @@ class PropertyType extends AbstractType
         $builder
             ->add('propertyIsGarage', CheckboxType::class, [
                 'attr' => [
-                    'placeholder' => 'Area',
+                    'placeholder' => 'Garage',
                     'class' => 'form-check-input',
                 ],
                 'label' => 'Is Garage',
@@ -137,15 +137,12 @@ class PropertyType extends AbstractType
                 'label' => 'State',
             ])
 
-            ->add('propertyStatus', ChoiceType::class, [
-                'placeholder' => 'Select option',
+            ->add('propertyStatus', CheckboxType::class, [
+
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-check-input',
                 ],
-                'choices' => [
-                    'For Sale' => 'sale',
-                    'For Rent' => 'rent',
-                ],
+
                 'label' => 'Status',
             ])
 
@@ -161,7 +158,6 @@ class PropertyType extends AbstractType
                 'choices' => [
                     'Residential' => 'residential',
                     'Commercial' => 'commercial',
-                    'Agricultural' => 'agricultural',
                 ],
                 'placeholder' => 'Select option',
                 'attr' => [

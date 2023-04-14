@@ -78,22 +78,18 @@ $(document).ready(function () {
     // Define the options for each property type
     var propertyTypeOptions = {
         'residential': {
-            'Single-family home': 'single_family_home',
+            'Villa': 'villa',
             'Apartment': 'apartment',
-            'Condominium': 'condominium',
-            'Townhouse': 'townhouse',
-            'Mobile home': 'mobile_home',
+            'Floor': 'Floor',
+            'Plot': 'plot',
         },
         'commercial': {
             'Office': 'office',
-            'Retail store': 'retail_store',
+            'Shop': 'Shop',
             'Hotel': 'hotel',
             'Warehouse': 'warehouse',
-        },
-        'agricultural': {
-            'Crop field': 'crop_field',
-            'Orchard': 'orchard',
-            'Cattle ranch': 'cattle_ranch',
+            'Plot': 'plot',
+            'Agricultural/ Farm Land' : 'agricultural_farm_land',
         },
     };
 

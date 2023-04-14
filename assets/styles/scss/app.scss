@@ -401,7 +401,7 @@ ul li {
 /*========== Create Property Form css end ===========*/
 
 input#property_propertyArea {
-  width: 15rem;
+  width: 24rem;
 }
 
 select#property_squareType {
@@ -423,7 +423,7 @@ select#property_squareType {
   color: black;
 }
 
-.heart-checkbox ,.share , .print {
+.heart-checkbox, .share, .print {
   padding: 4px 8px;
   font-size: 15px;
   background-color: rgba(242, 238, 238, 0.3294117647);
@@ -431,14 +431,14 @@ select#property_squareType {
   /* border: 2px solid rgba(105, 160, 217, 0.85); */
   border-radius: 4px;
   box-shadow: 0 10px 5px 0 rgba(7, 152, 255, 0.09);
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .heart-checkbox input[type="checkbox"] {
   display: none;
 }
 
- .heart-checkbox div{
+.heart-checkbox div {
   display: inline-block;
   margin: 0;
   position: relative;
@@ -482,11 +482,110 @@ select#property_squareType {
   color: #00C89E;
 }
 
-.bottom40{
+.bottom40 {
   margin-bottom: 40px;
 }
+
 /*==========  Property details Form css end ===========*/
 
+/*==========  Input Fields Form css start ===========*/
+
+//input:invalid {
+//  animation: shake 300ms;
+//  color: red;
+//}
+input{
+  caret-color: #0d6efd;
+}
+//
+//@keyframes shake {
+//  25% {
+//    transform: translateX(4px);
+//  }
+//  50% {
+//    transform: translateX(-4px);
+//  }
+//  75% {
+//    transform: translateX(4px);
+//  }
+//}
+
+/*==========  Input Fields Form css end ===========*/
+
+/*==========  Input Field Radio Type css start ===========*/
+
+.wrapper{
+  display: inline-flex;
+  background: #fff;
+  height: 100px;
+  width: 400px;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  padding: 20px 15px;
+  box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+}
+.wrapper .option{
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 2px solid lightgrey;
+  transition: all 0.3s ease;
+}
+.wrapper .option .dot{
+  height: 20px;
+  width: 20px;
+  background: #d9d9d9;
+  border-radius: 50%;
+  position: relative;
+}
+.wrapper .option .dot::before{
+  position: absolute;
+  content: "";
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background: #0069d9;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(1.5);
+  transition: all 0.3s ease;
+}
+input[type="radio"]{
+  display: none;
+}
+#option-1:checked:checked ~ .option-1,
+#option-2:checked:checked ~ .option-2{
+  border-color: #0069d9;
+  background: #0069d9;
+}
+#option-1:checked:checked ~ .option-1 .dot,
+#option-2:checked:checked ~ .option-2 .dot{
+  background: #fff;
+}
+#option-1:checked:checked ~ .option-1 .dot::before,
+#option-2:checked:checked ~ .option-2 .dot::before{
+  opacity: 1;
+  transform: scale(1);
+}
+.wrapper .option span{
+  font-size: 20px;
+  color: #808080;
+}
+#option-1:checked:checked ~ .option-1 span,
+#option-2:checked:checked ~ .option-2 span{
+  color: #fff;
+}
+
+/*==========  Input Field Radio Type  css end ===========*/
 
 /*========== footer css start ===========*/
 
