@@ -97,13 +97,13 @@ $(document).ready(function () {
         },
     };
 
-    var $propertyTypeSelect = $('#property_propertyType');
+    var $propertyTypeSelect = $('[data-property="type"]');
 
-    var $categorySelect = $('#property_propertyCategory');
+    var $categorySelect = $('[data-property="category"]');
 
     function updateCategorySelectBox() {
-        var propertyTypeValue = $propertyTypeSelect.val();
-        var categoryOptions = propertyTypeOptions[propertyTypeValue];
+        const propertyTypeValue = $propertyTypeSelect.val();
+        const categoryOptions = propertyTypeOptions[propertyTypeValue];
         $categorySelect.empty();
 
         $.each(categoryOptions, function (key, value) {
@@ -111,13 +111,12 @@ $(document).ready(function () {
         });
     }
 
-    // Update the category select box on page load
     updateCategorySelectBox();
 
-    // Update the category select box when the property type select box changes
     $propertyTypeSelect.change(function () {
         updateCategorySelectBox();
     });
+
 });
 
 
