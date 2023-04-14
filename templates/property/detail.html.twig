@@ -20,7 +20,10 @@
                         </div>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#"><i class="fa-brands fa-facebook-f fa-beat-fade"></i> Facebook</a></li>
-                            <li><hr class="dropdown-divider"></li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
 
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-envelope fa-bounce"></i> email</a></li>
 
@@ -172,15 +175,19 @@
                                             </button>
                                         </li>
                                     </ul>
-
                                 </div>
-
-                                <div class="container advanceSearchTab">
+                                <div class="container">
 
                                     <div class="tab-content" id="pills-tabContent">
                                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                             <form method="get" action="{{ path('propertySearch') }}">
-                                                <div class="form-group">
+
+                                                <div class="form-group mt-2">
+                                                    <label>Category</label>
+                                                    <input type="text" placeholder="Search City" class="form-control" pattern="[a-z]*">
+                                                </div>
+
+                                                <div class="form-group mt-2">
                                                     <label>Type</label>
                                                     <select class="form-select" data-property="type">
                                                         <option value="">Select type</option>
@@ -194,7 +201,6 @@
                                                     <label>Category</label>
                                                     <select class="form-select" data-property="category"></select>
                                                 </div>
-
                                             </form>
 
                                         </div>
@@ -207,7 +213,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
