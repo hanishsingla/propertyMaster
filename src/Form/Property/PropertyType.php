@@ -41,7 +41,9 @@ class PropertyType extends AbstractType
             ->add('propertyCategory', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-control',
+                    'data-property'=> "category",
                 ],
+                'placeholder' => 'Select option',
                 'choices' => [], //dynamic value display by id
                 'label' => 'Category',
             ])
@@ -164,6 +166,7 @@ class PropertyType extends AbstractType
                 'placeholder' => 'Select option',
                 'attr' => [
                     'class' => 'form-control',
+                    'data-property'=> "type"
                 ],
                 'required' => true,
                 'label' => 'Type',

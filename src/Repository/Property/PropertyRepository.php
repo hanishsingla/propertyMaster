@@ -67,6 +67,11 @@ class PropertyRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    public function getAllProperty(): array
+    {
+        return $this->findAll();
+    }
+
     public function getPropertyByOwner(mixed $ownerId): array
     {
         return $this->findBy([
@@ -120,4 +125,5 @@ class PropertyRepository extends ServiceEntityRepository
 //            ->getQuery();
 //        return $query->getResult();
 //    }
+
 }

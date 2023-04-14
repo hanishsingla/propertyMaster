@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block pageContent %}
-    {{ include('carousel/carousel_and_filter.html.twig') }}
     <div class="container mt-5 ">
         <div class="row" id="propertyListing">
-
+            {{ include('listing/property/property_listing.html.twig') }}
         </div>
     </div>
 {% endblock %}
