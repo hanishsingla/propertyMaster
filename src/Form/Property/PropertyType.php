@@ -137,13 +137,17 @@ class PropertyType extends AbstractType
                 'label' => 'State',
             ])
 
-            ->add('propertyStatus', CheckboxType::class, [
-
-                'attr' => [
-                    'class' => 'form-check-input',
+            ->add('propertyStatus', ChoiceType::class, [
+                'choices' => [
+                    'Rent' => 'rent',
+                    'Sell' => 'sell',
                 ],
+                'choice_attr' => function() {
+                    return ['class' => 'mx-2'];
+                },
 
-                'label' => 'Status',
+                'expanded' => true,
+                'multiple' => false,
             ])
 
             ->add('propertyTitle', TextType::class, [
