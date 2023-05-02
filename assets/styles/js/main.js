@@ -89,7 +89,7 @@ $(document).ready(function () {
             'Hotel': 'hotel',
             'Warehouse': 'warehouse',
             'Plot': 'plot',
-            'Agricultural/ Farm Land' : 'agricultural_farm_land',
+            'Agricultural/ Farm Land': 'agricultural_farm_land',
         },
     };
 
@@ -174,4 +174,21 @@ $(document).ready(function () {
 });
 
 /*==========  Property details  js end ===========*/
+
+
+/*==========  Password hide show js start ===========*/
+
+$(body).on('click', '[data-click="eye"]', function (e) {
+    const id = $(this).prev().attr('id');
+    const passwordField = $('#' + id);
+    const fieldType = passwordField.prop('type');
+
+    if (fieldType === 'password') {
+        passwordField.prop('type', 'text');
+    } else {
+        passwordField.prop('type', 'password');
+    }
+    $(this).find('i').toggleClass('fa-eye fa-eye-slash');
+});
+/*========== Password hide show js end ===========*/
 
