@@ -21,12 +21,18 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('isAgent',CheckboxType::class,[
+                'attr' => [
+                    'class' => 'form-check-input',
+                ],
+                'label'=> 'Agent'
+            ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'email',
                     'autocomplete' => 'email'
-                ]
+                ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -55,10 +61,10 @@ class RegistrationFormType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'Create-password',
+                    'label' => 'Password',
                     'attr' => [
                         'class' => 'form-control',
-                        'placeholder' => 'create-password',
+                        'placeholder' => 'password',
                     ]
                 ],
 

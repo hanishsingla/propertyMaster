@@ -26,6 +26,9 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[Groups(['read'])]
     private ?string $id = null;
 
+    #[ORM\Column(type: 'boolean' ,options: ['default' => 0] )]
+    private bool $isAgent = false;
+
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -50,6 +53,22 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAgent(): bool
+    {
+        return $this->isAgent;
+    }
+
+    /**
+     * @param bool $isAgent
+     */
+    public function setIsAgent(bool $isAgent): void
+    {
+        $this->isAgent = $isAgent;
     }
 
     public function getEmail(): ?string

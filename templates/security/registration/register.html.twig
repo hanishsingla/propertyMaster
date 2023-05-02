@@ -16,44 +16,58 @@
                         <h1 class="text-center">Register</h1>
                     </div>
 
-                    <div class="col-md-12">
+
+
+                    <div class="col-md-12 mb-2">
                         {{ form_label(registrationForm.userAddress.name) }}
                         {{ form_widget(registrationForm.userAddress.name) }}
                         <span class="text-danger">{{ form_errors(registrationForm.userAddress.name) }}</span>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-2">
                         {{ form_label(registrationForm.email) }}
                         {{ form_widget(registrationForm.email) }}
                         <span class="text-danger">{{ form_errors(registrationForm.email) }}</span>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-2">
                         {{ form_label(registrationForm.userAddress.gender) }}
                         {{ form_widget(registrationForm.userAddress.gender) }}
                         <span class="text-danger">{{ form_errors(registrationForm.userAddress.gender) }}</span>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-2">
+
+                        <div class="d-flex align-items-center">
+                            {{ form_label(registrationForm.isAgent) }}
+                            <span class="form-check form-switch ms-3">
+                            {{ form_widget(registrationForm.isAgent) }}
+                            </span>
+                        </div>
+                        <span class="text-danger">{{ form_errors(registrationForm.isAgent) }}</span>
+                    </div>
+
+                    <div class="col-md-12 mb-2">
                         {{ form_label(registrationForm.password.first) }}
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             {{ form_widget(registrationForm.password.first) }}
                             <span class="input-group-text" data-click="eye">
                                  <i class="fa-solid fa-eye-slash"></i>
                             </span>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-2">
                         {{ form_label(registrationForm.password.second) }}
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             {{ form_widget(registrationForm.password.second) }}
                             {{ form_errors(registrationForm.password.second) }}
-                            <span class="input-group-text" data-click="eye"> <i class="fa-solid fa-eye-slash"></i> </span>
+                            <span class="input-group-text" data-click="eye"> <i
+                                        class="fa-solid fa-eye-slash"></i> </span>
                         </div>
                         <span class="text-danger">{{ form_errors(registrationForm.password.first) }} </span>
                     </div>
                     <div class="col-6 mt-2">
-                        <div class="checkbox mb-3 form-check form-switch">
+                        <div class="checkbox mb-3">
                             <span>
                                 {{ form_widget(registrationForm.agreeTerms) }}
                                 {{ form_label(registrationForm.agreeTerms) }}
