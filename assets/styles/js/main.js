@@ -137,42 +137,27 @@ $('.property-carousel').slick({
     cssEase: 'linear',
 });
 
-$('.heart-icon').on('click', function (e) {
-    e.preventDefault();
-    const $heart = $(this);
-    const $heartIcon = $heart.find('i.fa-heart');
-    const url = $heart.attr('href');
-
-    $.ajax({
-        type: 'POST',
-        url: url,
-        success: function (data) {
-
-        }
-    })
-    $heartIcon.toggleClass('fa-regular fa-heart fa-solid fa-heart');
-});
-
-$(document).ready(function () {
-    $(body).on('click', '[data-input="checked"]', function () {
-        const $input = $(this)
-        const id = $input.data('id');
-        const url = $input.data('href');
-        const isChecked = $input.is(':checked');
-        $.ajax({
-            url: '/' + url + '/' + id,
-            method: 'POST',
-            data: {data: isChecked},
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (error) {
-                console.log(error);
-            }
+/*==========  Favourite property  js start ===========*/
+    $(document).ready(function () {
+        $(body).on('click', '[data-input="checked"]', function () {
+            const $input = $(this)
+            const id = $input.data('id');
+            const url = $input.data('href');
+            const isChecked = $input.is(':checked');
+            $.ajax({
+                url: '/' + url + '/' + id,
+                method: 'POST',
+                data: {data: isChecked},
+                success: function (response) {
+                    $input.parent().find('.fa-heart').toggleClass('fa-heart fa-heart fa-beat');
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         });
     });
-});
-
+/*==========   Favourite property   js start ===========*/
 /*==========  Property details  js end ===========*/
 
 
