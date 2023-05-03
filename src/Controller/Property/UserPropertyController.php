@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,7 +40,7 @@ class UserPropertyController extends AbstractController
 
         $propertyForm = new Property();
 
-        $form = $this->createForm(PropertyType::class, $propertyForm,);
+        $form = $this->createForm(PropertyType::class, $propertyForm,['property_category' => $propertyCategory]);
 
         $form->handleRequest($request);
 
@@ -136,4 +137,17 @@ class UserPropertyController extends AbstractController
 
         return $this->redirectToRoute('userProperty');
     }
+
+
+    #[Route('/propertyCategory', name: 'propertyCategory')]
+    public function getPropertyCategories(Request $request ,CommonHelper $commonHelper): JsonResponse
+    {
+        $propertyType = $request->query->get('propertyType');
+
+        $categories =  $commonHelper->getCategoriesForType($propertyType);
+
+        return new JsonResponse($categories);
+    }
+
+
 }

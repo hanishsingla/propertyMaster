@@ -11,12 +11,31 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PropertyType extends AbstractType
 {
+    public function __construct(private readonly RequestStack $requestStack)
+    {
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $request = $this->requestStack->getCurrentRequest();
+        $category = $request->get('data');
+
+        $category = $request->get('data');
+        $choices = [];
+        if (!empty($category) && isset($options['property_category'])) {
+            $categoryOptions = $options['property_category'];
+            foreach ($categoryOptions as $index => $option) {
+                if ($option['code'] === $category) {
+                    $choices[$option['name']] = $index;
+                }
+            }
+        }
+
+
         $builder
             ->add('propertyArea', TextType::class, [
                 'attr' => [
@@ -31,8 +50,10 @@ class PropertyType extends AbstractType
                     'data-property' => "category",
                 ],
                 'placeholder' => 'Select option',
-                'choices' => [
-                ], //dynamic value display by id
+                'choices' => $choices,
+                'choice_attr' => function ($value, $key, $index) use ($categoryOptions) {
+                    return ['data-code' => $categoryOptions[$index]['code']];
+                },
                 'label' => 'Category',
             ])
             ->add('propertyCity', TextType::class, [
@@ -152,9 +173,9 @@ class PropertyType extends AbstractType
                     'sq.m.' => 'sq.m.',
                 ],
                 'label' => 'square Type',
-            ]);
+            ])
 
-        //            ->add('propertyIsGarage', CheckboxType::class, [
+            //            ->add('propertyIsGarage', CheckboxType::class, [
 //                'attr' => [
 //                    'placeholder' => 'Garage',
 //                    'class' => 'form-check-input',
@@ -184,6 +205,7 @@ class PropertyType extends AbstractType
 //                'required' => false,
 //                'label' => 'Garage',
 //            ])
+        ;
 
     }
 

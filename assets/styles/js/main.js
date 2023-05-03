@@ -105,7 +105,7 @@ $(document).ready(function () {
             $.ajax({
                 type: 'post',
                 url: '/createProperty',
-                data: {data: $.each(categoryOptions, function (key, value) { $categorySelect.append($('<option></option>').attr('value', value).text(key))})},
+                data: {data: categoryOptions},
                 error: function (data) {
                     alert('error')
                 }
