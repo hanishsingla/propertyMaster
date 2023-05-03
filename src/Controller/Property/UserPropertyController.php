@@ -36,11 +36,10 @@ class UserPropertyController extends AbstractController
     public function createProperty(Request $request, CommonHelper $commonHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-        $propertyCategory = $request->get('data');
 
         $propertyForm = new Property();
 
-        $form = $this->createForm(PropertyType::class, $propertyForm,['property_category' => $propertyCategory]);
+        $form = $this->createForm(PropertyType::class, $propertyForm);
 
         $form->handleRequest($request);
 

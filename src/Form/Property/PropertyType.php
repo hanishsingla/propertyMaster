@@ -22,18 +22,6 @@ class PropertyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $request = $this->requestStack->getCurrentRequest();
-        $category = $request->get('data');
-
-        $category = $request->get('data');
-        $choices = [];
-        if (!empty($category) && isset($options['property_category'])) {
-            $categoryOptions = $options['property_category'];
-            foreach ($categoryOptions as $index => $option) {
-                if ($option['code'] === $category) {
-                    $choices[$option['name']] = $index;
-                }
-            }
-        }
 
 
         $builder
@@ -50,10 +38,8 @@ class PropertyType extends AbstractType
                     'data-property' => "category",
                 ],
                 'placeholder' => 'Select option',
-                'choices' => $choices,
-                'choice_attr' => function ($value, $key, $index) use ($categoryOptions) {
-                    return ['data-code' => $categoryOptions[$index]['code']];
-                },
+                'choices' => [],
+
                 'label' => 'Category',
             ])
             ->add('propertyCity', TextType::class, [
@@ -213,7 +199,6 @@ class PropertyType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Property::class,
-            'property_category' => null,
         ]);
 
     }
