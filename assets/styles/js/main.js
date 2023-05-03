@@ -143,41 +143,43 @@ $('.property-carousel').slick({
     cssEase: 'linear',
 });
 
-$('.heart-icon').on('click', function (e) {
-    e.preventDefault();
-    const $heart = $(this);
-    const $heartIcon = $heart.find('i.fa-heart');
-    const url = $heart.attr('href');
-
-    $.ajax({
-        type: 'POST',
-        url: url,
-        success: function (data) {
-
-        }
-    })
-    $heartIcon.toggleClass('fa-regular fa-heart fa-solid fa-heart');
-});
-
-$(document).ready(function () {
-    $(body).on('click', '[data-input="checked"]', function () {
-        const $input = $(this)
-        const id = $input.data('id');
-        const url = $input.data('href');
-        const isChecked = $input.is(':checked');
-        $.ajax({
-            url: '/' + url + '/' + id,
-            method: 'POST',
-            data: {data: isChecked},
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (error) {
-                console.log(error);
-            }
+/*==========  Favourite property  js start ===========*/
+    $(document).ready(function () {
+        $(body).on('click', '[data-input="checked"]', function () {
+            const $input = $(this)
+            const id = $input.data('id');
+            const url = $input.data('href');
+            const isChecked = $input.is(':checked');
+            $.ajax({
+                url: '/' + url + '/' + id,
+                method: 'POST',
+                data: {data: isChecked},
+                success: function (response) {
+                    $input.parent().find('.fa-heart').toggleClass('fa-heart fa-heart fa-beat');
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         });
     });
-});
-
+/*==========   Favourite property   js start ===========*/
 /*==========  Property details  js end ===========*/
+
+
+/*==========  Password hide show js start ===========*/
+
+$(body).on('click', '[data-click="eye"]', function (e) {
+    const id = $(this).prev().attr('id');
+    const passwordField = $('#' + id);
+    const fieldType = passwordField.prop('type');
+
+    if (fieldType === 'password') {
+        passwordField.prop('type', 'text');
+    } else {
+        passwordField.prop('type', 'password');
+    }
+    $(this).find('i').toggleClass('fa-eye fa-eye-slash');
+});
+/*========== Password hide show js end ===========*/
 

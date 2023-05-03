@@ -8,6 +8,10 @@ class CommonHelper
 {
     public function setRegisterUser($data) : void
     {
+        if($data->isAgent()){
+            $data->setRoles(['ROLE_AGENT']);
+        }
+
         $this->setCreatedDate($data);
         $userInformation = $data->getUserAddress();
         $this->setCreatedDate($userInformation);

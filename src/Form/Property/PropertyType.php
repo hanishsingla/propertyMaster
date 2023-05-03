@@ -95,13 +95,13 @@ class PropertyType extends AbstractType
             ])
             ->add('propertyStatus', ChoiceType::class, [
                 'choices' => [
-                    'Rent' => 'rent',
                     'Sell' => 'sell',
+                    'Rent' => 'rent',
                 ],
                 'choice_attr' => function () {
                     return ['class' => 'mx-2'];
                 },
-
+                'data' => 'sell',
                 'expanded' => true,
                 'multiple' => false,
             ])

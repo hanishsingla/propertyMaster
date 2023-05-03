@@ -33,7 +33,7 @@
                             <label class="heart-checkbox">
                                 <input type="checkbox" id="checkbox1" name="checkbox" data-input="checked" data-href="liked-property"
                                        data-id="{{ propertyInformation.id }}" {{ fav.favourite is defined and fav.favourite != 'false' ? 'checked' }}>
-                                <div class="favourite"><i class="fa-solid fa-heart fa-beat"></i> Favourite</div>
+                                <div class="favourite"><i class="fa-solid fa-heart {{ fav.favourite is defined and fav.favourite != 'false' ? 'fa-beat' }}"></i> Favourite</div>
                             </label>
                         {% endif %}
 

@@ -1,6 +1,6 @@
 {% if propertyLists|length > 0 %}
     {% for list in propertyLists %}
-        <div class="col-lg-3 col-md-4 col-12">
+        <div class="col-lg-4 col-12">
             <a class="single-property mt-30" href="{{ path('propertyDetails',{'propertyId': list.id}) }}">
                 <div class="property-img">
                     {% if list.propertyImage %}
