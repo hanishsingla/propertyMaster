@@ -76,11 +76,11 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
 //  property type
 $(document).ready(function () {
     // Define the options for each property type
-    var propertyTypeOptions = {
+    const propertyTypeOptions = {
         'residential': {
             'Villa': 'villa',
             'Apartment': 'apartment',
-            'Floor': 'Floor',
+            'Floor': 'floor',
             'Plot': 'plot',
         },
         'commercial': {
@@ -89,22 +89,28 @@ $(document).ready(function () {
             'Hotel': 'hotel',
             'Warehouse': 'warehouse',
             'Plot': 'plot',
-            'Agricultural/ Farm Land' : 'agricultural_farm_land',
+            'Agricultural/ Farm Land': 'agricultural_farm_land',
         },
     };
 
     var $propertyTypeSelect = $('[data-property="type"]');
 
-    var $categorySelect = $('[data-property="category"]');
+    const $categorySelect = $('[data-property="category"]');
 
     function updateCategorySelectBox() {
         const propertyTypeValue = $propertyTypeSelect.val();
         const categoryOptions = propertyTypeOptions[propertyTypeValue];
-        $categorySelect.empty();
 
-        $.each(categoryOptions, function (key, value) {
-            $categorySelect.append($('<option></option>').attr('value', value).text(key));
-        });
+        if(categoryOptions){
+            $.ajax({
+                type: 'post',
+                url: '/createProperty',
+                data: {data: $.each(categoryOptions, function (key, value) { $categorySelect.append($('<option></option>').attr('value', value).text(key))})},
+                error: function (data) {
+                    alert('error')
+                }
+            })
+        }
     }
 
     updateCategorySelectBox();

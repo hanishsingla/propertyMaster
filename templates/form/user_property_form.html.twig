@@ -25,20 +25,22 @@
                 {{ form_errors(form.propertyTitle) }}
             </div>
         </div>
+
         <div class="form-group row my-2">
             <div class="col-lg-3 col-xxl-4 my-2">
-                {{ form_label(form.propertyCity) }}
+                {{ form_label(form.propertyBedRooms) }}
             </div>
             <div class="col-lg-9 col-xxl-8 my-2">
                 <div class="input-group">
-                    {{ form_widget(form.propertyCity) }}
+                    {{ form_widget(form.propertyBedRooms) }}
                     <span class="input-group-text">
-                        <i class="fas fa-city"></i>
-                    </span>
+                <i class="fas fa-bed"></i>
+            </span>
                 </div>
-                {{ form_errors(form.propertyCity) }}
+                {{ form_errors(form.propertyBedRooms) }}
             </div>
         </div>
+
         <div class="form-group row my-2">
             <div class="col-lg-3 col-xxl-4 my-2">
                 {{ form_label(form.propertyRooms) }}
@@ -82,22 +84,6 @@
                 {{ form_errors(form.propertyPrice) }}
             </div>
         </div>
-        <div class="form-group row my-2">
-            <div class="col-lg-3 col-xxl-4 my-2">
-                {{ form_label(form.propertyType) }}
-            </div>
-            <div class="col-lg-9 col-xxl-8 my-2">
-                <div class="input-group">
-                    {{ form_widget(form.propertyType) }}
-                    <span class="input-group-text">
-                        <i class="fas fa-building"></i>
-                    </span>
-                </div>
-                {{ form_errors(form.propertyType) }}
-            </div>
-        </div>
-
-
     </div>
     <div class="col-md-6">
         <div class="form-group row my-2">
@@ -128,34 +114,49 @@
                 {{ form_errors(form.propertyState) }}
             </div>
         </div>
+
         <div class="form-group row my-2">
             <div class="col-lg-3 col-xxl-4 my-2">
-                {{ form_label(form.propertyBedRooms) }}
+                {{ form_label(form.propertyCity) }}
             </div>
             <div class="col-lg-9 col-xxl-8 my-2">
                 <div class="input-group">
-                    {{ form_widget(form.propertyBedRooms) }}
+                    {{ form_widget(form.propertyCity) }}
                     <span class="input-group-text">
-                <i class="fas fa-bed"></i>
-            </span>
-                </div>
-                {{ form_errors(form.propertyBedRooms) }}
-            </div>
-        </div>
-        <div class="form-group row my-2">
-            <div class="col-lg-3 col-xxl-4 my-2">
-                {{ form_label(form.propertyCountry) }}
-            </div>
-            <div class="col-lg-9 col-xxl-8 my-2">
-                <div class="input-group">
-                    {{ form_widget(form.propertyCountry) }}
-                    <span class="input-group-text">
-                        <i class="fas fa-globe"></i>
+                        <i class="fas fa-city"></i>
                     </span>
                 </div>
-                {{ form_errors(form.propertyCountry) }}
+                {{ form_errors(form.propertyCity) }}
             </div>
         </div>
+        <div class="form-group row my-2">
+            <div class="col-lg-3 col-xxl-4 my-2">
+                {{ form_label(form.propertyType) }}
+            </div>
+            <div class="col-lg-9 col-xxl-8 my-2">
+                <div class="input-group">
+                    {{ form_widget(form.propertyType) }}
+                    <span class="input-group-text">
+                        <i class="fas fa-building"></i>
+                    </span>
+                </div>
+                {{ form_errors(form.propertyType) }}
+            </div>
+        </div>
+{#        <div class="form-group row my-2">#}
+{#            <div class="col-lg-3 col-xxl-4 my-2">#}
+{#                {{ form_label(form.propertyCountry) }}#}
+{#            </div>#}
+{#            <div class="col-lg-9 col-xxl-8 my-2">#}
+{#                <div class="input-group">#}
+{#                    {{ form_widget(form.propertyCountry) }}#}
+{#                    <span class="input-group-text">#}
+{#                        <i class="fas fa-globe"></i>#}
+{#                    </span>#}
+{#                </div>#}
+{#                {{ form_errors(form.propertyCountry) }}#}
+{#            </div>#}
+{#        </div>#}
         <div class="form-group row my-2">
             <div class="col-lg-3 col-xxl-4 my-2">
                 {{ form_label(form.propertyCategory) }}
@@ -184,23 +185,23 @@
             </div>
         </div>
 
-        <div class="form-group row my-2">
-            <div class="col-lg-3 col-xxl-4 my-2">
-                {{ form_label(form.propertyGarage) }}
-            </div>
-            <div class="col-lg-9 col-xxl-8 my-2">
-                <div class="form-check form-switch d-flex align-items-center">
-                    {{ form_widget(form.propertyIsGarage) }}
-                    <div class="property-garage input-group ms-1">
-                        {{ form_widget(form.propertyGarage) }}
-                        <span class="input-group-text">
-                       <i class="fa-solid fa-car"></i>
-                    </span>
-                    </div>
-                    {{ form_errors(form.propertyGarage) }}
-                </div>
-            </div>
-        </div>
+{#        <div class="form-group row my-2">#}
+{#            <div class="col-lg-3 col-xxl-4 my-2">#}
+{#                {{ form_label(form.propertyGarage) }}#}
+{#            </div>#}
+{#            <div class="col-lg-9 col-xxl-8 my-2">#}
+{#                <div class="form-check form-switch d-flex align-items-center">#}
+{#                    {{ form_widget(form.propertyIsGarage) }}#}
+{#                    <div class="property-garage input-group ms-1">#}
+{#                        {{ form_widget(form.propertyGarage) }}#}
+{#                        <span class="input-group-text">#}
+{#                       <i class="fa-solid fa-car"></i>#}
+{#                    </span>#}
+{#                    </div>#}
+{#                    {{ form_errors(form.propertyGarage) }}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
     </div>
 
     <div class="col-lg-2  my-2">

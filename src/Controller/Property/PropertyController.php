@@ -30,8 +30,7 @@ class PropertyController extends AbstractDashboardController
     public function propertyType(Request $request, PropertyRepository $propertyRepository): Response
     {
         return $this->render('property/property_type.html.twig', [
-            'site_meta_title_name' => 'properties',
-
+            'site_meta_title_name' => 'type',
         ]);
     }
 
@@ -74,11 +73,11 @@ class PropertyController extends AbstractDashboardController
 
         $status = $request->get('status');
 
-        $propertyList = $propertyRepository->getSearchProperty($city, $propertyType, $status);
+        $propertyLists = $propertyRepository->getSearchProperty($city, $propertyType, $status);
 
         return $this->render('listing/property/property_listing.html.twig', [
             'site_meta_title_name' => 'search',
-            'propertyList' => $propertyList,
+            'propertyLists' => $propertyLists,
         ]);
     }
 
