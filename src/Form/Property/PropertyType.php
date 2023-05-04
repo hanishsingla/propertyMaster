@@ -36,17 +36,18 @@ class PropertyType extends AbstractType
             ->add('propertyCategory', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-control',
+                    'data-property' => "category",
                 ],
                 'placeholder' => 'Select option',
                 'choices' => [
-                    'Villa' => 'villa',
-                    'Apartment' => 'apartment',
-                    'Floor' => 'floor',
-                    'Office' => 'office',
-                    'Shop' => 'Shop',
-                    'Hotel' => 'hotel',
-                    'Warehouse' => 'warehouse',
-                    'Agricultural/ Farm Land' => 'agricultural_farm_land',
+//                    'Villa' => 'villa',
+//                    'Apartment' => 'apartment',
+//                    'Floor' => 'floor',
+//                    'Office' => 'office',
+//                    'Shop' => 'Shop',
+//                    'Hotel' => 'hotel',
+//                    'Warehouse' => 'warehouse',
+//                    'Agricultural/ Farm Land' => 'agricultural_farm_land',
                 ],
 
                 'label' => 'Category',
@@ -136,6 +137,7 @@ class PropertyType extends AbstractType
                 'placeholder' => 'Select option',
                 'attr' => [
                     'class' => 'form-control',
+                    'data-property' => "type"
                 ],
                 'required' => true,
                 'label' => 'Type',
