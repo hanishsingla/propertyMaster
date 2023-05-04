@@ -88,67 +88,76 @@ $(checkedBox).trigger('change');
 
 /*==========  Property details  js start ===========*/
 
-$('.property-carousel').slick({
-    dots: true,
-    infinite: true,
-    speed: 500,
-    fade: true,
-    centerMode: true,
-    slidesToShow: 3,
-    autoplaySpeed: 2000,
-    autoplay: true,
-    centerPadding: '60px',
-    // cssEase: 'linear',
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
-                infinite: true,
-                dots: true
+/*==========  carousel js start ===========*/
+
+let carousel = '.carousel';
+let show = $(carousel).data('show');
+let scroll = $(carousel).data('scroll');
+show = show ? parseInt(show) : 3;
+scroll = scroll ? parseInt(scroll) : 3;
+
+$(carousel).slick(
+    {
+
+        dots: true,
+        slidesToShow: show,
+        slidesToScroll: scroll,
+        autoplay: true,
+        cssEase: 'linear',
+        infinite: true,
+        adaptiveHeight:true,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
             }
-        },
-        {
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
-            }
-        },
-        {
-            breakpoint: 480,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        }
-        // You can unslick at a given breakpoint now by adding:
-        // settings: "unslick"
-        // instead of a settings object
-    ]
-});
+            // You can unslick at a given breakpoint now by adding:
+            // settings: "unslick"
+            // instead of a settings object
+        ]
+    });
+
+/*==========  carousel js end ===========*/
 
 /*==========  Favourite property  js start ===========*/
-    $(document).ready(function () {
-        $(body).on('click', '[data-input="checked"]', function () {
-            const $input = $(this)
-            const id = $input.data('id');
-            const url = $input.data('href');
-            const isChecked = $input.is(':checked');
-            $.ajax({
-                url: '/' + url + '/' + id,
-                method: 'POST',
-                data: {data: isChecked},
-                success: function (response) {
-                    $input.parent().find('.fa-heart').toggleClass('fa-heart fa-heart fa-beat');
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
+$(document).ready(function () {
+    $(body).on('click', '[data-input="checked"]', function () {
+        const $input = $(this)
+        const id = $input.data('id');
+        const url = $input.data('href');
+        const isChecked = $input.is(':checked');
+        $.ajax({
+            url: '/' + url + '/' + id,
+            method: 'POST',
+            data: {data: isChecked},
+            success: function (response) {
+                $input.parent().find('.fa-heart').toggleClass('fa-heart fa-heart fa-beat');
+            },
+            error: function (error) {
+                console.log(error);
+            }
         });
     });
+});
 /*==========   Favourite property   js start ===========*/
 /*==========  Property details  js end ===========*/
 

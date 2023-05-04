@@ -4,15 +4,19 @@
     <section class="property-details">
         <div class="container">
             <div class="row mb-5">
+              <div class="col-6">
+                  <h1>{{ propertyInformation.propertyTitle }}</h1>
+              </div>
+                <div class="col-6 property-Price text-end">
+                    <h1><i class="fa-solid fa-dollar-sign"></i> {{ propertyInformation.propertyPrice }}</h1>
+                </div>
+
                 <div class="col-md-6 property-title">
-                    <h1>{{ propertyInformation.propertyTitle }}</h1>
                     <h6 class="mt-3"><i class="fa-solid fa-location-dot"></i> {{ propertyInformation.propertyCity|capitalize }} , {{ propertyInformation.propertyState|capitalize }}
                         ({{ propertyInformation.propertyCountry|capitalize }})</h6>
                 </div>
+
                 <div class="col-md-6 property-Price text-end">
-
-                    <h1><i class="fa-solid fa-dollar-sign"></i> {{ propertyInformation.propertyPrice }}</h1>
-
                     <div class="d-flex align-items-center justify-content-end mt-3">
                         <div class="share mx-2" data-bs-toggle="dropdown">
                             <i class="fa-solid fa-share-nodes"></i>
@@ -46,7 +50,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="container-fluid property-carousel">
+                    <div class="container-fluid carousel" data-show="2" data-scroll="1" >
                         {% if propertyInformation.propertyImage %}
                             {% for  image in  propertyInformation.propertyImage %}
                                 <img src="{{ asset('uploads/propertyImages/' ~ image) }}" class="img-fluid" alt="{{ image }}">
