@@ -73,53 +73,6 @@ $(body).on('click', '[data-popup="navTab"]', function (e) {
 /*========== home page Nav tab js end ===========*/
 
 /*==========  Property create  js start ===========*/
-//  property type
-$(document).ready(function () {
-    // Define the options for each property type
-    const propertyTypeOptions = {
-        'residential': {
-            'Villa': 'villa',
-            'Apartment': 'apartment',
-            'Floor': 'floor',
-            'Plot': 'plot',
-        },
-        'commercial': {
-            'Office': 'office',
-            'Shop': 'Shop',
-            'Hotel': 'hotel',
-            'Warehouse': 'warehouse',
-            'Plot': 'plot',
-            'Agricultural/ Farm Land': 'agricultural_farm_land',
-        },
-    };
-
-    var $propertyTypeSelect = $('[data-property="type"]');
-
-    const $categorySelect = $('[data-property="category"]');
-
-    function updateCategorySelectBox() {
-        const propertyTypeValue = $propertyTypeSelect.val();
-        const categoryOptions = propertyTypeOptions[propertyTypeValue];
-
-        if(categoryOptions){
-            $.ajax({
-                type: 'post',
-                url: '/createProperty',
-                data: {data: categoryOptions},
-                error: function (data) {
-                    alert('error')
-                }
-            })
-        }
-    }
-
-    updateCategorySelectBox();
-
-    $propertyTypeSelect.change(function () {
-        updateCategorySelectBox();
-    });
-
-});
 
 
 // Create  property checkbox

@@ -19,6 +19,7 @@ class PropertyType extends AbstractType
     public function __construct(private readonly RequestStack $requestStack)
     {
     }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $request = $this->requestStack->getCurrentRequest();
@@ -35,10 +36,18 @@ class PropertyType extends AbstractType
             ->add('propertyCategory', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'data-property' => "category",
                 ],
                 'placeholder' => 'Select option',
-                'choices' => [],
+                'choices' => [
+                    'Villa' => 'villa',
+                    'Apartment' => 'apartment',
+                    'Floor' => 'floor',
+                    'Office' => 'office',
+                    'Shop' => 'Shop',
+                    'Hotel' => 'hotel',
+                    'Warehouse' => 'warehouse',
+                    'Agricultural/ Farm Land' => 'agricultural_farm_land',
+                ],
 
                 'label' => 'Category',
             ])
@@ -127,7 +136,6 @@ class PropertyType extends AbstractType
                 'placeholder' => 'Select option',
                 'attr' => [
                     'class' => 'form-control',
-                    'data-property' => "type"
                 ],
                 'required' => true,
                 'label' => 'Type',
