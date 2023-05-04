@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Service\CommonHelper;
 use App\Service\Session\Session;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,12 @@ class SecurityCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'login';
 
-    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly Session $session)
+    public function __construct(
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly Session               $session,
+        private readonly CommonHelper          $commonHelper,
+
+    )
     {
     }
 
@@ -49,9 +55,10 @@ class SecurityCustomAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
         $session = $this->session;
+        $commonHelper = $this->commonHelper;
         $user = $token->getUser();
         $session->session($user, $request);
-        return new RedirectResponse($this->urlGenerator->generate('home'));
+      return  $commonHelper->redirect($user);
     }
 
     protected function getLoginUrl(Request $request): string
