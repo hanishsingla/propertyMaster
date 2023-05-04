@@ -25,7 +25,9 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-check-input',
                 ],
-                'label'=> 'Agent'
+                'label'=> 'Agent',
+                'required' => false,
+                'mapped' => false,
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
