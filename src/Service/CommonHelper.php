@@ -29,10 +29,8 @@ class CommonHelper
         if($data->isAgent()){
             $data->setRoles([self::ROLE_AGENT]);
         }
-
         $this->setCreatedDate($data);
-        $userInformation = $data->getUserAddress();
-        $this->setCreatedDate($userInformation);
+
     }
 
     public function setPropertyInformation($form, $ownerId): void
