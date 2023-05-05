@@ -3,13 +3,17 @@
 namespace App\Form\Security;
 
 use App\Entity\Security\User;
-use App\Form\Information\UserAddressType;
 use App\Form\UserInformation\UserInformationFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -21,11 +25,11 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('isAgent',CheckboxType::class,[
+            ->add('isAgent', CheckboxType::class, [
                 'attr' => [
                     'class' => 'form-check-input',
                 ],
-                'label'=> 'Agent',
+                'label' => 'Agent',
                 'required' => false,
                 'mapped' => false,
             ])
@@ -34,6 +38,88 @@ class RegistrationFormType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'email',
                     'autocomplete' => 'email'
+                ],
+            ])
+            ->add('name', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'name'
+                ],
+            ])
+            ->add('gender', ChoiceType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'choices' => [
+                    'Choose an option' => '',
+                    'Male' => "male",
+                    'Female' => 'female',
+                    'other' => 'other',
+                ],
+            ])
+            ->add('image', FileType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Images',
+                'mapped' => false,
+                'multiple' => false,
+                'required' => false,
+            ])
+            ->add('phone', NumberType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('mobile', NumberType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('country', countryType::class, [
+                'placeholder' => 'Choose an option',
+                'required' => false,
+                'choices' => [
+                    'Choose an option' => ''
+                ],
+                'preferred_choices' => ['IN'],
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Country',
+            ])
+            ->add('address', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+            ])
+            ->add('address2', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+            ])
+            ->add('city', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+            ])
+            ->add('zip', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+            ])
+            ->add('state', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -82,9 +168,7 @@ class RegistrationFormType extends AbstractType
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-            ])
-
-            ->add('userAddress', UserAddressType::class);;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -3,6 +3,7 @@
 namespace App\Entity\Security;
 
 
+use App\Entity\AbstractAccount;
 use App\Entity\AbstractEntity;
 use App\Entity\Address\UserAddress;
 use App\Repository\Security\UserRepository;
@@ -17,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Table(name: 'security_user')]
 #[ORM\Index(columns: ['id'], name: 'index_id')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
+class User extends AbstractAccount implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Column(type: 'guid')]
     #[ORM\Id]
@@ -43,10 +44,6 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
-
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?UserAddress $userAddress = null;
-
     /**
      * @return string|null
      */
@@ -147,23 +144,5 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
         return $this;
     }
-
-    public function getUserAddress(): ?UserAddress
-    {
-        return $this->userAddress;
-    }
-
-    public function setUserAddress(UserAddress $userAddress): self
-    {
-        // set the owning side of the relation if necessary
-        if ($userAddress->getUser() !== $this) {
-            $userAddress->setUser($this);
-        }
-
-        $this->userAddress = $userAddress;
-
-        return $this;
-    }
-
 
 }
