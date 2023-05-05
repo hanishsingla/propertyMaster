@@ -3,9 +3,7 @@
 namespace App\Entity\Security;
 
 
-use App\Entity\AbstractAccount;
 use App\Entity\AbstractEntity;
-use App\Entity\Address\UserAddress;
 use App\Repository\Security\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -15,10 +13,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: 'security_user')]
+#[ORM\Table(name: 'security_users')]
 #[ORM\Index(columns: ['id'], name: 'index_id')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User extends AbstractAccount implements UserInterface, PasswordAuthenticatedUserInterface
+class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Column(type: 'guid')]
     #[ORM\Id]
@@ -44,6 +42,10 @@ class User extends AbstractAccount implements UserInterface, PasswordAuthenticat
 
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?UserDetail $userDetail = null;
+
     /**
      * @return string|null
      */
@@ -141,6 +143,28 @@ class User extends AbstractAccount implements UserInterface, PasswordAuthenticat
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getUserDetail(): ?UserDetail
+    {
+        return $this->userDetail;
+    }
+
+    public function setUserDetail(?UserDetail $userDetail): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($userDetail === null && $this->userDetail !== null) {
+            $this->userDetail->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($userDetail !== null && $userDetail->getUser() !== $this) {
+            $userDetail->setUser($this);
+        }
+
+        $this->userDetail = $userDetail;
 
         return $this;
     }

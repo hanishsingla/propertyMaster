@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Table(name: 'FavouriteProperty')]
+#[ORM\Table(name: 'FavouriteProperties')]
 #[ORM\Index(columns: ['id'], name: 'index_id')]
 #[ORM\Entity(repositoryClass: FavouritePropertyRepository::class)]
 class FavouriteProperty extends AbstractEntity

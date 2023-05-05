@@ -91,4 +91,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         return $query->getResult();
     }
+
+    public function getUser(mixed $ownerId): ?User
+    {
+        return $this->findOneBy(['id' => $ownerId]);
+    }
 }

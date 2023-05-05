@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 
-#[ORM\Table(name: 'helpdesk')]
+#[ORM\Table(name: 'helpdesk_tickets')]
 #[ORM\Index(columns: ['id'], name: 'index_id')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Contact extends AbstractEntity
