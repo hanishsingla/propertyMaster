@@ -93,13 +93,14 @@ $(checkedBox).trigger('change');
 let carousel = '.carousel';
 let show = $(carousel).data('show');
 let scroll = $(carousel).data('scroll');
+let dots = $(carousel).data('dots');
 show = show ? parseInt(show) : 3;
 scroll = scroll ? parseInt(scroll) : 3;
 
 $(carousel).slick(
     {
 
-        dots: true,
+        dots: dots || false,
         slidesToShow: show,
         slidesToScroll: scroll,
         autoplay: true,
@@ -110,24 +111,29 @@ $(carousel).slick(
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
                     infinite: true,
-                    dots: true
+                    adaptiveHeight:true,
+                    dots: dots || false,
                 }
             },
             {
                 breakpoint: 600,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    adaptiveHeight:true,
+                    dots: dots || false,
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToScroll: 1,
+                    adaptiveHeight:true,
+                    dots: dots || false,
                 }
             }
             // You can unslick at a given breakpoint now by adding:
