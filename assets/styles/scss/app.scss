@@ -303,23 +303,28 @@ ul li {
   border-bottom: solid 5px #f7f8fa;
   margin-bottom: 20px;
 }
-
+/*========== searchFilter css start ===========*/
 .searchFilter {
   z-index: 1 !important;
   opacity: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media (min-width: 900px) {
   .searchFilter{
     position: absolute;
-    bottom: -110px;
+    bottom: -130px;
+
   }
 }
 .image-height{
   height: 100%;
-  max-height: 550px;
+  max-height: 700px;
+  object-fit: cover;
 }
-
+/*========== searchFilter css end ===========*/
 /*========== custom color css end ===========*/
 
 /*========== listing Property Card css start ===========*/
@@ -332,6 +337,19 @@ ul li {
   margin: 0 8px;
   color: black;
 }
+//.properties-hover{
+//  display: inline-block;
+//  vertical-align: middle;
+//  transform: perspective(1px) translateZ(0);
+//  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+//  transition-duration: 0.3s;
+//  transition-property: box-shadow;
+//}
+//
+//.properties-hover:hover, .properties-hover:focus,.properties-hover:active {
+//  box-shadow: 1px 1px 8px rgb(236, 117, 5);
+//}
+
 
 .properties-list li a.active, .properties-list li a:hover {
   color: #ffffff;
