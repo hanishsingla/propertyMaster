@@ -5,6 +5,7 @@ namespace App\Controller\Property;
 use App\Entity\Property\FavouriteProperty;
 use App\Repository\Property\FavouritePropertyRepository;
 use App\Repository\Property\PropertyRepository;
+use App\Repository\Security\UserRepository;
 use App\Service\CommonHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -21,7 +22,7 @@ class PropertyController extends AbstractDashboardController
     {
         $propertyLists = $propertyRepository->getAllProperty();
         return $this->render('property/property.html.twig', [
-            'propertyLists' =>$propertyLists,
+            'propertyLists' => $propertyLists,
             'site_meta_title_name' => 'properties',
         ]);
     }
@@ -35,9 +36,12 @@ class PropertyController extends AbstractDashboardController
     }
 
     #[Route('/property-agent', name: 'propertyAgent')]
-    public function propertyAgent(Request $request, PropertyRepository $propertyRepository): Response
+    public function propertyAgent(Request $request, PropertyRepository $propertyRepository, UserRepository $userRepository): Response
     {
+        $agents = $userRepository->getAgents();
+
         return $this->render('property/property_agent.html.twig', [
+            'agents' => $agents,
             'site_meta_title_name' => 'agent',
         ]);
     }
@@ -48,7 +52,7 @@ class PropertyController extends AbstractDashboardController
     {
         $user = $this->getUser();
 
-        if(!$user) {
+        if (!$user) {
             return $this->redirectToRoute('login');
         }
 
@@ -87,7 +91,7 @@ class PropertyController extends AbstractDashboardController
     {
         $user = $this->getUser();
 
-        if(!$user) {
+        if (!$user) {
             return $this->redirectToRoute('login');
         }
 
@@ -97,7 +101,7 @@ class PropertyController extends AbstractDashboardController
 
         return $this->render('property/favourite_property.html.twig', [
             'propertyLists' => $favourites,
-             'site_meta_title_name' => 'favourite',
+            'site_meta_title_name' => 'favourite',
         ]);
     }
 
@@ -107,7 +111,7 @@ class PropertyController extends AbstractDashboardController
     {
         $user = $this->getUser();
 
-        if(!$user) {
+        if (!$user) {
             return $this->redirectToRoute('login');
         }
 

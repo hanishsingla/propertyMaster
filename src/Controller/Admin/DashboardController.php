@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Agent\Agent;
 use App\Entity\Category\Category;
 use App\Entity\Property\Property;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -11,7 +10,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -34,39 +32,38 @@ class DashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-         return $this->render('admin/my-dashboard.html.twig');
+        return $this->render('admin/my-dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
     {
 
-            return Dashboard::new()
-                // the name visible to end users
-                ->setTitle('ACME Corp.')
-                // you can include HTML contents too (e.g. to link to an image)
-                ->setTitle('<img src="..."> ACME <span class="text-small">Corp.</span>')
+        return Dashboard::new()
+            // the name visible to end users
+            ->setTitle('ACME Corp.')
+            // you can include HTML contents too (e.g. to link to an image)
+            ->setTitle('<img src="..."> ACME <span class="text-small">Corp.</span>')
 
-                // by default EasyAdmin displays a black square as its default favicon;
-                // use this method to display a custom favicon: the given path is passed
-                // "as is" to the Twig asset() function:
-                // <link rel="shortcut icon" href="{{ asset('...') }}">
-                ->setFaviconPath('favicon.svg')
+            // by default EasyAdmin displays a black square as its default favicon;
+            // use this method to display a custom favicon: the given path is passed
+            // "as is" to the Twig asset() function:
+            // <link rel="shortcut icon" href="{{ asset('...') }}">
+            ->setFaviconPath('favicon.svg')
 
-                // the domain used by default is 'messages'
-                ->setTranslationDomain('my-custom-domain');
+            // the domain used by default is 'messages'
+            ->setTranslationDomain('my-custom-domain');
 
     }
 
     public function configureMenuItems(): iterable
     {
 
-            yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
- return [
+        return [
 
-             yield MenuItem::section('Blog'),
-             yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class),
-             yield MenuItem::linkToCrud('Agent', 'fa fa-user-cog', Agent::class),
+            yield MenuItem::section('Blog'),
+            yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class),
             yield MenuItem::linkToCrud('Property', 'fa fa-home', Property::class),
         ];
     }
