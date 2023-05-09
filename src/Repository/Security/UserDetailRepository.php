@@ -2,6 +2,7 @@
 
 namespace App\Repository\Security;
 
+use App\Entity\Security\User;
 use App\Entity\Security\UserDetail;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -63,4 +64,20 @@ class UserDetailRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function getUser(mixed $ownerId): ?UserDetail
+    {
+        return $this->findOneBy(['user' => $ownerId]);
+    }
+
+    public function getAgents(): array
+    {
+        $query = $this->createQueryBuilder('ud')
+            ->select('ud.city', 'ud.address', 'ud.address2', 'ud.country', 'ud.gender', 'ud.image', 'ud.name', 'ud.phone', 'ud.state', 'ud.zip', 'ud.mobile', 'u.email')
+            ->innerJoin('ud.user', 'u')
+            ->where('u.isAgent = :agent')
+            ->setParameter('agent', true)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

@@ -81,19 +81,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //        ;
 //    }
 
-    public function getAgents(): array
-    {
-        $query = $this->createQueryBuilder('u')
-            ->where('1 = 1')
-            ->andWhere('u.isAgent = :agent')
-            ->setParameter('agent', true)
-            ->getQuery();
 
-        return $query->getResult();
-    }
 
     public function getUser(mixed $ownerId): ?User
     {
+
         return $this->findOneBy(['id' => $ownerId]);
     }
 }
