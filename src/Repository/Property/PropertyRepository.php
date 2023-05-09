@@ -84,7 +84,7 @@ class PropertyRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('p');
 
         if ($listType !== 'all') {
-            $qb->andWhere('p.propertyCategory = :listType')
+            $qb->andWhere('p.propertyStatus = :listType')
                 ->setParameter('listType', $listType);
         }
 
