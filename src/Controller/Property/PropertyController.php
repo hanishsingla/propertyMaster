@@ -5,6 +5,7 @@ namespace App\Controller\Property;
 use App\Entity\Property\FavouriteProperty;
 use App\Repository\Property\FavouritePropertyRepository;
 use App\Repository\Property\PropertyRepository;
+use App\Repository\Security\UserDetailRepository;
 use App\Repository\Security\UserRepository;
 use App\Service\CommonHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,9 +37,9 @@ class PropertyController extends AbstractDashboardController
     }
 
     #[Route('/property-agent', name: 'propertyAgent')]
-    public function propertyAgent(Request $request, PropertyRepository $propertyRepository, UserRepository $userRepository): Response
+    public function propertyAgent(Request $request, PropertyRepository $propertyRepository, UserDetailRepository $detailRepository): Response
     {
-        $agents = $userRepository->getAgents();
+        $agents = $detailRepository->getAgents();
 
         return $this->render('property/property_agent.html.twig', [
             'agents' => $agents,

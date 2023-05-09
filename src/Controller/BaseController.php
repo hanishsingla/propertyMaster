@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 
-use App\Form\Information\UserAddressType;
-use App\Repository\Information\UserAddressRepository;
+use App\Form\Security\UserDetailType;
 use App\Repository\Property\PropertyRepository;
+use App\Repository\Security\UserDetailRepository;
 use App\Service\Session\Session;
 use App\Service\UploadHelper\UserImageUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +23,7 @@ class BaseController extends AbstractController
     {
         $user = $this->getUser();
 
-        if($user){
+        if ($user) {
             $session->session($user, $request);
         }
 
@@ -46,11 +46,11 @@ class BaseController extends AbstractController
 
     #[IsGranted('ROLE_USER')]
     #[Route('/account', name: 'account')]
-    public function account(Request $request, UserAddressRepository $addressRepository,UserImageUploader $imageUploader, EntityManagerInterface $em): Response
+    public function account(Request $request, UserDetailRepository $detailRepository, UserImageUploader $imageUploader, EntityManagerInterface $em): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-        $userAddress = $addressRepository->getUserAddress($ownerId);
-        $form = $this->createForm(UserAddressType::class, $userAddress);
+        $userAddress = $detailRepository->getUser($ownerId);
+        $form = $this->createForm(UserDetailType::class, $userAddress);
         $form->handleRequest($request);
         /** @var UploadedFile $brochureFile */
         $brochureFile = $form->get('image')->getData();
