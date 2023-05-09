@@ -363,7 +363,6 @@ ul li {
 .property-img {
   position: relative;
   overflow: hidden;
-  border-radius: 10px 10px 0 0;
 }
 
 .property-img img {
@@ -436,7 +435,17 @@ ul li {
     margin: 0 5px;
   }
 }
-
+.glow{
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  transition-duration: 0.3s;
+  transition-property: box-shadow;
+}
+.glow:hover, .glow:focus, .glow:active {
+  box-shadow: 1px 1px 8px rgb(0 0 0);
+  display: inline-grid;
+}
 /*========== listing Property Card css end ===========*/
 
 /*========== Create Property Form css end ===========*/
@@ -554,9 +563,10 @@ input {
 
 /*==========  Input Fields Form css end ===========*/
 
-/*==========  Input Field Radio Type css start ===========*/
+/*==========  Agent  card css start ===========*/
 
-/*==========  Input Field Radio Type  css end ===========*/
+
+/*==========  Agent Card  css end ===========*/
 
 /*========== footer css start ===========*/
 

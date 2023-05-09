@@ -94,6 +94,7 @@ let carousel = '.carousel';
 let show = $(carousel).data('show');
 let scroll = $(carousel).data('scroll');
 let dots = $(carousel).data('dots');
+let arrows = $(carousel).data('arrows');
 show = show ? parseInt(show) : 3;
 scroll = scroll ? parseInt(scroll) : 3;
 
@@ -101,6 +102,7 @@ $(carousel).slick(
     {
 
         dots: dots || false,
+        arrows: arrows || false,
         slidesToShow: show,
         slidesToScroll: scroll,
         autoplay: true,
@@ -111,8 +113,8 @@ $(carousel).slick(
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
+                    slidesToShow: show,
+                    slidesToScroll: scroll,
                     infinite: true,
                     adaptiveHeight:true,
                     dots: dots || false,
@@ -121,8 +123,8 @@ $(carousel).slick(
             {
                 breakpoint: 600,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
+                    slidesToShow: show,
+                    slidesToScroll: scroll,
                     adaptiveHeight:true,
                     dots: dots || false,
                 }
@@ -130,8 +132,8 @@ $(carousel).slick(
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
+                    slidesToShow: show,
+                    slidesToScroll: scroll,
                     adaptiveHeight:true,
                     dots: dots || false,
                 }
