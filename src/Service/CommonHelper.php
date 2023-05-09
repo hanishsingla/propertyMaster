@@ -30,7 +30,8 @@ class CommonHelper
             $data->setRoles([self::ROLE_AGENT]);
         }
         $this->setCreatedDate($data);
-
+        $userDetail = $data->getUserDetail();
+        $this->setCreatedDate($userDetail);
     }
 
     public function setPropertyInformation($form, $ownerId): void
