@@ -113,8 +113,8 @@ $(carousel).slick(
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: show,
-                    slidesToScroll: scroll,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
                     infinite: true,
                     adaptiveHeight:true,
                     dots: dots || false,
@@ -123,8 +123,8 @@ $(carousel).slick(
             {
                 breakpoint: 600,
                 settings: {
-                    slidesToShow: show,
-                    slidesToScroll: scroll,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
                     adaptiveHeight:true,
                     dots: dots || false,
                 }
@@ -132,8 +132,8 @@ $(carousel).slick(
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: show,
-                    slidesToScroll: scroll,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
                     adaptiveHeight:true,
                     dots: dots || false,
                 }
