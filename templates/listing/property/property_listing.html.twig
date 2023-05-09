@@ -1,7 +1,7 @@
 {% if propertyLists|length > 0 %}
     {% for list in propertyLists %}
         <div class="col-12 col-md-4 col-xxl-4">
-            <a class="single-property mt-30" href="{{ path('propertyDetails',{'propertyId': list.id}) }}">
+            <a class="single-property glow mt-30" href="{{ path('propertyDetails',{'propertyId': list.id}) }}">
                 <div class="property-img">
                         <div class="carousel" data-show="1" data-scroll="1">
                             {% if list.propertyImage is not empty %}
@@ -12,7 +12,7 @@
                                 <img src="{{ asset('uploads/propertyImages/property.jpg') }}" alt="property">
                             {% endif %}
                         </div>
-                    <span class="{{ list.propertyCategory == 'sale' or list.propertyCategory == 'buy' ? 'sale' : 'rent' }}">{{ list.propertyCategory|capitalize }}</span>
+                    <span class="{{ list.propertyStatus == 'sale' or list.propertyStatus == 'buy' ? 'sale' : 'rent' }}">{{ list.propertyStatus|capitalize }}</span>
                 </div>
                 <div class="property-desc">
                     <h4>{{ list.propertyTitle }}</h4>
