@@ -3,22 +3,29 @@
 {% block pageContent %}
     <div class="row">
         {% for agent in agents %}
+
+            {# {{ dump(agent) }} #}
             <div class="col-md-3">
                 <!-- Card-->
                 <div class="card rounded shadow-sm border-0">
                     <div class="card-body p-0">
+
                         <div class="bg-primary px-5 py-4 text-center card-img-top">
-                            <img src="{{ agent.image is not empty ? asset('uploads/userImage/' ~ agent.image) : asset('image/userimage/' ~ app.session.get('gender') ~ '.png') }}" alt="" width="100" class="rounded-circle">
+                            <img src="{{ agent.image is not empty ? asset('uploads/userImage/' ~ agent.image) : asset('image/userimage/' ~ agent.gender ~ '.png') }}"
+                                 alt="" width="100" class="rounded-circle">
+
                             <h5 class="text-white my-2">{{ agent.name }}</h5>
                             <p class="small text-white mb-0"> Agent </p>
                         </div>
                         <div class="p-4 d-flex justify-content-center">
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item">
-                                    <h5 class="font-weight-bold mb-0 d-block">241</h5><small class="text-muted"><i class="fa fa-picture-o mr-1 text-primary"></i>Photos</small>
+                                    <h5 class="font-weight-bold mb-0 d-block">241</h5><small class="text-muted"><i
+                                                class="fa fa-picture-o mr-1 text-primary"></i>Photos</small>
                                 </li>
                                 <li class="list-inline-item">
-                                    <h5 class="font-weight-bold mb-0 d-block">84K</h5><small class="text-muted"><i class="fa fa-user-circle-o mr-1 text-primary"></i>Followers</small>
+                                    <h5 class="font-weight-bold mb-0 d-block">84K</h5><small class="text-muted"><i
+                                                class="fa fa-user-circle-o mr-1 text-primary"></i>Followers</small>
                                 </li>
                             </ul>
                         </div>
