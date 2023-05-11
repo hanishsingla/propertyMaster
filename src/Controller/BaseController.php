@@ -27,11 +27,11 @@ class BaseController extends AbstractController
             $session->session($user, $request);
         }
 
-        $propertyLists = $propertyRepository->getPropertyByListType($listType);
+        $propertyLists = $propertyRepository->getPropertyByListType($listType,'4');
 
         if ($request->isXmlHttpRequest()) {
 
-            $propertyLists = $propertyRepository->getPropertyByListType($listType);
+            $propertyLists = $propertyRepository->getPropertyByListType($listType,4);
 
             return $this->render('listing/property/property_listing.html.twig', [
                 'propertyLists' => $propertyLists,
@@ -49,8 +49,9 @@ class BaseController extends AbstractController
     public function account(Request $request, UserDetailRepository $detailRepository, UserImageUploader $imageUploader, EntityManagerInterface $em): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-        $userAddress = $detailRepository->getUser($ownerId);
-        $form = $this->createForm(UserDetailType::class, $userAddress);
+        $userDetail = $detailRepository->getUser($ownerId);
+       $userImage =  $userDetail->getImage();
+        $form = $this->createForm(UserDetailType::class, $userDetail);
         $form->handleRequest($request);
         /** @var UploadedFile $brochureFile */
         $brochureFile = $form->get('image')->getData();
@@ -61,15 +62,16 @@ class BaseController extends AbstractController
 
                 $brochureFileName = $imageUploader->upload($brochureFile);
 
-                $userAddress->setImage($brochureFileName);
+                $userDetail->setImage($brochureFileName);
             }
-            $em->persist($userAddress);
+            $em->persist($userDetail);
             $em->flush();
 
             return $this->redirectToRoute('account');
         }
         return $this->render('base/user_profile.html.twig', [
             'form' => $form->createView(),
+            'userImage' => $userImage,
         ]);
     }
 }

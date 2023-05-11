@@ -79,7 +79,7 @@ class PropertyRepository extends ServiceEntityRepository
         ]);
     }
 
-    public function getPropertyByListType($listType)
+    public function getPropertyByListType($listType,$maxResult)
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -88,20 +88,22 @@ class PropertyRepository extends ServiceEntityRepository
                 ->setParameter('listType', $listType);
         }
 
-        $qb->setMaxResults(4);
+        $qb->setMaxResults($maxResult);
 
         return $qb->getQuery()->getResult();
     }
 
-    public function getSearchProperty(?string $city, ?string $propertyType, ?string $status)
+    public function getSearchProperty(?string $city, ?string $propertyCategory, ?string $status, ?string $propertyType)
     {
         $qb = $this->createQueryBuilder('p')
             ->Where('p.propertyCity = :city')
-            ->andWhere('p.propertyType = :propertyType')
+            ->andWhere('p.propertyCategory = :propertyCategory')
             ->andWhere('p.propertyStatus = :status')
+            ->orWhere('p.propertyType = :propertyType')
             ->setParameter('city', $city)
-            ->setParameter('propertyType', $propertyType)
-            ->setParameter('status', $status);
+            ->setParameter('propertyCategory', $propertyCategory)
+            ->setParameter('status', $status)
+            ->setParameter('propertyType', $propertyType);
 
         return $qb->getQuery()->getResult();
     }
