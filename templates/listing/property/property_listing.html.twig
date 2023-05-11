@@ -1,6 +1,6 @@
 {% if propertyLists|length > 0 %}
     {% for list in propertyLists %}
-        <div class="col-12 col-md-4 col-xxl-4">
+        <div class="{{ column is defined ? column : 'col-md-3' }} mt-2">
             <a class="single-property glow mt-30" href="{{ path('propertyDetails',{'propertyId': list.id}) }}">
                 <div class="property-img">
                         <div class="carousel" data-show="1" data-scroll="1">
@@ -26,8 +26,6 @@
                 </div>
             </a>
         </div>
-
-
     {% endfor %}
 {% else %}
     <div class="col-md-12 text-center">

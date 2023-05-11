@@ -39,13 +39,13 @@
                         <a href="mailto:info@example.com" class="text-white"><small class="ms-4"><i class="fa fa-envelope me-3"></i>info@example.com</small></a>
                         <a href="tel:+012 345 67890" class="text-white"><small class="ms-4"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</small></a>
                         <div class="ms-3 d-flex">
-                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="">
+                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="#">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="">
+                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="#">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="">
+                            <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="#">
                                 <i class="fab fa-linkedin-in"></i>
                             </a>
                         </div>
@@ -74,7 +74,7 @@
                                      alt="{{ app.session.get('userImage') }}"
                                      width="50">
                             {% else %}
-                                <img src="{{ asset('image/userImage/'~ app.session.get('gender') ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
+                                <img src="{{ asset('image/userImage/' ~ app.session.get('gender') ~ '.png') }}" id="profile" class="img-fluid img-thumbnail rounded-circle"
                                      alt="{{ app.session.get('gender') ~'.png' }}" width="50">
                             {% endif %}
                         {% endif %}

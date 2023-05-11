@@ -50,7 +50,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="container-fluid carousel" data-show="2" data-scroll="1" data-dots="true">
+                    <div class="container-fluid carousel" data-show="1" data-scroll="1" data-dots="true" data-arrows="true">
                         {% if propertyInformation.propertyImage %}
                             {% for  image in  propertyInformation.propertyImage %}
                                 <img src="{{ asset('uploads/propertyImages/' ~ image) }}" class="img-fluid" alt="{{ image }}">
