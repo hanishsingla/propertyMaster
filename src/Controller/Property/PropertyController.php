@@ -21,7 +21,19 @@ class PropertyController extends AbstractDashboardController
     #[Route('/property-list', name: 'propertyList')]
     public function propertyList(Request $request, PropertyRepository $propertyRepository): Response
     {
-        $propertyLists = $propertyRepository->getAllProperty();
+        $city               =   $request->get('city');
+        $propertyCategory   =   $request->get('propertyCategory');
+        $propertyType       =   $request->get('propertyType');
+        $status             =   $request->get('status');
+
+        if($city || $propertyCategory || $propertyType || $status  != null)
+        {
+            $propertyLists  =   $propertyRepository->getSearchProperty($city, $propertyCategory, $status, $propertyType);
+        }
+        else
+        {
+            $propertyLists  =   $propertyRepository->getAllProperty();
+        }
         return $this->render('property/property.html.twig', [
             'propertyLists' => $propertyLists,
             'site_meta_title_name' => 'properties',
@@ -69,22 +81,7 @@ class PropertyController extends AbstractDashboardController
         ]);
     }
 
-    #[Route('/property-search', name: 'propertySearch')]
-    public function propertySearch(Request $request, PropertyRepository $propertyRepository): Response
-    {
-        $city = $request->get('city');
 
-        $propertyType = $request->get('propertyType');
-
-        $status = $request->get('status');
-
-        $propertyLists = $propertyRepository->getSearchProperty($city, $propertyType, $status);
-
-        return $this->render('listing/property/property_listing.html.twig', [
-            'site_meta_title_name' => 'search',
-            'propertyLists' => $propertyLists,
-        ]);
-    }
 
     #[IsGranted('ROLE_USER')]
     #[Route('/favourite-property', name: 'favouriteProperty')]
@@ -99,7 +96,6 @@ class PropertyController extends AbstractDashboardController
         $ownerId = $request->getSession()->get('ownerId');
 
         $favourites = $favouritePropertyRepository->getFavoritePropertyByFav($ownerId);
-
         return $this->render('property/favourite_property.html.twig', [
             'propertyLists' => $favourites,
             'site_meta_title_name' => 'favourite',
