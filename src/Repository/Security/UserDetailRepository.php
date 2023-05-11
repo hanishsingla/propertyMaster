@@ -72,7 +72,7 @@ class UserDetailRepository extends ServiceEntityRepository
     public function getAgents(): array
     {
         $query = $this->createQueryBuilder('ud')
-            ->select('ud.city', 'ud.address', 'ud.address2', 'ud.country', 'ud.gender', 'ud.image', 'ud.name', 'ud.phone', 'ud.state', 'ud.zip', 'ud.mobile', 'u.email')
+            ->select('ud.id, ud.city', 'ud.address', 'ud.address2', 'ud.country', 'ud.gender', 'ud.image', 'ud.name', 'ud.phone', 'ud.state', 'ud.zip', 'ud.mobile', 'u.email')
             ->innerJoin('ud.user', 'u')
             ->where('u.isAgent = :agent')
             ->setParameter('agent', true)

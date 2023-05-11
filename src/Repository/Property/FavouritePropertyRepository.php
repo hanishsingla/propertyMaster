@@ -3,6 +3,7 @@
 namespace App\Repository\Property;
 
 use App\Entity\Property\FavouriteProperty;
+use App\Entity\Property\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -73,9 +74,14 @@ class FavouritePropertyRepository extends ServiceEntityRepository
 
     public function getFavoritePropertyByFav($ownerId): array
     {
-        return $this->findBy([
-            'ownerId' => $ownerId,
-            'favourite'=> 'true'
-        ]);
+       $query = $this->createQueryBuilder('f')
+           ->select('p.id','p.propertyTitle', 'p.propertyCategory' , 'p.propertyImage' , 'p.propertyStatus' ,'p.propertyCity' , 'p.propertyState' , 'p.propertyArea' , 'p.propertyRooms','p.propertyPrice')
+           ->innerJoin(Property::class,'p','WITH','p.id = f.property')
+           ->where('f.ownerId = :ownerId')
+           ->andWhere('f.favourite != :favourite')
+           ->setParameter('ownerId' , $ownerId)
+           ->setParameter('favourite' , 'false')
+           ;
+           return $query->getQuery()->getResult();
     }
 }
