@@ -6,8 +6,9 @@ namespace App\Controller;
 use App\Form\Security\UserDetailType;
 use App\Repository\Property\PropertyRepository;
 use App\Repository\Security\UserDetailRepository;
+use App\Service\CommonHelper;
+use App\Service\FileUploader\Uploader;
 use App\Service\Session\Session;
-use App\Service\UploadHelper\UserImageUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,23 +47,21 @@ class BaseController extends AbstractController
 
     #[IsGranted('ROLE_USER')]
     #[Route('/account', name: 'account')]
-    public function account(Request $request, UserDetailRepository $detailRepository, UserImageUploader $imageUploader, EntityManagerInterface $em): Response
+    public function account(Request $request, UserDetailRepository $detailRepository, Uploader $uploader, EntityManagerInterface $em): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
         $userDetail = $detailRepository->getUser($ownerId);
         $userImage = $userDetail->getImage();
         $form = $this->createForm(UserDetailType::class, $userDetail);
         $form->handleRequest($request);
-        /** @var UploadedFile $brochureFile */
-        $brochureFile = $form->get('image')->getData();
+        /** @var UploadedFile $image */
+        $image = $form->get('image')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($brochureFile) {
-
-                $brochureFileName = $imageUploader->upload($brochureFile);
-
-                $userDetail->setImage($brochureFileName);
+            if ($image) {
+                $imageName = $uploader->upload($image , CommonHelper::USER_IMAGE_UPLOAD );
+                $userDetail->setImage($imageName);
             }
             $em->persist($userDetail);
             $em->flush();
