@@ -23,6 +23,8 @@ class CommonHelper
     public const  HOME_ROUTE = "home";
     public const  ADMIN_ROUTE = "admin";
     public const  AGENT_ROUTE = "userProperty";
+    public const Property_IMAGE_UPLOAD = '/uploads/propertyImages';
+    public const USER_IMAGE_UPLOAD = '/uploads/userImages';
 
     public function setRegisterUser($data) : void
     {

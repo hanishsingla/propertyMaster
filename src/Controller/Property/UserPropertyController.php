@@ -6,7 +6,7 @@ use App\Entity\Property\Property;
 use App\Form\Property\PropertyType;
 use App\Repository\Property\PropertyRepository;
 use App\Service\CommonHelper;
-use App\Service\UploadHelper\PropertyUploader;
+use App\Service\FileUploader\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +33,7 @@ class UserPropertyController extends AbstractController
 
     #[IsGranted('ROLE_AGENT')]
     #[Route('/createProperty', name: 'createProperty')]
-    public function createProperty(Request $request, CommonHelper $commonHelper, EntityManagerInterface $em, PropertyUploader $propertyUploader): Response
+    public function createProperty(Request $request, CommonHelper $commonHelper, EntityManagerInterface $em, Uploader $uploader): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
 
@@ -53,8 +53,7 @@ class UserPropertyController extends AbstractController
 
                 foreach ($imageFiles as $file) {
 
-                    $imageFileNames[] = $propertyUploader->upload($file);
-
+                    $imageFileNames[] = $imageFileNames[] = $uploader->upload($file , CommonHelper::Property_IMAGE_UPLOAD);
                 }
 
                 $propertyForm->setPropertyImage($imageFileNames);
@@ -75,10 +74,9 @@ class UserPropertyController extends AbstractController
 
     #[IsGranted('ROLE_AGENT')]
     #[Route('/editProperty/{id}', name: 'userPropertyEdit')]
-    public function userPropertyEdit(Request $request, CommonHelper $commonHelper, PropertyRepository $propertyRepository, PropertyUploader $propertyUploader, EntityManagerInterface $em, $id): Response
+    public function userPropertyEdit(Request $request, CommonHelper $commonHelper, PropertyRepository $propertyRepository, Uploader $uploader, EntityManagerInterface $em, $id): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-
 
         $userPropertyEditData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
 
@@ -97,13 +95,10 @@ class UserPropertyController extends AbstractController
                 $imageFileNames = [];
 
                 foreach ($imageFiles as $file) {
-
-                    $imageFileNames[] = $propertyUploader->upload($file);
-
+                    $imageFileNames[] = $uploader->upload($file , CommonHelper::Property_IMAGE_UPLOAD);
                 }
 
                 $userPropertyEditData->setPropertyImage($imageFileNames);
-
             }
 
             $information = $form->getData();

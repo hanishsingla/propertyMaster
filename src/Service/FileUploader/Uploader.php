@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Service\UploadHelper;
+namespace App\Service\FileUploader;
 
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class UserImageUploader
+class Uploader
 {
-    private $userImageDirectory;
-    private $slugger;
 
-    public function __construct($userImageDirectory, SluggerInterface $slugger)
+    public function __construct(
+        private readonly SluggerInterface      $slugger,
+        private readonly ParameterBagInterface $parameterBag,
+    )
     {
-        $this->userImageDirectory = $userImageDirectory;
-        $this->slugger = $slugger;
     }
 
-    public function upload(UploadedFile $file)
+    public function upload(UploadedFile $file, $targetDirectory): string
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
         $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
         try {
-            $file->move($this->getTargetDirectory(), $fileName);
+            $file->move($this->parameterBag->get('kernel.project_dir') . "/public" . $targetDirectory, $fileName);
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload
         }
@@ -32,8 +32,4 @@ class UserImageUploader
         return $fileName;
     }
 
-    public function getTargetDirectory()
-    {
-        return $this->userImageDirectory;
-    }
 }

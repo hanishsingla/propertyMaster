@@ -4,18 +4,14 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    property_image: '%kernel.project_dir%\public\uploads\propertyImages'
-    user_images: '%kernel.project_dir%\public\uploads\userImages'
+
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            $propertyDirectory: '%property_image%'
-            $userImageDirectory: '%user_images%'
             $project_dir: '%kernel.project_dir%'
-
 
     app.menu_builder_main_menu:
         class: App\Menu\MainMenu
