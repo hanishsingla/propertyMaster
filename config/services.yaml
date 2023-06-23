@@ -14,6 +14,7 @@ services:
         bind:
             $propertyDirectory: '%property_image%'
             $userImageDirectory: '%user_images%'
+            $project_dir: '%kernel.project_dir%'
 
 
     app.menu_builder_main_menu:
@@ -37,5 +38,13 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+
+    App\DataCollector\GitDataCollector:
+        tags:
+            -
+                name:     data_collector
+                template: 'data_collector/git_data.html.twig'
+                # must match the value returned by the getName() method
+                id: 'app.git_data_collector'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

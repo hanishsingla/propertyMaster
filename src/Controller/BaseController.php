@@ -27,11 +27,11 @@ class BaseController extends AbstractController
             $session->session($user, $request);
         }
 
-        $propertyLists = $propertyRepository->getPropertyByListType($listType,'4');
+        $propertyLists = $propertyRepository->getPropertyByListType($listType, '4');
 
         if ($request->isXmlHttpRequest()) {
 
-            $propertyLists = $propertyRepository->getPropertyByListType($listType,4);
+            $propertyLists = $propertyRepository->getPropertyByListType($listType, 4);
 
             return $this->render('listing/property/property_listing.html.twig', [
                 'propertyLists' => $propertyLists,
@@ -50,7 +50,7 @@ class BaseController extends AbstractController
     {
         $ownerId = $request->getSession()->get('ownerId');
         $userDetail = $detailRepository->getUser($ownerId);
-       $userImage =  $userDetail->getImage();
+        $userImage = $userDetail->getImage();
         $form = $this->createForm(UserDetailType::class, $userDetail);
         $form->handleRequest($request);
         /** @var UploadedFile $brochureFile */
