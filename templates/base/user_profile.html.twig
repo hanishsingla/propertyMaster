@@ -25,10 +25,16 @@
                         <a class="nav-link text-secondary active" id="v-pills-home-tab" data-bs-toggle="pill"
                            data-bs-target="#profileTab"
                            type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
-                            <i class="fa-solid fa-user"></i> profile
+                            <i class="fa-solid fa-user"></i> Profile
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" id="v-pills-home-tab" data-bs-toggle="pill"
+                           data-bs-target="#settingTab"
+                           type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            <i class="fa-solid fa-gear"></i> Setting
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -55,6 +61,28 @@
                         </div>
                     </div>
                     {{ form_end(form) }}
+                </div>
+
+                <div class="tab-pane" id="settingTab" role="tabpanel">
+                    <div class="container-fluid">
+                        <div class="row bottom-border-primary">
+                            <div class="col-8">
+                                <h1 class="text-primary">Setting</h1>
+                            </div>
+                            <div class="col-4 text-end">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Delete Account</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{{ path('deleteAccount') }}" class="btn btn-danger">Delete Account</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

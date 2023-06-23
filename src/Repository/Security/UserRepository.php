@@ -2,7 +2,10 @@
 
 namespace App\Repository\Security;
 
+use App\Entity\Property\FavouriteProperty;
+use App\Entity\Property\Property;
 use App\Entity\Security\User;
+use App\Entity\Security\UserDetail;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -71,6 +74,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //        ;
 //    }
 
+
 //    public function findOneBySomeField($value): ?User
 //    {
 //        return $this->createQueryBuilder('u')
@@ -80,12 +84,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //            ->getOneOrNullResult()
 //        ;
 //    }
-
-
-
     public function getUser(mixed $ownerId): ?User
     {
-
         return $this->findOneBy(['id' => $ownerId]);
+    }
+
+    public function fetchAllData(mixed $ownerId): ?array
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('DISTINCT u,detail')
+            ->leftJoin(UserDetail::class ,'detail', 'WITH','detail.user = u.id')
+            ->where('u.id = :ownerId' )
+            ->setParameter('ownerId', $ownerId)
+            ;
+
+        return $query->getQuery()->getResult();
     }
 }
