@@ -5,9 +5,9 @@
         <div class="col-md-3">
             <div class="card profile-nav">
                 <div class="card-header bg-primary text-center">
-                    {% if is_granted('ROLE_USER') and app.session.get('gender') == 'male' or is_granted('ROLE_USER') and app.session.get('gender') == 'female' or is_granted('ROLE_USER') and app.session.get('gender') == 'other' %}
+                    {% if (is_granted('ROLE_USER') and app.session.get('gender') == 'male') or (is_granted('ROLE_USER') and app.session.get('gender') == 'female') or (is_granted('ROLE_USER') and app.session.get('gender') == 'other') %}
                         {% if  userImage %}
-                            <img src="{{ asset('image/userImages/' ~ userImage ) }}" id="profile"
+                            <img src="{{ asset('uploads/userImages/' ~ userImage ) }}" id="profile"
                                  class="img-fluid img-thumbnail rounded-circle" alt="{{ app.session.get('userImage') }}"
                                  width="70%">
                         {% else %}
