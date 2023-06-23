@@ -78,15 +78,13 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $squareType;
 
-    #[ORM\OneToMany(mappedBy: 'property', targetEntity: FavouriteProperty::class)]
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: FavouriteProperty::class , cascade: ['persist', 'remove'])]
     private Collection $favouriteProperties;
 
     public function __construct()
     {
         $this->favouriteProperties = new ArrayCollection();
     }
-
-
 
     /**
      * @return string|null

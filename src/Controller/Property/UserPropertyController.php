@@ -118,7 +118,7 @@ class UserPropertyController extends AbstractController
     }
 
     #[IsGranted('ROLE_AGENT')]
-    #[Route('/propertyDelete{id}', name: 'propertyDelete')]
+    #[Route('/propertyDelete/{id}', name: 'propertyDelete')]
     public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
     {
         $ownerId = $request->getSession()->get('ownerId');

@@ -2,11 +2,8 @@
 
 namespace App\Repository\Property;
 
-use App\Entity\Property\FavouriteProperty;
 use App\Entity\Property\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
