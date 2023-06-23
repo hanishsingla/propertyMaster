@@ -99,12 +99,10 @@ class PropertyRepository extends ServiceEntityRepository
             ->Where('p.propertyCity = :city')
             ->andWhere('p.propertyCategory = :propertyCategory')
             ->andWhere('p.propertyStatus = :status')
-            ->orWhere('p.propertyType = :propertyType')
             ->setParameter('city', $city)
             ->setParameter('propertyCategory', $propertyCategory)
             ->setParameter('status', $status)
-            ->setParameter('propertyType', $propertyType);
-
+;
         return $qb->getQuery()->getResult();
     }
 

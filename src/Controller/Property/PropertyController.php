@@ -6,7 +6,6 @@ use App\Entity\Property\FavouriteProperty;
 use App\Repository\Property\FavouritePropertyRepository;
 use App\Repository\Property\PropertyRepository;
 use App\Repository\Security\UserDetailRepository;
-use App\Repository\Security\UserRepository;
 use App\Service\CommonHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -21,19 +20,17 @@ class PropertyController extends AbstractDashboardController
     #[Route('/property-list', name: 'propertyList')]
     public function propertyList(Request $request, PropertyRepository $propertyRepository): Response
     {
-        $city               =   $request->get('city');
-        $propertyCategory   =   $request->get('propertyCategory');
-        $propertyType       =   $request->get('propertyType');
-        $status             =   $request->get('status');
+        $city = $request->get('city');
+        $propertyCategory = $request->get('propertyCategory');
+        $propertyType = $request->get('propertyType');
+        $status = $request->get('status');
+        if($city && $propertyCategory && $status != null || $city && $propertyType && $propertyCategory && $status != null){
+            $propertyLists = $propertyRepository->getSearchProperty($city, $propertyCategory, $status, $propertyType);
+        }else{
+            $propertyLists = $propertyRepository->getAllProperty();
+        }
 
-        if($city || $propertyCategory || $propertyType || $status  != null)
-        {
-            $propertyLists  =   $propertyRepository->getSearchProperty($city, $propertyCategory, $status, $propertyType);
-        }
-        else
-        {
-            $propertyLists  =   $propertyRepository->getAllProperty();
-        }
+
         return $this->render('property/property.html.twig', [
             'propertyLists' => $propertyLists,
             'site_meta_title_name' => 'properties',
@@ -80,7 +77,6 @@ class PropertyController extends AbstractDashboardController
             'site_meta_title_name' => 'details',
         ]);
     }
-
 
 
     #[IsGranted('ROLE_USER')]
