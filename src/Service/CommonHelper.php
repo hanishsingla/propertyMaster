@@ -61,9 +61,9 @@ class CommonHelper
         if (!$user) {
             $url = $this->urlGenerator->generate(self::LOGIN_ROUTE);
         } else {
-            if (array_intersect($user->getRoles(), (array) self::ROLE_AGENT)) {
+            if (in_array(self::ROLE_AGENT , $user->getRoles())) {
                 $url = $this->urlGenerator->generate(self::AGENT_ROUTE);
-            } elseif (array_intersect($user->getRoles(), (array) self::ROLE_ADMIN)) {
+            } elseif (in_array( self::ROLE_ADMIN,$user->getRoles())) {
                 $url = $this->urlGenerator->generate(self::ADMIN_ROUTE);
             } else {
                 $url = $this->urlGenerator->generate(self::HOME_ROUTE);
