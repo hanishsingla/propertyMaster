@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact\Contact;
+use App\Form\Contact\ContactType;
 use App\Form\Security\UserDetailType;
 use App\Repository\Property\PropertyRepository;
 use App\Repository\Security\UserDetailRepository;
@@ -43,39 +45,32 @@ class BaseController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_USER')]
-    #[Route('/account', name: 'account')]
-    public function account(Request $request, UserDetailRepository $detailRepository, Uploader $uploader, EntityManagerInterface $em): Response
-    {
-        $ownerId = $request->getSession()->get('ownerId');
-        $userDetail = $detailRepository->getUser($ownerId);
-        $userImage = $userDetail->getImage();
-        $form = $this->createForm(UserDetailType::class, $userDetail);
-        $form->handleRequest($request);
-        /** @var UploadedFile $image */
-        $image = $form->get('image')->getData();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($image) {
-                $imageName = $uploader->upload($image, CommonHelper::USER_IMAGE_UPLOAD);
-                $userDetail->setImage($imageName);
-            }
-            $em->persist($userDetail);
-            $em->flush();
-
-            return $this->redirectToRoute('account');
-        }
-
-        return $this->render('base/user_profile.html.twig', [
-            'form' => $form->createView(),
-            'userImage' => $userImage,
-        ]);
-    }
 
     #[Route('/about', name: 'about')]
     public function about(Request $request, CommonHelper $commonHelper): Response
     {
         return $this->render('about/about.html.twig', [
+        ]);
+    }
+
+    #[Route('/contact', name: 'contact')]
+    public function contact(Request $request, EntityManagerInterface $em): Response
+    {
+        $helpData = new Contact();
+        $form = $this->createForm(ContactType::class, $helpData);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($helpData);
+
+            $em->flush();
+
+            return $this->redirectToRoute('contact');
+        }
+
+        return $this->render('contact/contact.html.twig', [
+            'helpData' => $form->createView(),
         ]);
     }
 }
