@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'security_users')]
-#[ORM\Index(columns: ['id'], name: 'index_id')]
+#[ORM\Index(name: 'index_id', columns: ['id'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -118,7 +118,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;

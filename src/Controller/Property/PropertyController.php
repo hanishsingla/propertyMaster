@@ -5,23 +5,23 @@ namespace App\Controller\Property;
 use App\Entity\Property\FavouriteProperty;
 use App\Repository\Property\FavouritePropertyRepository;
 use App\Repository\Property\PropertyRepository;
-use App\Repository\Security\UserDetailRepository;
 use App\Service\CommonHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class PropertyController extends AbstractDashboardController
 {
-    #[Route('/property-list', name: 'propertyList')]
-    public function propertyList(Request $request, PropertyRepository $propertyRepository): Response
+    #[Route('/property-list/{propertyType}', name: 'propertyList')]
+    public function propertyList(Request $request, PropertyRepository $propertyRepository, ?string $propertyType = null): Response
     {
         $city = $request->get('city');
         $propertyCategory = $request->get('propertyCategory');
-        $propertyType = $request->get('propertyType');
+        $propertyType = $propertyType ?? $request->get('propertyType');
         $status = $request->get('status');
 
         if ($city && $propertyCategory && null != $status || $city && $propertyType && $propertyCategory && null != $status) {
@@ -36,38 +36,19 @@ class PropertyController extends AbstractDashboardController
         ]);
     }
 
-    #[Route('/property-type', name: 'propertyType')]
-    public function propertyType(Request $request, PropertyRepository $propertyRepository): Response
-    {
-        return $this->render('property/property_type.html.twig', [
-            'site_meta_title_name' => 'type',
-        ]);
-    }
-
-    #[Route('/property-agent', name: 'propertyAgent')]
-    public function propertyAgent(Request $request, PropertyRepository $propertyRepository, UserDetailRepository $detailRepository): Response
-    {
-        $agents = $detailRepository->getAgents();
-
-        return $this->render('property/property_agent.html.twig', [
-            'agents' => $agents,
-            'site_meta_title_name' => 'agent',
-        ]);
-    }
-
     #[IsGranted('ROLE_USER')]
     #[Route('/property-details/{propertyId}', name: 'propertyDetails')]
     public function propertyDetails(Request $request, PropertyRepository $propertyRepository, FavouritePropertyRepository $favoritePropertyRepository, $propertyId): Response
     {
         $user = $this->getUser();
 
-        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+        if (!$user instanceof UserInterface) {
             return $this->redirectToRoute('login');
         }
 
         $ownerId = $request->getSession()->get('ownerId');
 
-        $propertyInformation = $propertyRepository->getPropertyById($propertyId);
+        $propertyInformation = $propertyRepository->getProperty($propertyId);
 
         $fav = $favoritePropertyRepository->findOneBy(['property' => $propertyId, 'ownerId' => $ownerId]);
 
@@ -84,7 +65,7 @@ class PropertyController extends AbstractDashboardController
     {
         $user = $this->getUser();
 
-        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+        if (!$user instanceof UserInterface) {
             return $this->redirectToRoute('login');
         }
 
@@ -104,7 +85,7 @@ class PropertyController extends AbstractDashboardController
     {
         $user = $this->getUser();
 
-        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+        if (!$user instanceof UserInterface) {
             return $this->redirectToRoute('login');
         }
 
@@ -115,13 +96,11 @@ class PropertyController extends AbstractDashboardController
         $favourite = $favouritePropertyRepository->findOneBy(['property' => $propertyId, 'ownerId' => $ownerId]);
 
         if (empty($favourite)) {
-            $property = $propertyRepository->getPropertyById($propertyId);
+            $property = $propertyRepository->getProperty($propertyId);
 
-            $favourite = new FavouriteProperty();
-
-            $favourite->setProperty($property);
-
-            $favourite->setOwnerId($ownerId);
+            $favourite = (new FavouriteProperty())
+                ->setProperty($property)
+                ->setOwnerId($ownerId);
 
             $commonHelper->setCreatedDate($favourite);
         } else {
@@ -135,20 +114,5 @@ class PropertyController extends AbstractDashboardController
         $em->flush();
 
         return $this->json('data');
-    }
-
-    #[IsGranted('ROLE_AGENT')]
-    #[Route('/propertyDelete/{id}', name: 'propertyDelete')]
-    public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
-    {
-        $ownerId = $request->getSession()->get('ownerId');
-
-        $propertyData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
-
-        $em->remove($propertyData);
-
-        $em->flush();
-
-        return $this->redirectToRoute('userProperty');
     }
 }

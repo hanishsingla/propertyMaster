@@ -2,6 +2,7 @@
 
 namespace App\Repository\Property;
 
+use App\Entity\Property\FavouriteProperty;
 use App\Entity\Property\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,49 +21,6 @@ class PropertyRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Property::class);
     }
-
-    public function save(Property $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(Property $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    //    /**
-    //     * @return Property[] Returns an array of Property objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Property
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 
     public function getAllProperty(): array
     {
@@ -85,41 +43,41 @@ class PropertyRepository extends ServiceEntityRepository
                 ->setParameter('listType', $listType);
         }
 
-        $qb->setMaxResults($maxResult);
-
-        return $qb->getQuery()->getResult();
+        return $qb
+            ->setMaxResults($maxResult)
+            ->getQuery()
+            ->getResult();
     }
 
     public function getSearchProperty(?string $city, ?string $propertyCategory, ?string $status, ?string $propertyType)
     {
-        $qb = $this->createQueryBuilder('p')
+        return $this->createQueryBuilder('p')
             ->Where('p.propertyCity = :city')
             ->andWhere('p.propertyCategory = :propertyCategory')
             ->andWhere('p.propertyStatus = :status')
             ->setParameter('city', $city)
             ->setParameter('propertyCategory', $propertyCategory)
             ->setParameter('status', $status)
-        ;
-
-        return $qb->getQuery()->getResult();
+            ->getQuery()
+            ->getResult();
     }
 
-    public function getPropertyById(?string $propertyId): ?Property
+    public function getProperty(?string $propertyId): ?Property
     {
         return $this->findOneBy([
             'id' => $propertyId,
         ]);
     }
 
-    //    public function getFavoritePropertyOneByFav($propertyId, mixed $ownerId): array
-    //    {
-    //        $query = $this->createQueryBuilder('p')
-    //            ->leftJoin(FavouriteProperty::class, 'f', 'With', 'p.id = f.property')
-    //            ->where('p.id = :propertyId')
-    //            ->andWhere('p.ownerId = :ownerId')
-    //            ->setParameter('propertyId', $propertyId)
-    //            ->setParameter('ownerId', $ownerId)
-    //            ->getQuery();
-    //        return $query->getResult();
-    //    }
+    public function getFavoritePropertyOneByFav($propertyId, mixed $ownerId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin(FavouriteProperty::class, 'f', 'With', 'p.id = f.property')
+            ->where('p.id = :propertyId')
+            ->andWhere('p.ownerId = :ownerId')
+            ->setParameter('propertyId', $propertyId)
+            ->setParameter('ownerId', $ownerId)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'favourite_properties')]
-#[ORM\Index(columns: ['id'], name: 'index_id')]
+#[ORM\Index(name: 'index_id', columns: ['id'])]
 #[ORM\Entity(repositoryClass: FavouritePropertyRepository::class)]
 class FavouriteProperty extends AbstractEntity
 {
@@ -39,9 +39,11 @@ class FavouriteProperty extends AbstractEntity
         return $this->ownerId;
     }
 
-    public function setOwnerId(string $ownerId): void
+    public function setOwnerId(string $ownerId): self
     {
         $this->ownerId = $ownerId;
+
+        return $this;
     }
 
     public function getFavourite(): string
@@ -49,9 +51,11 @@ class FavouriteProperty extends AbstractEntity
         return $this->favourite;
     }
 
-    public function setFavourite(string $favourite): void
+    public function setFavourite(string $favourite): self
     {
         $this->favourite = $favourite;
+
+        return $this;
     }
 
     public function getProperty(): ?Property

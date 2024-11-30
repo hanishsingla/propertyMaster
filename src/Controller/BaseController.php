@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Contact\Contact;
 use App\Form\Contact\ContactType;
 use App\Repository\Property\PropertyRepository;
-use App\Service\CommonHelper;
 use App\Service\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

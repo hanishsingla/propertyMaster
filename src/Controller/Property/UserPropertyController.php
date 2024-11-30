@@ -9,7 +9,6 @@ use App\Service\CommonHelper;
 use App\Service\FileUploader\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -109,13 +108,18 @@ class UserPropertyController extends AbstractController
         ]);
     }
 
-    #[Route('/propertyCategory', name: 'propertyCategory')]
-    public function getPropertyCategories(Request $request, CommonHelper $commonHelper): JsonResponse
+    #[IsGranted('ROLE_AGENT')]
+    #[Route('/propertyDelete/{id}', name: 'propertyDelete')]
+    public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
     {
-        $propertyType = $request->query->get('propertyType');
+        $ownerId = $request->getSession()->get('ownerId');
 
-        $categories = $commonHelper->getCategoriesForType($propertyType);
+        $propertyData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
 
-        return new JsonResponse($categories);
+        $em->remove($propertyData);
+
+        $em->flush();
+
+        return $this->redirectToRoute('userProperty');
     }
 }

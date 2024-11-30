@@ -27,36 +27,23 @@ class MainMenu
             'linkAttributes' => ['class' => 'nav-link'],
         ]);
 
-        $dropdown = $menu->addChild('Property', [
+        $menu->addChild('Property', [
             'route' => 'propertyList',
+            'attribute' => 'nav-link',
+            'label' => 'Properties',
             'attributes' => ['class' => 'nav-item dropdown py-3'],
             'labelAttributes' => ['icon' => 'fa-building'],
-            'linkAttributes' => ['class' => 'nav-link dropdown-toggle',
-                'role' => 'button',
-                'data-bs-toggle' => 'dropdown',
-                'aria-expanded' => 'false',
-            ],
+            'linkAttributes' => ['class' => 'nav-link'],
         ]);
 
-        $dropdown->addChild('Property List', [
-            'route' => 'propertyList',
-            'labelAttributes' => ['icon' => 'fa-list'],
-            'linkAttributes' => ['class' => 'dropdown-item'],
-        ]);
-
-        $dropdown->addChild('Property Type', [
-            'route' => 'propertyType',
-            'labelAttributes' => ['icon' => 'fa-building-columns'],
-            'linkAttributes' => ['class' => 'dropdown-item'],
-        ]);
-
-        $dropdown->addChild(' Property Agent', [
-            'route' => 'propertyAgent',
+        $menu->addChild('Property Agents', [
+            'route' => 'propertyAgents',
+            'attribute' => 'nav-link',
+            'label' => 'Property Agents',
+            'attributes' => ['class' => 'nav-item dropdown py-3'],
             'labelAttributes' => ['icon' => 'fa-users'],
-            'linkAttributes' => ['class' => 'dropdown-item'],
+            'linkAttributes' => ['class' => 'nav-link'],
         ]);
-
-        $dropdown->setChildrenAttributes(['class' => 'dropdown-menu']);
 
         $menu->addChild('About', [
             'label' => 'About',
