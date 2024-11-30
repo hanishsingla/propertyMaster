@@ -26,7 +26,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
-class RegistrationController extends AbstractController
+class AcountController extends AbstractController
 {
     #[IsGranted('ROLE_USER')]
     #[Route('/account', name: 'account')]
