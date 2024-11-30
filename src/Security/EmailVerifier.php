@@ -2,17 +2,23 @@
 
 namespace App\Security;
 
+use App\Entity\Security\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Security\Core\User\UserInterface;
+use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
+use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class EmailVerifier
 {
     public function __construct(
+        private ResetPasswordHelperInterface $resetPasswordHelper,
         private VerifyEmailHelperInterface $verifyEmailHelper,
         private MailerInterface $mailer,
         private EntityManagerInterface $entityManager,
@@ -48,5 +54,20 @@ class EmailVerifier
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
+    }
+
+    public function processSendingPasswordResetEmail(User $user, ResetPasswordToken $resetToken): void
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address('testmail@gmail.com', 'MailBot'))
+            ->to($user->getEmail())
+            ->subject('Your password reset request')
+            ->htmlTemplate('security/reset_password/email.html.twig')
+            ->context([
+                'resetToken' => $resetToken,
+            ])
+        ;
+
+        $this->mailer->send($email);
     }
 }
