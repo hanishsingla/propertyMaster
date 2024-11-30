@@ -44,7 +44,6 @@ class UserPropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $brochureFile */
             $imageFiles = $form->get('propertyImage')->getData();
             if ($imageFiles) {
                 $imageFileNames = [];
@@ -83,7 +82,6 @@ class UserPropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $brochureFile */
             $imageFiles = $form->get('propertyImage')->getData();
 
             if ($imageFiles) {

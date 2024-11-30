@@ -15,14 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PropertyType extends AbstractType
 {
-    public function __construct(private readonly RequestStack $requestStack)
-    {
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $request = $this->requestStack->getCurrentRequest();
-
         $builder
             ->add('propertyArea', TextType::class, [
                 'attr' => [

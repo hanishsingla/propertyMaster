@@ -13,4 +13,9 @@ return RectorConfig::configure()
     ])
     // uncomment to reach your current PHP version
     // ->withPhpSets()
-    ->withTypeCoverageLevel(0);
+    // here we can define, what prepared sets of rules will be applied
+    ->withPreparedSets(
+        deadCode: true,
+        codeQuality: true
+    )
+    ->withTypeCoverageLevel(1);

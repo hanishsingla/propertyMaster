@@ -301,11 +301,9 @@ class Property extends AbstractEntity
 
     public function removeFavouriteProperty(FavouriteProperty $favouriteProperty): self
     {
-        if ($this->favouriteProperties->removeElement($favouriteProperty)) {
-            // set the owning side to null (unless already changed)
-            if ($favouriteProperty->getProperty() === $this) {
-                $favouriteProperty->setProperty(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->favouriteProperties->removeElement($favouriteProperty) && $favouriteProperty->getProperty() === $this) {
+            $favouriteProperty->setProperty(null);
         }
 
         return $this;

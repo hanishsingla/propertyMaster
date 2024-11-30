@@ -23,7 +23,7 @@ class BaseController extends AbstractController
     {
         $user = $this->getUser();
 
-        if ($user) {
+        if ($user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             $session->session($user, $request);
         }
 

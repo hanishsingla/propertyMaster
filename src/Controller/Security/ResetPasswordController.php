@@ -37,7 +37,7 @@ class ResetPasswordController extends AbstractController
     #[Route('', name: 'app_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('app_index');
         }
 
@@ -45,11 +45,7 @@ class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->processSendingPasswordResetEmail(
-                $form->get('email')->getData(),
-                $mailer,
-                $translator
-            );
+            return $this->processSendingPasswordResetEmail($form->get('email')->getData(), $mailer);
         }
 
         return $this->render('security/reset_password/request.html.twig', [
@@ -63,12 +59,12 @@ class ResetPasswordController extends AbstractController
     #[Route('/check-email', name: 'app_check_email')]
     public function checkEmail(): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('app_index');
         }
         // Generate a fake token if the user does not exist or someone hit this page directly.
         // This prevents exposing whether or not a user was found with the given email address or not
-        if (null === ($resetToken = $this->getTokenObjectFromSession())) {
+        if (!($resetToken = $this->getTokenObjectFromSession()) instanceof \SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken) {
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
 
@@ -83,7 +79,7 @@ class ResetPasswordController extends AbstractController
     #[Route('/reset/{token}', name: 'app_reset_password')]
     public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, ?string $token = null): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('app_index');
         }
 
@@ -121,10 +117,7 @@ class ResetPasswordController extends AbstractController
             $this->resetPasswordHelper->removeResetRequest($token);
 
             // Encode(hash) the plain password, and set it.
-            $encodedPassword = $passwordHasher->hashPassword(
-                $user,
-                $form->get('password')->getData()
-            );
+            $encodedPassword = $passwordHasher->hashPassword($user, $form->get('password')->getData());
 
             $user->setPassword($encodedPassword);
             $this->entityManager->flush();
@@ -141,9 +134,9 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer, TranslatorInterface $translator): RedirectResponse
+    private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse
     {
-        if ($this->getUser()) {
+        if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('app_index');
         }
         $user = $this->entityManager->getRepository(User::class)->findOneBy([
@@ -151,7 +144,7 @@ class ResetPasswordController extends AbstractController
         ]);
 
         // Do not reveal whether a user account was found or not.
-        if (!$user) {
+        if (null === $user) {
             return $this->redirectToRoute('app_check_email');
         }
 

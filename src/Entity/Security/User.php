@@ -144,12 +144,12 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function setUserDetail(?UserDetail $userDetail): self
     {
         // unset the owning side of the relation if necessary
-        if (null === $userDetail && null !== $this->userDetail) {
+        if (!$userDetail instanceof \App\Entity\Security\UserDetail && $this->userDetail instanceof \App\Entity\Security\UserDetail) {
             $this->userDetail->setUser(null);
         }
 
         // set the owning side of the relation if necessary
-        if (null !== $userDetail && $userDetail->getUser() !== $this) {
+        if ($userDetail instanceof \App\Entity\Security\UserDetail && $userDetail->getUser() !== $this) {
             $userDetail->setUser($this);
         }
 

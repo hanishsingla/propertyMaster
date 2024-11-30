@@ -60,7 +60,7 @@ class PropertyController extends AbstractDashboardController
     {
         $user = $this->getUser();
 
-        if (!$user) {
+        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('login');
         }
 
@@ -83,7 +83,7 @@ class PropertyController extends AbstractDashboardController
     {
         $user = $this->getUser();
 
-        if (!$user) {
+        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('login');
         }
 
@@ -103,7 +103,7 @@ class PropertyController extends AbstractDashboardController
     {
         $user = $this->getUser();
 
-        if (!$user) {
+        if (!$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('login');
         }
 
