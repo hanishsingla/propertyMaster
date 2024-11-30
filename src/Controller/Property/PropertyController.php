@@ -23,6 +23,7 @@ class PropertyController extends AbstractDashboardController
         $propertyCategory = $request->get('propertyCategory');
         $propertyType = $request->get('propertyType');
         $status = $request->get('status');
+
         if ($city && $propertyCategory && null != $status || $city && $propertyType && $propertyCategory && null != $status) {
             $propertyLists = $propertyRepository->getSearchProperty($city, $propertyCategory, $status, $propertyType);
         } else {

@@ -2,29 +2,18 @@
 
 namespace App\Controller\Security;
 
-use App\Entity\Security\User;
-use App\Form\Security\ChangeUserPasswordFormType;
-use App\Form\Security\RegistrationFormType;
 use App\Form\Security\UserDetailType;
 use App\Repository\Security\UserDetailRepository;
 use App\Repository\Security\UserRepository;
-use App\Security\EmailVerifier;
-use App\Security\SecurityCustomAuthenticator;
 use App\Service\CommonHelper;
 use App\Service\FileUploader\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class AcountController extends AbstractController
 {
@@ -69,6 +58,4 @@ class AcountController extends AbstractController
 
         return $this->redirectToRoute('login');
     }
-
-
 }

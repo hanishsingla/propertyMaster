@@ -4,19 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Contact\Contact;
 use App\Form\Contact\ContactType;
-use App\Form\Security\UserDetailType;
 use App\Repository\Property\PropertyRepository;
-use App\Repository\Security\UserDetailRepository;
 use App\Service\CommonHelper;
-use App\Service\FileUploader\Uploader;
 use App\Service\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class BaseController extends AbstractController
 {
@@ -45,13 +40,10 @@ class BaseController extends AbstractController
         ]);
     }
 
-
-
     #[Route('/about', name: 'about')]
-    public function about(Request $request, CommonHelper $commonHelper): Response
+    public function about(): Response
     {
-        return $this->render('about/about.html.twig', [
-        ]);
+        return $this->render('about/about.html.twig');
     }
 
     #[Route('/contact', name: 'contact')]
