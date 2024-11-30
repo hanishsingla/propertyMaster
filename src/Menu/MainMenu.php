@@ -14,7 +14,7 @@ class MainMenu
         private readonly FactoryInterface $factory,
         private readonly RequestStack $requestStack,
         private readonly TranslatorInterface $translator,
-        private readonly Security $security
+        private readonly Security $security,
     ) {
     }
 
