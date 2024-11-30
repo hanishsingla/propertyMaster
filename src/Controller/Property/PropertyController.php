@@ -135,4 +135,19 @@ class PropertyController extends AbstractDashboardController
 
         return $this->json('data');
     }
+
+    #[IsGranted('ROLE_AGENT')]
+    #[Route('/propertyDelete/{id}', name: 'propertyDelete')]
+    public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
+    {
+        $ownerId = $request->getSession()->get('ownerId');
+
+        $propertyData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
+
+        $em->remove($propertyData);
+
+        $em->flush();
+
+        return $this->redirectToRoute('userProperty');
+    }
 }

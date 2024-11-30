@@ -71,4 +71,11 @@ class BaseController extends AbstractController
             'userImage' => $userImage,
         ]);
     }
+
+    #[Route('/about', name: 'about')]
+    public function about(Request $request, CommonHelper $commonHelper): Response
+    {
+        return $this->render('about/about.html.twig', [
+        ]);
+    }
 }

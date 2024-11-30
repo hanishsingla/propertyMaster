@@ -21,15 +21,8 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
-
-    public function __construct(EmailVerifier $emailVerifier)
-    {
-        $this->emailVerifier = $emailVerifier;
-    }
-
     #[Route('/register', name: 'register')]
-    public function register(Request $request, CommonHelper $commonHelper, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $authenticator, SecurityCustomAuthenticator $customAuthenticator): Response
+    public function register(Request $request, CommonHelper $commonHelper, EmailVerifier $emailVerifier, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $authenticator, SecurityCustomAuthenticator $customAuthenticator): Response
     {
         if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('home');
@@ -53,7 +46,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('test@gmail.com', 'MailBot'))
                     ->to($user->getEmail())
@@ -74,13 +67,13 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator, EmailVerifier $emailVerifier): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
-            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
+            $emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
 

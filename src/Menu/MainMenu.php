@@ -4,9 +4,6 @@ namespace App\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MainMenu
 {
