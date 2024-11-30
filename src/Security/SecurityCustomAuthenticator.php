@@ -26,11 +26,9 @@ class SecurityCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly Session               $session,
-        private readonly CommonHelper          $commonHelper,
-
-    )
-    {
+        private readonly Session $session,
+        private readonly CommonHelper $commonHelper,
+    ) {
     }
 
     public function authenticate(Request $request): Passport
@@ -58,7 +56,8 @@ class SecurityCustomAuthenticator extends AbstractLoginFormAuthenticator
         $commonHelper = $this->commonHelper;
         $user = $token->getUser();
         $session->session($user, $request);
-      return  $commonHelper->redirect($user);
+
+        return $commonHelper->redirect($user);
     }
 
     protected function getLoginUrl(Request $request): string

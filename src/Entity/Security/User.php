@@ -2,7 +2,6 @@
 
 namespace App\Entity\Security;
 
-
 use App\Entity\AbstractEntity;
 use App\Repository\Security\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +9,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'security_users')]
@@ -25,7 +23,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[Groups(['read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: 'boolean' ,options: ['default' => 0] )]
+    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $isAgent = false;
 
     #[ORM\Column(length: 180, unique: true)]
@@ -46,25 +44,16 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?UserDetail $userDetail = null;
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return bool
-     */
     public function isAgent(): bool
     {
         return $this->isAgent;
     }
 
-    /**
-     * @param bool $isAgent
-     */
     public function setIsAgent(bool $isAgent): void
     {
         $this->isAgent = $isAgent;
@@ -155,12 +144,12 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function setUserDetail(?UserDetail $userDetail): self
     {
         // unset the owning side of the relation if necessary
-        if ($userDetail === null && $this->userDetail !== null) {
+        if (null === $userDetail && null !== $this->userDetail) {
             $this->userDetail->setUser(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($userDetail !== null && $userDetail->getUser() !== $this) {
+        if (null !== $userDetail && $userDetail->getUser() !== $this) {
             $userDetail->setUser($this);
         }
 
@@ -168,5 +157,4 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
         return $this;
     }
-
 }

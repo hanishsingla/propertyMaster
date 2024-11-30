@@ -7,7 +7,6 @@ use App\Form\Security\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Security\SecurityCustomAuthenticator;
 use App\Service\CommonHelper;
-use App\Service\Helper\RegisterHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,7 +47,7 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
-            $data =$form->getData();
+            $data = $form->getData();
             $commonHelper->setRegisterUser($data);
             $entityManager->persist($user);
             $entityManager->flush();

@@ -9,11 +9,10 @@ use App\Repository\Security\UserDetailRepository;
 use App\Service\CommonHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class PropertyController extends AbstractDashboardController
 {
@@ -24,12 +23,11 @@ class PropertyController extends AbstractDashboardController
         $propertyCategory = $request->get('propertyCategory');
         $propertyType = $request->get('propertyType');
         $status = $request->get('status');
-        if($city && $propertyCategory && $status != null || $city && $propertyType && $propertyCategory && $status != null){
+        if ($city && $propertyCategory && null != $status || $city && $propertyType && $propertyCategory && null != $status) {
             $propertyLists = $propertyRepository->getSearchProperty($city, $propertyCategory, $status, $propertyType);
-        }else{
+        } else {
             $propertyLists = $propertyRepository->getAllProperty();
         }
-
 
         return $this->render('property/property.html.twig', [
             'propertyLists' => $propertyLists,
@@ -71,13 +69,13 @@ class PropertyController extends AbstractDashboardController
         $propertyInformation = $propertyRepository->getPropertyById($propertyId);
 
         $fav = $favoritePropertyRepository->findOneBy(['property' => $propertyId, 'ownerId' => $ownerId]);
+
         return $this->render('property/detail.html.twig', [
             'propertyInformation' => $propertyInformation,
             'fav' => $fav,
             'site_meta_title_name' => 'details',
         ]);
     }
-
 
     #[IsGranted('ROLE_USER')]
     #[Route('/favourite-property', name: 'favouriteProperty')]
@@ -92,6 +90,7 @@ class PropertyController extends AbstractDashboardController
         $ownerId = $request->getSession()->get('ownerId');
 
         $favourites = $favouritePropertyRepository->getFavoritePropertyByFav($ownerId);
+
         return $this->render('property/favourite_property.html.twig', [
             'propertyLists' => $favourites,
             'site_meta_title_name' => 'favourite',
@@ -115,7 +114,6 @@ class PropertyController extends AbstractDashboardController
         $favourite = $favouritePropertyRepository->findOneBy(['property' => $propertyId, 'ownerId' => $ownerId]);
 
         if (empty($favourite)) {
-
             $property = $propertyRepository->getPropertyById($propertyId);
 
             $favourite = new FavouriteProperty();
@@ -125,11 +123,8 @@ class PropertyController extends AbstractDashboardController
             $favourite->setOwnerId($ownerId);
 
             $commonHelper->setCreatedDate($favourite);
-
         } else {
-
             $commonHelper->setUpdateDate($favourite);
-
         }
 
         $favourite->setFavourite($data);
@@ -140,6 +135,4 @@ class PropertyController extends AbstractDashboardController
 
         return $this->json('data');
     }
-
-
 }

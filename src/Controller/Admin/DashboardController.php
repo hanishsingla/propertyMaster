@@ -17,7 +17,6 @@ class DashboardController extends AbstractDashboardController
     #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
-
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
         // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
@@ -37,7 +36,6 @@ class DashboardController extends AbstractDashboardController
 
     public function configureDashboard(): Dashboard
     {
-
         return Dashboard::new()
             // the name visible to end users
             ->setTitle('ACME Corp.')
@@ -52,20 +50,16 @@ class DashboardController extends AbstractDashboardController
 
             // the domain used by default is 'messages'
             ->setTranslationDomain('my-custom-domain');
-
     }
 
     public function configureMenuItems(): iterable
     {
-
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
         return [
-
             yield MenuItem::section('Blog'),
             yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class),
             yield MenuItem::linkToCrud('Property', 'fa fa-home', Property::class),
         ];
     }
-
 }

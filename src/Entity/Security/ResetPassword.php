@@ -8,7 +8,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestTrait;
 
-
 #[ORM\Entity(repositoryClass: ResetPasswordRepository::class)]
 class ResetPassword implements ResetPasswordRequestInterface
 {

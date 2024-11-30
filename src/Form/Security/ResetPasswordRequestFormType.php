@@ -17,7 +17,7 @@ class ResetPasswordRequestFormType extends AbstractType
                 'attr' => [
                     'autocomplete' => 'email',
                     'class' => 'form-control',
-                    'placeholder' => 'ex. property@gmail.com'
+                    'placeholder' => 'ex. property@gmail.com',
                 ],
                 'constraints' => [
                     new NotBlank([

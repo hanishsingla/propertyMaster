@@ -2,7 +2,6 @@
 
 namespace App\Form\Property;
 
-
 use App\Entity\Property\Property;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -24,7 +23,6 @@ class PropertyType extends AbstractType
     {
         $request = $this->requestStack->getCurrentRequest();
 
-
         $builder
             ->add('propertyArea', TextType::class, [
                 'attr' => [
@@ -36,7 +34,7 @@ class PropertyType extends AbstractType
             ->add('propertyCategory', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'data-property' => "category",
+                    'data-property' => 'category',
                 ],
                 'placeholder' => 'Select option',
                 'choices' => [
@@ -137,7 +135,7 @@ class PropertyType extends AbstractType
                 'placeholder' => 'Select option',
                 'attr' => [
                     'class' => 'form-control',
-                    'data-property' => "type"
+                    'data-property' => 'type',
                 ],
                 'required' => true,
                 'label' => 'Type',
@@ -202,7 +200,6 @@ class PropertyType extends AbstractType
 //                'label' => 'Garage',
 //            ])
         ;
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -210,6 +207,5 @@ class PropertyType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Property::class,
         ]);
-
     }
 }

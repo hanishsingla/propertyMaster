@@ -39,30 +39,30 @@ class PropertyRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Property[] Returns an array of Property objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Property[] Returns an array of Property objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('p.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?Property
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Property
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 
     public function getAllProperty(): array
     {
@@ -76,11 +76,11 @@ class PropertyRepository extends ServiceEntityRepository
         ]);
     }
 
-    public function getPropertyByListType($listType,$maxResult)
+    public function getPropertyByListType($listType, $maxResult)
     {
         $qb = $this->createQueryBuilder('p');
 
-        if ($listType !== 'all') {
+        if ('all' !== $listType) {
             $qb->andWhere('p.propertyStatus = :listType')
                 ->setParameter('listType', $listType);
         }
@@ -99,7 +99,8 @@ class PropertyRepository extends ServiceEntityRepository
             ->setParameter('city', $city)
             ->setParameter('propertyCategory', $propertyCategory)
             ->setParameter('status', $status)
-;
+        ;
+
         return $qb->getQuery()->getResult();
     }
 
@@ -110,17 +111,15 @@ class PropertyRepository extends ServiceEntityRepository
         ]);
     }
 
-
-//    public function getFavoritePropertyOneByFav($propertyId, mixed $ownerId): array
-//    {
-//        $query = $this->createQueryBuilder('p')
-//            ->leftJoin(FavouriteProperty::class, 'f', 'With', 'p.id = f.property')
-//            ->where('p.id = :propertyId')
-//            ->andWhere('p.ownerId = :ownerId')
-//            ->setParameter('propertyId', $propertyId)
-//            ->setParameter('ownerId', $ownerId)
-//            ->getQuery();
-//        return $query->getResult();
-//    }
-
+    //    public function getFavoritePropertyOneByFav($propertyId, mixed $ownerId): array
+    //    {
+    //        $query = $this->createQueryBuilder('p')
+    //            ->leftJoin(FavouriteProperty::class, 'f', 'With', 'p.id = f.property')
+    //            ->where('p.id = :propertyId')
+    //            ->andWhere('p.ownerId = :ownerId')
+    //            ->setParameter('propertyId', $propertyId)
+    //            ->setParameter('ownerId', $ownerId)
+    //            ->getQuery();
+    //        return $query->getResult();
+    //    }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Form\Security\UserDetailType;
 use App\Repository\Property\PropertyRepository;
 use App\Repository\Security\UserDetailRepository;
@@ -10,12 +9,12 @@ use App\Service\CommonHelper;
 use App\Service\FileUploader\Uploader;
 use App\Service\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class BaseController extends AbstractController
 {
@@ -31,7 +30,6 @@ class BaseController extends AbstractController
         $propertyLists = $propertyRepository->getPropertyByListType($listType, '4');
 
         if ($request->isXmlHttpRequest()) {
-
             $propertyLists = $propertyRepository->getPropertyByListType($listType, 4);
 
             return $this->render('listing/property/property_listing.html.twig', [
@@ -58,9 +56,8 @@ class BaseController extends AbstractController
         $image = $form->get('image')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($image) {
-                $imageName = $uploader->upload($image , CommonHelper::USER_IMAGE_UPLOAD );
+                $imageName = $uploader->upload($image, CommonHelper::USER_IMAGE_UPLOAD);
                 $userDetail->setImage($imageName);
             }
             $em->persist($userDetail);
@@ -68,6 +65,7 @@ class BaseController extends AbstractController
 
             return $this->redirectToRoute('account');
         }
+
         return $this->render('base/user_profile.html.twig', [
             'form' => $form->createView(),
             'userImage' => $userImage,

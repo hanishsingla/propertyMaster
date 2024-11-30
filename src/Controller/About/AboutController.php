@@ -11,11 +11,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class AboutController extends AbstractController
 {
     #[Route('/about', name: 'about')]
-    public function about(Request $request ,CommonHelper $commonHelper): Response
+    public function about(Request $request, CommonHelper $commonHelper): Response
     {
-
-        return $this->render('about/about.html.twig',[
-
+        return $this->render('about/about.html.twig', [
         ]);
     }
 }

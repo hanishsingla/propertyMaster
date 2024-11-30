@@ -5,7 +5,6 @@ namespace App\Entity\Property;
 use App\Entity\AbstractEntity;
 use App\Repository\Property\FavouritePropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'favourite_properties')]
@@ -20,52 +19,36 @@ class FavouriteProperty extends AbstractEntity
     #[Groups(['read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: 'string')]
     private string $ownerId;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: 'string')]
     private string $favourite;
 
     #[ORM\ManyToOne(inversedBy: 'favouriteProperties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Property $property = null;
 
-
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getOwnerId(): string
     {
         return $this->ownerId;
     }
 
-    /**
-     * @param string $ownerId
-     */
     public function setOwnerId(string $ownerId): void
     {
         $this->ownerId = $ownerId;
     }
 
-    /**
-     * @return string
-     */
     public function getFavourite(): string
     {
         return $this->favourite;
     }
 
-    /**
-     * @param string $favourite
-     */
     public function setFavourite(string $favourite): void
     {
         $this->favourite = $favourite;
@@ -82,6 +65,4 @@ class FavouriteProperty extends AbstractEntity
 
         return $this;
     }
-
-
 }

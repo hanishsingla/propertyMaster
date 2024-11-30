@@ -8,17 +8,16 @@ use App\Repository\Property\PropertyRepository;
 use App\Service\CommonHelper;
 use App\Service\FileUploader\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class UserPropertyController extends AbstractController
 {
-
     #[IsGranted('ROLE_AGENT')]
     #[Route('/userProperty', name: 'userProperty')]
     public function userProperty(Request $request, PropertyRepository $propertyRepository): Response
@@ -26,6 +25,7 @@ class UserPropertyController extends AbstractController
         $ownerId = $request->getSession()->get('ownerId');
 
         $propertyLists = $propertyRepository->getPropertyByOwner($ownerId);
+
         return $this->render('userProperty/user_property.html.twig', [
             'propertyLists' => $propertyLists,
         ]);
@@ -43,17 +43,14 @@ class UserPropertyController extends AbstractController
 
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var UploadedFile $brochureFile */
             $imageFiles = $form->get('propertyImage')->getData();
             if ($imageFiles) {
                 $imageFileNames = [];
 
                 foreach ($imageFiles as $file) {
-
-                    $imageFileNames[] = $imageFileNames[] = $uploader->upload($file , CommonHelper::Property_IMAGE_UPLOAD);
+                    $imageFileNames[] = $imageFileNames[] = $uploader->upload($file, CommonHelper::Property_IMAGE_UPLOAD);
                 }
 
                 $propertyForm->setPropertyImage($imageFileNames);
@@ -67,6 +64,7 @@ class UserPropertyController extends AbstractController
 
             return $this->redirectToRoute('userProperty');
         }
+
         return $this->render('userProperty/create_user_property.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -85,17 +83,14 @@ class UserPropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var UploadedFile $brochureFile */
-
             $imageFiles = $form->get('propertyImage')->getData();
 
             if ($imageFiles) {
-
                 $imageFileNames = [];
 
                 foreach ($imageFiles as $file) {
-                    $imageFileNames[] = $uploader->upload($file , CommonHelper::Property_IMAGE_UPLOAD);
+                    $imageFileNames[] = $uploader->upload($file, CommonHelper::Property_IMAGE_UPLOAD);
                 }
 
                 $userPropertyEditData->setPropertyImage($imageFileNames);
@@ -117,18 +112,13 @@ class UserPropertyController extends AbstractController
         ]);
     }
 
-
-
-
     #[Route('/propertyCategory', name: 'propertyCategory')]
-    public function getPropertyCategories(Request $request ,CommonHelper $commonHelper): JsonResponse
+    public function getPropertyCategories(Request $request, CommonHelper $commonHelper): JsonResponse
     {
         $propertyType = $request->query->get('propertyType');
 
-        $categories =  $commonHelper->getCategoriesForType($propertyType);
+        $categories = $commonHelper->getCategoriesForType($propertyType);
 
         return new JsonResponse($categories);
     }
-
-
 }

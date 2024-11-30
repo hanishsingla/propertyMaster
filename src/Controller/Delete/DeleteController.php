@@ -5,16 +5,16 @@ namespace App\Controller\Delete;
 use App\Repository\Property\PropertyRepository;
 use App\Repository\Security\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class DeleteController extends  AbstractController
+class DeleteController extends AbstractController
 {
     #[Route('/deleteAccount', name: 'deleteAccount')]
-    public function deleteAccount(Request $request ,UserRepository $userRepository ,EntityManagerInterface $em) : Response
+    public function deleteAccount(Request $request, UserRepository $userRepository, EntityManagerInterface $em): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
         $user = $userRepository->fetchAllData($ownerId);
@@ -22,6 +22,7 @@ class DeleteController extends  AbstractController
             $em->remove($value);
         }
         $em->flush();
+
         return $this->redirectToRoute('login');
     }
 

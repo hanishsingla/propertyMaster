@@ -5,7 +5,6 @@ namespace App\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
-use Throwable;
 
 class GitDataCollector extends DataCollector
 {
@@ -13,7 +12,7 @@ class GitDataCollector extends DataCollector
     {
     }
 
-    public function collect(Request $request, Response $response, Throwable $exception = null): void
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         // We add the git information in $data[]
         $this->data = [

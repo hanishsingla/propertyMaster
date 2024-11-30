@@ -28,9 +28,7 @@ class ResetPasswordController extends AbstractController
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
         private EntityManagerInterface $entityManager
-
-    )
-    {
+    ) {
     }
 
     /**
@@ -83,7 +81,7 @@ class ResetPasswordController extends AbstractController
      * Validates and process the reset URL that the user clicked in their email.
      */
     #[Route('/reset/{token}', name: 'app_reset_password')]
-    public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, string $token = null): Response
+    public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, ?string $token = null): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_index');
@@ -139,7 +137,7 @@ class ResetPasswordController extends AbstractController
 
         return $this->render('security/reset_password/reset.html.twig', [
             'resetForm' => $form->createView(),
-            'site_meta_title_name'=> 'Reset Password'
+            'site_meta_title_name' => 'Reset Password',
         ]);
     }
 

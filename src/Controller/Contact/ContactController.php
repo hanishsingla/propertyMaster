@@ -13,24 +13,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'contact')]
-    public function contact(Request $request, EntityManagerInterface $em,): Response
+    public function contact(Request $request, EntityManagerInterface $em): Response
     {
-
         $helpData = new Contact();
         $form = $this->createForm(ContactType::class, $helpData);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($helpData);
 
             $em->flush();
 
             return $this->redirectToRoute('contact');
         }
-        return $this->render('contact/contact.html.twig',[
-            'helpData' => $form->createView(),
 
+        return $this->render('contact/contact.html.twig', [
+            'helpData' => $form->createView(),
         ]);
     }
 }

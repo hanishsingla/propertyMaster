@@ -21,24 +21,24 @@ class UserDetailType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'name'
+                    'placeholder' => 'name',
                 ],
             ])
             ->add('gender', ChoiceType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
                 'choices' => [
                     'Choose an option' => '',
-                    'Male' => "male",
+                    'Male' => 'male',
                     'Female' => 'female',
                     'other' => 'other',
                 ],
             ])
             ->add('image', FileType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
                 'label' => 'Images',
                 'mapped' => false,
@@ -48,55 +48,55 @@ class UserDetailType extends AbstractType
             ->add('phone', NumberType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ])
             ->add('mobile', NumberType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ])
-            ->add('country', countryType::class, [
+            ->add('country', CountryType::class, [
                 'placeholder' => 'Choose an option',
                 'required' => false,
                 'choices' => [
-                    'Choose an option' => ''
+                    'Choose an option' => '',
                 ],
                 'preferred_choices' => ['IN'],
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
                 'label' => 'Country',
             ])
             ->add('address', TextType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
             ])
             ->add('address2', TextType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
             ])
             ->add('city', TextType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
             ])
             ->add('zip', TextType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
             ])
             ->add('state', TextType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ],
             ]);
     }

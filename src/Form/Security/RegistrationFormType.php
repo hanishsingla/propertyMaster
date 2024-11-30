@@ -30,7 +30,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'email',
-                    'autocomplete' => 'email'
+                    'autocomplete' => 'email',
                 ],
             ])
 
@@ -39,7 +39,6 @@ class RegistrationFormType extends AbstractType
                 'data' => true,
                 'attr' => [
                     'class' => 'form-check-input',
-
                 ],
                 'constraints' => [
                     new IsTrue([
@@ -65,14 +64,14 @@ class RegistrationFormType extends AbstractType
                     'attr' => [
                         'class' => 'form-control',
                         'placeholder' => 'password',
-                    ]
+                    ],
                 ],
 
                 'second_options' => [
                     'attr' => [
                         'autocomplete' => 'new-password',
                         'class' => 'form-control',
-                        'placeholder' => 'confirm-password'
+                        'placeholder' => 'confirm-password',
                     ],
                     'label' => 'Confirm-password',
                 ],

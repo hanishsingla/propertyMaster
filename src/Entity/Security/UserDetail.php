@@ -22,9 +22,6 @@ class UserDetail extends AbstractAccount
     #[ORM\OneToOne(inversedBy: 'userDetail', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;

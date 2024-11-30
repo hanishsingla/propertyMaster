@@ -12,7 +12,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category extends AbstractEntity
 {
-
     #[ORM\Column(type: 'guid')]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
@@ -20,32 +19,21 @@ class Category extends AbstractEntity
     #[Groups(['read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: 'string')]
     private string $ownerId;
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getOwnerId(): string
     {
         return $this->ownerId;
     }
 
-    /**
-     * @param string $ownerId
-     */
     public function setOwnerId(string $ownerId): void
     {
         $this->ownerId = $ownerId;
     }
-
-
 }

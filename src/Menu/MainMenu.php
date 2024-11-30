@@ -10,15 +10,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MainMenu
 {
-
-
     public function __construct(
-        private readonly FactoryInterface    $factory,
-        private readonly RequestStack        $requestStack,
+        private readonly FactoryInterface $factory,
+        private readonly RequestStack $requestStack,
         private readonly TranslatorInterface $translator,
-        private readonly Security            $security
-    )
-    {
+        private readonly Security $security
+    ) {
     }
 
     public function createMainMenu(array $options): ItemInterface
@@ -29,7 +26,7 @@ class MainMenu
         $security = $this->security;
 
         $menu->setChildrenAttribute('class', 'navbar-nav  mb-2 mb-lg-0');
-        $currentRoute = $this->requestStack->getCurrentRequest();;
+        $currentRoute = $this->requestStack->getCurrentRequest();
 
         $menu->addChild('Home', [
             'route' => 'home',
@@ -47,7 +44,7 @@ class MainMenu
             'linkAttributes' => ['class' => 'nav-link dropdown-toggle',
                 'role' => 'button',
                 'data-bs-toggle' => 'dropdown',
-                'aria-expanded' => 'false'
+                'aria-expanded' => 'false',
             ],
         ]);
 
@@ -86,8 +83,6 @@ class MainMenu
             'labelAttributes' => ['icon' => 'fa-location-dot'],
             'linkAttributes' => ['class' => 'nav-link'],
         ]);
-
-
 
         return $menu->setChildrenAttributes(['class' => 'navbar-nav  mb-2 mb-lg-0']);
     }

@@ -9,10 +9,6 @@
 
 namespace App\DataCollector;
 
-use DateTime;
-use DateTimeZone;
-use function is_array;
-
 class GitLoader
 {
     private ?string $project_dir;
@@ -24,12 +20,12 @@ class GitLoader
 
     public function getBranchName()
     {
-        $gitHeadFile = $this->project_dir . '/.git/HEAD';
+        $gitHeadFile = $this->project_dir.'/.git/HEAD';
         $branchName = 'no branch name';
 
         $stringFromFile = file_exists($gitHeadFile) ? file($gitHeadFile, FILE_USE_INCLUDE_PATH) : '';
 
-        if (!is_array($stringFromFile)) {
+        if (!\is_array($stringFromFile)) {
             return $branchName;
         }
 
@@ -44,15 +40,15 @@ class GitLoader
 
     public function getLastCommitMessage()
     {
-        $gitCommitMessageFile = $this->project_dir . '/.git/COMMIT_EDITMSG';
+        $gitCommitMessageFile = $this->project_dir.'/.git/COMMIT_EDITMSG';
         $commitMessage = file_exists($gitCommitMessageFile) ? file($gitCommitMessageFile, FILE_USE_INCLUDE_PATH) : '';
 
-        return is_array($commitMessage) ? trim($commitMessage[0]) : '';
+        return \is_array($commitMessage) ? trim($commitMessage[0]) : '';
     }
 
     public function getLastCommitDetail()
     {
-        $gitLogFile = $this->project_dir . '/.git/logs/HEAD';
+        $gitLogFile = $this->project_dir.'/.git/logs/HEAD';
         $gitLogs = file_exists($gitLogFile) ? file($gitLogFile, FILE_USE_INCLUDE_PATH) : '';
 
         $gitLogExploded = explode('	', end($gitLogs));
@@ -66,8 +62,8 @@ class GitLoader
         $dateString = $logExploded[$count - 2];
         $timeZoneString = $logExploded[$count - 1];
 
-        $date = new DateTime();
-        $timeZone = new DateTimeZone($timeZoneString);
+        $date = new \DateTime();
+        $timeZone = new \DateTimeZone($timeZoneString);
 
         return [
             'author' => $author,
