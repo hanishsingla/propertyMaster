@@ -16,15 +16,19 @@ return RectorConfig::configure()
     ])
     // uncomment to reach your current PHP version
     // ->withPhpSets()
-    // ->withTypeCoverageLevel(1)
+    // ->withTypeCoverageLevel(50)
+    // ->withDeadCodeLevel(50)
     // here we can define, what prepared sets of rules will be applied
     ->withSets([
-        SetList::PHP_82,
         DoctrineSetList::DOCTRINE_CODE_QUALITY,
-        SymfonySetList::SYMFONY_71,
+        SetList::CODE_QUALITY,
+        SetList::DEAD_CODE,
+        SetList::TYPE_DECLARATION,
+        SymfonySetList::SYMFONY_CODE_QUALITY,
     ])
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,
         typeDeclarations: true
-    );
+    )
+;
