@@ -6,8 +6,11 @@ use App\Entity\Security\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -77,7 +80,25 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
             ])
-            ->add('userDetail', UserType::class);
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'name',
+                ],
+            ])
+
+            ->add('image', FileType::class, [
+                'label' => 'Images',
+                'mapped' => false,
+                'multiple' => false,
+                'required' => false,
+            ])
+            ->add('phone', NumberType::class)
+            ->add('mobile', NumberType::class)
+
+            ->add('address', TextType::class)
+            ->add('address2', TextType::class)
+            ->add('city', TextType::class)
+            ->add('state', TextType::class);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

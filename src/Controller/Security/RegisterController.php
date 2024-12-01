@@ -43,10 +43,6 @@ class RegisterController extends AbstractController
                 $user->setRoles([CommonHelper::ROLE_AGENT]);
             }
 
-            $user->getUserDetail()
-                ->setIsCreatedAt(new \DateTime())
-                ->setIsUpdatedAt(new \DateTime());
-
             $entityManager->persist($user);
             $entityManager->flush();
 

@@ -22,9 +22,9 @@ class AcountController extends AbstractController
     public function account(Request $request, UserRepository $detailRepository, Uploader $uploader, EntityManagerInterface $em): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
-        $userDetail = $detailRepository->getUser($ownerId);
-        $userImage = $userDetail->getImage();
-        $form = $this->createForm(UserType::class, $userDetail);
+        $user = $detailRepository->getUser($ownerId);
+
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         /** @var UploadedFile $image */
@@ -33,9 +33,9 @@ class AcountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($image) {
                 $imageName = $uploader->upload($image, CommonHelper::USER_IMAGE_UPLOAD);
-                $userDetail->setImage($imageName);
+                $user->setImage($imageName);
             }
-            $em->persist($userDetail);
+            $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('account');
@@ -43,7 +43,7 @@ class AcountController extends AbstractController
 
         return $this->render('base/user_profile.html.twig', [
             'form' => $form->createView(),
-            'userImage' => $userImage,
+            'userImage' => $user->getImage(),
         ]);
     }
 

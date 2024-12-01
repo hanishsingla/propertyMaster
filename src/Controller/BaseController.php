@@ -17,12 +17,6 @@ class BaseController extends AbstractController
     #[Route('/{listType}', name: 'home', requirements: ['listType' => 'buy|rent|sale'])]
     public function home(Request $request, Session $session, PropertyRepository $propertyRepository, $listType = 'all'): Response
     {
-        $user = $this->getUser();
-
-        if ($user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
-            $session->session($user, $request);
-        }
-
         $propertyLists = $propertyRepository->getPropertyByListType($listType, '4');
 
         if ($request->isXmlHttpRequest()) {

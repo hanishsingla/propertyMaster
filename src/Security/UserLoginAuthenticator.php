@@ -26,7 +26,6 @@ class UserLoginAuthenticator extends AbstractLoginFormAuthenticator
 
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly Session $session,
         private readonly CommonHelper $commonHelper,
     ) {
     }
@@ -52,12 +51,15 @@ class UserLoginAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-        $session = $this->session;
-        $commonHelper = $this->commonHelper;
-        $user = $token->getUser();
-        $session->session($user, $request);
 
-        return $commonHelper->redirect($user);
+        $user = $token->getUser();
+
+        $request->getSession()->set('email', $user->getEmail());
+        $request->getSession()->set('ownerId', $user->getId());
+        $request->getSession()->set('userImage', $user->getImage());
+        $request->getSession()->set('userName', $user->getName());
+
+        return $this->commonHelper->redirect($user);
     }
 
     protected function getLoginUrl(Request $request): string
