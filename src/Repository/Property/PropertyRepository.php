@@ -22,11 +22,6 @@ class PropertyRepository extends ServiceEntityRepository
         parent::__construct($registry, Property::class);
     }
 
-    public function getAllProperty(): array
-    {
-        return $this->findAll();
-    }
-
     public function getProperty(?string $propertyId): ?Property
     {
         return $this->findOneBy([
@@ -66,13 +61,27 @@ class PropertyRepository extends ServiceEntityRepository
 
     public function getSearchProperty(?string $city, ?string $propertyCategory, ?string $status, ?string $propertyType): array
     {
-        return $this->createQueryBuilder('p')
-            ->Where('p.propertyCity = :city')
-            ->andWhere('p.propertyCategory = :propertyCategory')
-            ->andWhere('p.propertyStatus = :status')
-            ->setParameter('city', $city)
-            ->setParameter('propertyCategory', $propertyCategory)
-            ->setParameter('status', $status)
+        $queryBuilder = $this->createQueryBuilder('p')->Where('1 = 1');
+
+        if ($city) {
+            $queryBuilder
+                ->Where('p.propertyCity = :city')
+                ->setParameter('city', $city);
+        }
+
+        if ($status) {
+            $queryBuilder
+                ->andWhere('p.propertyStatus = :status')
+                ->setParameter('status', $status);
+        }
+
+        if ($propertyCategory) {
+            $queryBuilder
+                ->andWhere('p.propertyCategory = :propertyCategory')
+                ->setParameter('propertyCategory', $propertyCategory);
+        }
+
+        return $queryBuilder
             ->getQuery()
             ->getResult();
     }

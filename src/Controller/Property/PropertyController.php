@@ -23,11 +23,7 @@ class PropertyController extends AbstractDashboardController
         $propertyType = $propertyType ?? $request->get('propertyType');
         $status = $request->get('status');
 
-        if ($city && $propertyCategory && null != $status || $city && $propertyType && $propertyCategory && null != $status) {
-            $propertyLists = $propertyRepository->getSearchProperty($city, $propertyCategory, $status, $propertyType);
-        } else {
-            $propertyLists = $propertyRepository->getAllProperty();
-        }
+        $propertyLists = $propertyRepository->getSearchProperty($city, $propertyCategory, $status, $propertyType);
 
         return $this->render('property/property.html.twig', [
             'propertyLists' => $propertyLists,
@@ -38,8 +34,6 @@ class PropertyController extends AbstractDashboardController
     #[Route('/property-details/{propertyId}', name: 'propertyDetails')]
     public function propertyDetails(Request $request, PropertyRepository $propertyRepository, FavouritePropertyRepository $favoritePropertyRepository, ?string $propertyId): Response
     {
-        $this->getUser();
-
         $ownerId = $request->getSession()->get('ownerId');
 
         $propertyInformation = $propertyRepository->getProperty($propertyId);
@@ -85,28 +79,25 @@ class PropertyController extends AbstractDashboardController
 
         $ownerId = $request->getSession()->get('ownerId');
 
-        $data = $request->get('data');
-
         $favourite = $favouritePropertyRepository->getFavoritePropertyById($propertyId, $ownerId);
 
         if (!$favourite instanceof FavouriteProperty) {
+            $data = $request->get('data');
             $property = $propertyRepository->getProperty($propertyId);
 
             $favourite = (new FavouriteProperty())
                 ->setProperty($property)
-                ->setOwnerId($ownerId);
+                ->setOwnerId($ownerId)
+                ->setIsCreatedAt(new \DateTime())
+                ->setIsUpdatedAt(new \DateTime());
 
-            $favourite->setIsCreatedAt(new \DateTime());
-        } else {
-            $favourite->setIsUpdatedAt(new \DateTime());
+            $favourite->setFavourite($data);
+
+            $em->persist($favourite);
+
+            $em->flush();
         }
 
-        $favourite->setFavourite($data);
-
-        $em->persist($favourite);
-
-        $em->flush();
-
-        return $this->json('data');
+        return $this->json(['success' => true]);
     }
 }

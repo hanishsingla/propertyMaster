@@ -8,11 +8,11 @@
                     <div class="card-body">
                         <form method="get" action="{{ path('propertyList') }}">
                             <div class="form-group row my-2">
-                                <div class="col-md-12">
+                                <div class="col-md-3">
                                     <label for="inputCity" class="form-label">City</label>
                                     <input class="form-control" placeholder="search city" name="city">
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-3">
                                     <label for="inputPropertyStatusType" class="form-label">Type</label>
                                     <select class="form-select" name="propertyType" aria-label="Default select example">
                                         <option selected>Property type</option>
@@ -21,11 +21,10 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-3">
                                     <label for="inputPropertyCategory" class="form-label">Category</label>
-                                    <select class="form-select" name="propertyCategory"
-                                            aria-label="Default select example">
-                                        <option value="">Property type</option>
+                                    <select class="form-select" name="propertyCategory" aria-label="Default select example">
+                                        <option value="">Property category</option>
                                         <option value="villa">Villa</option>
                                         <option value="apartment">Apartment</option>
                                         <option value="floor">Floor</option>
@@ -33,20 +32,19 @@
                                         <option value="Shop">Shop</option>
                                         <option value="hotel">Hotel</option>
                                         <option value="warehouse">Warehouse</option>
-                                        <option value="agricultural_farm_land">Agricultural/ Farm Land</option>
+                                        <option value="agricultural_farm_land">Agricultural/Farm Land</option>
                                     </select>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-3">
                                     <label for="inputPropertyStatus" class="form-label">Status</label>
                                     <select class="form-select" name="status" aria-label="Default select example">
-                                        <option value="">Open this select menu</option>
                                         <option value="sale">For Sale</option>
                                         <option value="rent">For Rent</option>
                                     </select>
                                 </div>
 
-                                <div class="col-md-12 text-center mt-3">
+                                <div class="col-md-12 text-end mt-3">
                                     <button class="btn btn-primary" type="submit">Submit</button>
                                 </div>
                             </div>
