@@ -3,10 +3,9 @@
 {% block pageContent %}
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1>Filters</h1>
                         <form method="get" action="{{ path('propertyList') }}">
                             <div class="form-group row my-2">
                                 <div class="col-md-12">
@@ -24,8 +23,9 @@
 
                                 <div class="col-md-12">
                                     <label for="inputPropertyCategory" class="form-label">Category</label>
-                                    <select class="form-select" name="propertyCategory" aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
+                                    <select class="form-select" name="propertyCategory"
+                                            aria-label="Default select example">
+                                        <option value="">Property type</option>
                                         <option value="villa">Villa</option>
                                         <option value="apartment">Apartment</option>
                                         <option value="floor">Floor</option>
@@ -39,9 +39,8 @@
 
                                 <div class="col-md-12">
                                     <label for="inputPropertyStatus" class="form-label">Status</label>
-                                    <select class="form-select" name="status"
-                                            aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
+                                    <select class="form-select" name="status" aria-label="Default select example">
+                                        <option value="">Open this select menu</option>
                                         <option value="sale">For Sale</option>
                                         <option value="rent">For Rent</option>
                                     </select>
@@ -55,10 +54,10 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-9">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="row" id="propertyListing">
-                    {% set column = 'col-lg-4' %}
                     {{ include('listing/property/property_listing.html.twig') }}
                 </div>
             </div>

@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Property\Category;
 use App\Entity\Property\Property;
+use App\Entity\Security\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -58,8 +58,8 @@ class DashboardController extends AbstractDashboardController
 
         return [
             yield MenuItem::section('Blog'),
-            yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class),
             yield MenuItem::linkToCrud('Property', 'fa fa-home', Property::class),
+            yield MenuItem::linkToCrud('Users', 'fa fa-home', User::class),
         ];
     }
 }
