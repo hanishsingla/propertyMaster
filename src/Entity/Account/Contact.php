@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Contact;
+namespace App\Entity\Account;
 
 use App\Entity\AbstractEntity;
 use App\Repository\Contact\ContactRepository;

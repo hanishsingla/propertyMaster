@@ -2,7 +2,7 @@
 
 namespace App\Form\Contact;
 
-use App\Entity\Contact\Contact;
+use App\Entity\Account\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

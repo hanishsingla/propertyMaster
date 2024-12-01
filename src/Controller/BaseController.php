@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact\Contact;
+use App\Entity\Account\Contact;
 use App\Form\Contact\ContactType;
 use App\Repository\Property\PropertyRepository;
 use App\Service\Session\Session;
