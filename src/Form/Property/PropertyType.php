@@ -149,37 +149,6 @@ class PropertyType extends AbstractType
                 ],
                 'label' => 'square Type',
             ])
-
-//            ->add('propertyIsGarage', CheckboxType::class, [
-//                'attr' => [
-//                    'placeholder' => 'Garage',
-//                    'class' => 'form-check-input',
-//                ],
-//                'label' => 'Is Garage',
-//                'required' => false,
-//            ])
-//            ->add('propertyCountry', countryType::class, [
-//                'placeholder' => 'Choose an option',
-//                'required' => true,
-//                'choices' => [
-//                    'Choose an option' => ''
-//                ],
-//                'preferred_choices' => ['IN'],
-//                'data' => 'IN',
-//                'attr' => [
-//                    'class' => 'form-control'
-//                ],
-//                'label' => 'Country',
-//            ])
-//            ->add('propertyGarage', NumberType::class, [
-//                'attr' => [
-//                    'placeholder' => 'Number of garage',
-//                    'class' => 'form-control',
-//                    'data-change' => "class",
-//                ],
-//                'required' => false,
-//                'label' => 'Garage',
-//            ])
         ;
     }
 

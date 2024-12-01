@@ -24,13 +24,8 @@
                         </div>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#"><i class="fa-brands fa-facebook-f fa-beat-fade"></i> Facebook</a></li>
-
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-envelope fa-bounce"></i> email</a></li>
-
                         </ul>
 
                         {% if is_granted("ROLE_USER") %}
@@ -73,7 +68,6 @@
                                     </div>
                                 </div>
                                 <div class="row">
-
                                     <div class="col-md-6 table-responsive">
                                         <table class="table table table-striped table-hover table-bordered">
                                             <tr>
@@ -98,12 +92,6 @@
                                                 <th><i class="fa-solid fa-bath"></i> BathRooms</th>
                                                 <td>{{ propertyInformation.propertyBathRooms }}</td>
                                             </tr>
-
-                                            <tr>
-                                                <th><i class="fa-solid fa-car"></i> Garage</th>
-                                                <td>{{ propertyInformation.propertyIsGarage ? propertyInformation.propertyGarage : 'NA' }} </td>
-                                            </tr>
-
                                         </table>
                                     </div>
                                     <div class="col-md-6">
@@ -136,15 +124,12 @@
                                                 <th><i class="fa-solid fa-dollar-sign"></i> Price</th>
                                                 <td><i class="fa-solid fa-dollar-sign"></i> {{ propertyInformation.propertyPrice }} </td>
                                             </tr>
-
-
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {#       Description     #}
                     <div class="row mt-3">
                         <div class="card">
                             <div class="card-body">
@@ -153,28 +138,14 @@
                                         <h4 class="text-secondary">Description</h4>
                                     </div>
 
-                                    <div class="col-12">
-                                        <p>
-                                            {{ propertyInformation.propertyDescription }}
-                                        </p>
-                                    </div>
+                                    <div class="col-12">{{ propertyInformation.propertyDescription }}</div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                    {#       map     #}
-                    <div class="row">
-
-                    </div>
-
                 </div>
             </div>
         </div>
-
-
     </section>
-
-
 {% endblock %}
 

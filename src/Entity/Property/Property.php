@@ -24,9 +24,6 @@ class Property extends AbstractEntity
     #[ORM\Column(type: 'string')]
     private string $ownerId;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
-    private bool $propertyIsGarage = false;
-
     #[ORM\Column]
     private string $propertyArea;
 
@@ -40,16 +37,16 @@ class Property extends AbstractEntity
     private string $propertyCity;
 
     #[ORM\Column]
-    private string $propertyCountry = 'india';
+    private string $propertyState = 'Punjab';
 
-    #[ORM\Column(type: 'string', length: '1000')]
+    #[ORM\Column]
+    private string $propertyCountry = 'India';
+
+    #[ORM\Column(type: 'text')]
     private string $propertyDescription;
 
     #[ORM\Column]
     private string $propertyDirection;
-
-    #[ORM\Column(nullable: true)]
-    private ?string $propertyGarage = null;
 
     #[ORM\Column(nullable: true)]
     private ?array $propertyImage = null;
@@ -59,9 +56,6 @@ class Property extends AbstractEntity
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $propertyRooms = null;
-
-    #[ORM\Column]
-    private string $propertyState;
 
     #[ORM\Column]
     private string $propertyStatus;
@@ -76,7 +70,7 @@ class Property extends AbstractEntity
     private ?string $propertyBedRooms = null;
 
     #[ORM\Column]
-    private string $squareType;
+    private string $squareType = 'feet';
 
     #[ORM\OneToMany(targetEntity: FavouriteProperty::class, mappedBy: 'property', cascade: ['persist', 'remove'])]
     private Collection $favouriteProperties;
@@ -99,18 +93,6 @@ class Property extends AbstractEntity
     public function setOwnerId(string $ownerId): self
     {
         $this->ownerId = $ownerId;
-
-        return $this;
-    }
-
-    public function isPropertyIsGarage(): bool
-    {
-        return $this->propertyIsGarage;
-    }
-
-    public function setPropertyIsGarage(bool $propertyIsGarage): self
-    {
-        $this->propertyIsGarage = $propertyIsGarage;
 
         return $this;
     }
@@ -195,18 +177,6 @@ class Property extends AbstractEntity
     public function setPropertyDirection(string $propertyDirection): self
     {
         $this->propertyDirection = $propertyDirection;
-
-        return $this;
-    }
-
-    public function getPropertyGarage(): ?string
-    {
-        return $this->propertyGarage;
-    }
-
-    public function setPropertyGarage(?string $propertyGarage): self
-    {
-        $this->propertyGarage = $propertyGarage;
 
         return $this;
     }

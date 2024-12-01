@@ -55,12 +55,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function getAgents(): array
     {
-        return $this->createQueryBuilder('ud')
-            ->select('ud.id, ud.city', 'ud.address', 'ud.address2', 'ud.country', 'ud.gender', 'ud.image', 'ud.name', 'ud.phone', 'ud.state', 'ud.zip', 'ud.mobile', 'u.email')
-            ->innerJoin('ud.user', 'u')
-            ->where('u.isAgent = :agent')
-            ->setParameter('agent', true)
-            ->getQuery()
-            ->getResult();
+        return $this->findBy(['isAgent' => true]);
     }
 }

@@ -35,15 +35,10 @@ class PropertyController extends AbstractDashboardController
         ]);
     }
 
-    #[IsGranted('ROLE_USER')]
     #[Route('/property-details/{propertyId}', name: 'propertyDetails')]
     public function propertyDetails(Request $request, PropertyRepository $propertyRepository, FavouritePropertyRepository $favoritePropertyRepository, $propertyId): Response
     {
         $user = $this->getUser();
-
-        if (!$user instanceof UserInterface) {
-            return $this->redirectToRoute('login');
-        }
 
         $ownerId = $request->getSession()->get('ownerId');
 
