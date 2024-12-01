@@ -50,7 +50,7 @@ class AcountController extends AbstractController
     #[Route('/changeUserPassword', name: 'app_change_password')]
     public function changePassword(Request $request, UserRepository $userRepository, $companyUserId): Response
     {
-        $user = $userRepository->loadWebUserByOauthUid($companyUserId);
+        $userRepository->loadWebUserByOauthUid($companyUserId);
 
         $form = $this->createForm(ChangeUserPasswordFormType::class);
         $form->handleRequest($request);

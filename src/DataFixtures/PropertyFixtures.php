@@ -11,7 +11,7 @@ class PropertyFixtures extends BaseFixture
     {
         // php bin/console doctrine:fixtures:load
 
-        $this->createMany(Property::class, 50, function (Property $property, $count) use ($manager) {
+        $this->createMany(Property::class, 50, function (Property $property, $count) use ($manager): void {
             $property
                 ->setPropertyTitle($this->faker->text(50))
                 ->setPropertyDescription($this->faker->text(500))

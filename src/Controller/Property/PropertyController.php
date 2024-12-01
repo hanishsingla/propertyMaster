@@ -38,7 +38,7 @@ class PropertyController extends AbstractDashboardController
     #[Route('/property-details/{propertyId}', name: 'propertyDetails')]
     public function propertyDetails(Request $request, PropertyRepository $propertyRepository, FavouritePropertyRepository $favoritePropertyRepository, $propertyId): Response
     {
-        $user = $this->getUser();
+        $this->getUser();
 
         $ownerId = $request->getSession()->get('ownerId');
 
@@ -89,7 +89,7 @@ class PropertyController extends AbstractDashboardController
 
         $favourite = $favouritePropertyRepository->getFavoritePropertyById($propertyId, $ownerId);
 
-        if (empty($favourite)) {
+        if (!$favourite instanceof \App\Entity\Property\FavouriteProperty) {
             $property = $propertyRepository->getProperty($propertyId);
 
             $favourite = (new FavouriteProperty())
