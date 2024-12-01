@@ -98,7 +98,7 @@ class RegistrationFormType extends AbstractType
             ->add('address', TextType::class)
             ->add('address2', TextType::class)
             ->add('city', TextType::class)
-            ->add('state', TextType::class);;
+            ->add('state', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

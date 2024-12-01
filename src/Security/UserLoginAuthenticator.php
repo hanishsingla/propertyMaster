@@ -3,7 +3,6 @@
 namespace App\Security;
 
 use App\Service\CommonHelper;
-use App\Service\Session\Session;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
