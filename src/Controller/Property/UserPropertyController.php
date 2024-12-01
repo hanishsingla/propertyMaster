@@ -69,7 +69,7 @@ class UserPropertyController extends AbstractController
 
     #[IsGranted('ROLE_AGENT')]
     #[Route('/editProperty/{id}', name: 'userPropertyEdit')]
-    public function userPropertyEdit(Request $request, CommonHelper $commonHelper, PropertyRepository $propertyRepository, Uploader $uploader, EntityManagerInterface $em, $id): Response
+    public function userPropertyEdit(Request $request, CommonHelper $commonHelper, PropertyRepository $propertyRepository, Uploader $uploader, EntityManagerInterface $em, string $id): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
 
@@ -108,7 +108,7 @@ class UserPropertyController extends AbstractController
 
     #[IsGranted('ROLE_AGENT')]
     #[Route('/propertyDelete/{id}', name: 'propertyDelete')]
-    public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, $id = null): Response
+    public function delete(Request $request, EntityManagerInterface $em, PropertyRepository $propertyRepository, ?string $id = null): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
 

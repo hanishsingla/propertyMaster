@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class BaseController extends AbstractController
 {
     #[Route('/{listType}', name: 'home', requirements: ['listType' => 'buy|rent|sale'])]
-    public function home(Request $request, PropertyRepository $propertyRepository, $listType = 'all'): Response
+    public function home(Request $request, PropertyRepository $propertyRepository, string $listType = 'all'): Response
     {
         $propertyLists = $propertyRepository->getPropertyByListType($listType, '4');
 

@@ -99,7 +99,7 @@ class PropertyType extends AbstractType
                     'Sale' => 'sale',
                     'Rent' => 'rent',
                 ],
-                'choice_attr' => function () {
+                'choice_attr' => function (): array {
                     return ['class' => 'mx-2'];
                 },
                 'data' => 'sale',

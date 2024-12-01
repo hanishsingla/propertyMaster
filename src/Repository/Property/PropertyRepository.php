@@ -49,7 +49,7 @@ class PropertyRepository extends ServiceEntityRepository
         ]);
     }
 
-    public function getPropertyByListType(string $listType, $maxResult)
+    public function getPropertyByListType(string $listType, ?int $maxResult): array
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -64,7 +64,7 @@ class PropertyRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getSearchProperty(?string $city, ?string $propertyCategory, ?string $status, ?string $propertyType)
+    public function getSearchProperty(?string $city, ?string $propertyCategory, ?string $status, ?string $propertyType): array
     {
         return $this->createQueryBuilder('p')
             ->Where('p.propertyCity = :city')
@@ -77,7 +77,7 @@ class PropertyRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getFavoritePropertyOneByFav($propertyId, mixed $ownerId): array
+    public function getFavoritePropertyOneByFav(string $propertyId, string $ownerId): array
     {
         return $this->createQueryBuilder('p')
             ->leftJoin(FavouriteProperty::class, 'f', 'With', 'p.id = f.property')

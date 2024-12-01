@@ -36,7 +36,7 @@ class PropertyController extends AbstractDashboardController
     }
 
     #[Route('/property-details/{propertyId}', name: 'propertyDetails')]
-    public function propertyDetails(Request $request, PropertyRepository $propertyRepository, FavouritePropertyRepository $favoritePropertyRepository, $propertyId): Response
+    public function propertyDetails(Request $request, PropertyRepository $propertyRepository, FavouritePropertyRepository $favoritePropertyRepository, ?string $propertyId): Response
     {
         $this->getUser();
 
@@ -75,7 +75,7 @@ class PropertyController extends AbstractDashboardController
 
     #[IsGranted('ROLE_USER')]
     #[Route('/liked-property/{propertyId}', name: 'likedProperty')]
-    public function likedProperty(Request $request, FavouritePropertyRepository $favouritePropertyRepository, PropertyRepository $propertyRepository, EntityManagerInterface $em, $propertyId): Response
+    public function likedProperty(Request $request, FavouritePropertyRepository $favouritePropertyRepository, PropertyRepository $propertyRepository, EntityManagerInterface $em, ?string $propertyId): Response
     {
         $user = $this->getUser();
 

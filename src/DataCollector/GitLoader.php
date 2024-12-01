@@ -18,7 +18,7 @@ class GitLoader
         $this->project_dir = $project_dir;
     }
 
-    public function getBranchName()
+    public function getBranchName(): string
     {
         $gitHeadFile = $this->project_dir.'/.git/HEAD';
         $branchName = 'no branch name';
@@ -38,7 +38,7 @@ class GitLoader
         return trim($explodedString[2]);
     }
 
-    public function getLastCommitMessage()
+    public function getLastCommitMessage(): string
     {
         $gitCommitMessageFile = $this->project_dir.'/.git/COMMIT_EDITMSG';
         $commitMessage = file_exists($gitCommitMessageFile) ? file($gitCommitMessageFile, FILE_USE_INCLUDE_PATH) : '';
@@ -46,7 +46,7 @@ class GitLoader
         return \is_array($commitMessage) ? trim($commitMessage[0]) : '';
     }
 
-    public function getLastCommitDetail()
+    public function getLastCommitDetail(): array
     {
         $gitLogFile = $this->project_dir.'/.git/logs/HEAD';
         $gitLogs = file_exists($gitLogFile) ? file($gitLogFile, FILE_USE_INCLUDE_PATH) : '';
