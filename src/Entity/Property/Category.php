@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Entity\Category;
+namespace App\Entity\Property;
 
 use App\Entity\AbstractEntity;
-use App\Repository\Category\CategoryRepository;
+use App\Repository\Property\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'categories')]
-#[ORM\Index(columns: ['id'], name: 'index_id')]
+#[ORM\Index(name: 'index_id', columns: ['id'])]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category extends AbstractEntity
 {

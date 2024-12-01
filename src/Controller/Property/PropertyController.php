@@ -5,7 +5,6 @@ namespace App\Controller\Property;
 use App\Entity\Property\FavouriteProperty;
 use App\Repository\Property\FavouritePropertyRepository;
 use App\Repository\Property\PropertyRepository;
-use App\Service\CommonHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Request;

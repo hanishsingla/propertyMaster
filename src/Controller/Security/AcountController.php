@@ -27,6 +27,7 @@ class AcountController extends AbstractController
         $userImage = $userDetail->getImage();
         $form = $this->createForm(UserDetailType::class, $userDetail);
         $form->handleRequest($request);
+
         /** @var UploadedFile $image */
         $image = $form->get('image')->getData();
 

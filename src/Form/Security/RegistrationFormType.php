@@ -28,7 +28,6 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'form-control',
                     'placeholder' => 'email',
                     'autocomplete' => 'email',
                 ],
@@ -62,7 +61,6 @@ class RegistrationFormType extends AbstractType
                     ],
                     'label' => 'Password',
                     'attr' => [
-                        'class' => 'form-control',
                         'placeholder' => 'password',
                     ],
                 ],
@@ -70,7 +68,6 @@ class RegistrationFormType extends AbstractType
                 'second_options' => [
                     'attr' => [
                         'autocomplete' => 'new-password',
-                        'class' => 'form-control',
                         'placeholder' => 'confirm-password',
                     ],
                     'label' => 'Confirm-password',

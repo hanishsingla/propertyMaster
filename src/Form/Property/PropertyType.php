@@ -20,13 +20,11 @@ class PropertyType extends AbstractType
             ->add('propertyArea', TextType::class, [
                 'attr' => [
                     'placeholder' => 'property Area',
-                    'class' => 'form-control',
                 ],
                 'label' => 'Area',
             ])
             ->add('propertyCategory', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'form-control',
                     'data-property' => 'category',
                 ],
                 'placeholder' => 'Select option',
@@ -46,14 +44,12 @@ class PropertyType extends AbstractType
             ->add('propertyCity', TextType::class, [
                 'attr' => [
                     'placeholder' => 'City',
-                    'class' => 'form-control',
                 ],
                 'label' => 'City',
             ])
             ->add('propertyDescription', TextareaType::class, [
                 'attr' => [
                     'placeholder' => 'Description',
-                    'class' => 'form-control',
                 ],
                 'label' => 'Description',
             ])
@@ -82,14 +78,12 @@ class PropertyType extends AbstractType
             ->add('propertyPrice', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Price',
-                    'class' => 'form-control',
                 ],
                 'label' => 'Price',
             ])
             ->add('propertyRooms', NumberType::class, [
                 'attr' => [
                     'placeholder' => 'Rooms',
-                    'class' => 'form-control',
                 ],
                 'label' => 'Rooms',
                 'required' => false,
@@ -97,7 +91,6 @@ class PropertyType extends AbstractType
             ->add('propertyState', TextType::class, [
                 'attr' => [
                     'placeholder' => 'State',
-                    'class' => 'form-control',
                 ],
                 'label' => 'State',
             ])
@@ -116,7 +109,6 @@ class PropertyType extends AbstractType
             ->add('propertyTitle', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Title',
-                    'class' => 'form-control',
                 ],
                 'label' => 'Title',
             ])
@@ -127,7 +119,6 @@ class PropertyType extends AbstractType
                 ],
                 'placeholder' => 'Select option',
                 'attr' => [
-                    'class' => 'form-control',
                     'data-property' => 'type',
                 ],
                 'required' => true,
@@ -136,7 +127,6 @@ class PropertyType extends AbstractType
             ->add('propertyBedRooms', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Bed Rooms',
-                    'class' => 'form-control',
                 ],
                 'label' => 'BedRooms',
                 'required' => false,
@@ -144,7 +134,6 @@ class PropertyType extends AbstractType
             ->add('propertyBathRooms', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Bath Rooms',
-                    'class' => 'form-control',
                 ],
                 'label' => 'BathRooms',
                 'required' => false,
@@ -152,7 +141,6 @@ class PropertyType extends AbstractType
             ->add('squareType', ChoiceType::class, [
                 'attr' => [
                     'placeholder' => 'select option',
-                    'class' => 'form-control',
                 ],
                 'choices' => [
                     'select' => '',
@@ -162,7 +150,7 @@ class PropertyType extends AbstractType
                 'label' => 'square Type',
             ])
 
-            //            ->add('propertyIsGarage', CheckboxType::class, [
+//            ->add('propertyIsGarage', CheckboxType::class, [
 //                'attr' => [
 //                    'placeholder' => 'Garage',
 //                    'class' => 'form-check-input',

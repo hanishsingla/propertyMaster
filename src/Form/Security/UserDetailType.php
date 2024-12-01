@@ -4,8 +4,6 @@ namespace App\Form\Security;
 
 use App\Entity\Security\UserDetail;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,93 +16,31 @@ class UserDetailType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'required' => false,
                 'attr' => [
-                    'class' => 'form-control',
                     'placeholder' => 'name',
                 ],
             ])
-            ->add('gender', ChoiceType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-                'choices' => [
-                    'Choose an option' => '',
-                    'Male' => 'male',
-                    'Female' => 'female',
-                    'other' => 'other',
-                ],
-            ])
+
             ->add('image', FileType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                ],
                 'label' => 'Images',
                 'mapped' => false,
                 'multiple' => false,
                 'required' => false,
             ])
-            ->add('phone', NumberType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-            ])
-            ->add('mobile', NumberType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-            ])
-            ->add('country', CountryType::class, [
-                'placeholder' => 'Choose an option',
-                'required' => false,
-                'choices' => [
-                    'Choose an option' => '',
-                ],
-                'preferred_choices' => ['IN'],
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-                'label' => 'Country',
-            ])
-            ->add('address', TextType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-            ])
-            ->add('address2', TextType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-            ])
-            ->add('city', TextType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-            ])
-            ->add('zip', TextType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-            ])
-            ->add('state', TextType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-            ]);
+            ->add('phone', NumberType::class)
+            ->add('mobile', NumberType::class)
+
+            ->add('address', TextType::class)
+            ->add('address2', TextType::class)
+            ->add('city', TextType::class)
+            ->add('state', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => UserDetail::class,
+            'required' => false,
         ]);
     }
 }
