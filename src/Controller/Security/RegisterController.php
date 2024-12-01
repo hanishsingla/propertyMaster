@@ -3,11 +3,9 @@
 namespace App\Controller\Security;
 
 use App\Entity\Security\User;
-use App\Form\Security\ChangeUserPasswordFormType;
 use App\Form\Security\RegistrationFormType;
-use App\Repository\Security\UserRepository;
 use App\Security\EmailVerifier;
-use App\Security\SecurityCustomAuthenticator;
+use App\Security\UserLoginAuthenticator;
 use App\Service\CommonHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -17,34 +15,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
-class SecurityController extends AbstractController
+class RegisterController extends AbstractController
 {
-    #[Route(path: '/login', name: 'login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
-            return $this->redirectToRoute('home');
-        }
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/login/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
-        ]);
-    }
-
     #[Route('/register', name: 'register')]
-    public function register(Request $request, CommonHelper $commonHelper, EmailVerifier $emailVerifier, UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager, UserAuthenticatorInterface $authenticator, SecurityCustomAuthenticator $customAuthenticator): Response
+    public function register(Request $request, EmailVerifier $emailVerifier, UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager, UserAuthenticatorInterface $authenticator, UserLoginAuthenticator $userLoginAuthenticator): Response
     {
         if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('home');
@@ -79,9 +58,10 @@ class SecurityController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('security/registration/confirmation_email.html.twig')
             );
+
             // do anything else you need here, like send an email
 
-            return $authenticator->authenticateUser($user, $customAuthenticator, $request);
+            return $authenticator->authenticateUser($user, $userLoginAuthenticator, $request);
         }
 
         return $this->render('security/registration/register.html.twig', [
@@ -107,27 +87,5 @@ class SecurityController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('home');
-    }
-
-    #[Route('/changeUserPassword', name: 'app_change_password')]
-    public function changePassword(Request $request, UserRepository $userRepository, $companyUserId): Response
-    {
-        $user = $userRepository->loadWebUserByOauthUid($companyUserId);
-
-        $form = $this->createForm(ChangeUserPasswordFormType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-        }
-
-        return $this->render('security/changePassword/change_password.html.twig', [
-            'changeUserPassword' => $form->createView(),
-        ]);
-    }
-
-    #[Route(path: '/logout', name: 'logout')]
-    public function logout(): void
-    {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

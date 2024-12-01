@@ -2,6 +2,7 @@
 
 namespace App\Controller\Security;
 
+use App\Form\Security\ChangeUserPasswordFormType;
 use App\Form\Security\UserDetailType;
 use App\Repository\Security\UserDetailRepository;
 use App\Repository\Security\UserRepository;
@@ -43,6 +44,22 @@ class AcountController extends AbstractController
         return $this->render('base/user_profile.html.twig', [
             'form' => $form->createView(),
             'userImage' => $userImage,
+        ]);
+    }
+
+    #[Route('/changeUserPassword', name: 'app_change_password')]
+    public function changePassword(Request $request, UserRepository $userRepository, $companyUserId): Response
+    {
+        $user = $userRepository->loadWebUserByOauthUid($companyUserId);
+
+        $form = $this->createForm(ChangeUserPasswordFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+        }
+
+        return $this->render('security/changePassword/change_password.html.twig', [
+            'changeUserPassword' => $form->createView(),
         ]);
     }
 
