@@ -12,7 +12,7 @@ use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestTrait;
 class ResetPassword implements ResetPasswordRequestInterface
 {
     use ResetPasswordRequestTrait;
-    #[ORM\Column(type: 'guid')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::GUID)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator('doctrine.uuid_generator')]

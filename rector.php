@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\Doctrine\Set\DoctrineSetList;
+use Rector\Set\ValueObject\SetList;
+use Rector\Symfony\Set\SymfonySetList;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -15,6 +18,11 @@ return RectorConfig::configure()
     // ->withPhpSets()
     // ->withTypeCoverageLevel(1)
     // here we can define, what prepared sets of rules will be applied
+    ->withSets([
+        SetList::PHP_82,
+        DoctrineSetList::DOCTRINE_CODE_QUALITY,
+        SymfonySetList::SYMFONY_71,
+    ])
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,

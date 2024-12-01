@@ -89,7 +89,7 @@ class PropertyController extends AbstractDashboardController
 
         $favourite = $favouritePropertyRepository->getFavoritePropertyById($propertyId, $ownerId);
 
-        if (!$favourite instanceof \App\Entity\Property\FavouriteProperty) {
+        if (!$favourite instanceof FavouriteProperty) {
             $property = $propertyRepository->getProperty($propertyId);
 
             $favourite = (new FavouriteProperty())

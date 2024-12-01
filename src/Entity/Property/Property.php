@@ -14,14 +14,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 class Property extends AbstractEntity
 {
-    #[ORM\Column(type: 'guid')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::GUID)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
     #[Groups(['read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     private string $ownerId;
 
     #[ORM\Column]
@@ -42,7 +42,7 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $propertyCountry = 'India';
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
     private string $propertyDescription;
 
     #[ORM\Column]
@@ -54,7 +54,7 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $propertyPrice;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
     private ?string $propertyRooms = null;
 
     #[ORM\Column]
@@ -66,12 +66,15 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $propertyType;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
     private ?string $propertyBedRooms = null;
 
     #[ORM\Column]
     private string $squareType = 'feet';
 
+    /**
+     * @var Collection<int, FavouriteProperty>
+     */
     #[ORM\OneToMany(targetEntity: FavouriteProperty::class, mappedBy: 'property', cascade: ['persist', 'remove'])]
     private Collection $favouriteProperties;
 

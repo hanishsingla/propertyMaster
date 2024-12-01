@@ -12,17 +12,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: FavouritePropertyRepository::class)]
 class FavouriteProperty extends AbstractEntity
 {
-    #[ORM\Column(type: 'guid')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::GUID)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
     #[Groups(['read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     private string $ownerId;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
     private string $favourite;
 
     #[ORM\ManyToOne(inversedBy: 'favouriteProperties')]
