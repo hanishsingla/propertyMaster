@@ -77,7 +77,7 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
             ])
-            ->add('userDetail', UserDetailType::class);
+            ->add('userDetail', UserType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

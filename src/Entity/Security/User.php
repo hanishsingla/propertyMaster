@@ -2,6 +2,7 @@
 
 namespace App\Entity\Security;
 
+use App\Entity\AbstractAccount;
 use App\Entity\AbstractEntity;
 use App\Repository\Security\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Table(name: 'security_users')]
 #[ORM\Index(name: 'index_id', columns: ['id'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
+class User extends AbstractAccount implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Column(type: 'guid')]
     #[ORM\Id]
@@ -40,9 +41,6 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
-
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?UserDetail $userDetail = null;
 
     public function getId(): ?string
     {
@@ -132,28 +130,6 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
-
-        return $this;
-    }
-
-    public function getUserDetail(): ?UserDetail
-    {
-        return $this->userDetail;
-    }
-
-    public function setUserDetail(?UserDetail $userDetail): self
-    {
-        // unset the owning side of the relation if necessary
-        if (!$userDetail instanceof UserDetail && $this->userDetail instanceof UserDetail) {
-            $this->userDetail->setUser(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($userDetail instanceof UserDetail && $userDetail->getUser() !== $this) {
-            $userDetail->setUser($this);
-        }
-
-        $this->userDetail = $userDetail;
 
         return $this;
     }

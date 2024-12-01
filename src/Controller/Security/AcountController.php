@@ -3,8 +3,7 @@
 namespace App\Controller\Security;
 
 use App\Form\Security\ChangeUserPasswordFormType;
-use App\Form\Security\UserDetailType;
-use App\Repository\Security\UserDetailRepository;
+use App\Form\Security\UserType;
 use App\Repository\Security\UserRepository;
 use App\Service\CommonHelper;
 use App\Service\FileUploader\Uploader;
@@ -20,12 +19,12 @@ class AcountController extends AbstractController
 {
     #[IsGranted('ROLE_USER')]
     #[Route('/account', name: 'account')]
-    public function account(Request $request, UserDetailRepository $detailRepository, Uploader $uploader, EntityManagerInterface $em): Response
+    public function account(Request $request, UserRepository $detailRepository, Uploader $uploader, EntityManagerInterface $em): Response
     {
         $ownerId = $request->getSession()->get('ownerId');
         $userDetail = $detailRepository->getUser($ownerId);
         $userImage = $userDetail->getImage();
-        $form = $this->createForm(UserDetailType::class, $userDetail);
+        $form = $this->createForm(UserType::class, $userDetail);
         $form->handleRequest($request);
 
         /** @var UploadedFile $image */

@@ -3,7 +3,6 @@
 namespace App\Repository\Security;
 
 use App\Entity\Security\User;
-use App\Entity\Security\UserDetail;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -25,24 +24,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
-    public function save(User $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(User $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
@@ -54,47 +35,32 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $user->setPassword($newHashedPassword);
 
-        $this->save($user, true);
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
     }
 
-    //    /**
-    //     * @return User[] Returns an array of User objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?User
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-    public function getUser(mixed $ownerId): ?User
+    public function getUser(string $ownerId): ?User
     {
         return $this->findOneBy(['id' => $ownerId]);
     }
 
-    public function fetchAllData(mixed $ownerId): ?array
+    public function fetchAllData(string $ownerId): ?array
     {
-        $query = $this->createQueryBuilder('u')
-            ->select('DISTINCT u,detail')
-            ->leftJoin(UserDetail::class, 'detail', 'WITH', 'detail.user = u.id')
+        return $this->createQueryBuilder('u')
             ->where('u.id = :ownerId')
             ->setParameter('ownerId', $ownerId)
-        ;
+            ->getQuery()
+            ->getResult();
+    }
 
-        return $query->getQuery()->getResult();
+    public function getAgents(): array
+    {
+        return $this->createQueryBuilder('ud')
+            ->select('ud.id, ud.city', 'ud.address', 'ud.address2', 'ud.country', 'ud.gender', 'ud.image', 'ud.name', 'ud.phone', 'ud.state', 'ud.zip', 'ud.mobile', 'u.email')
+            ->innerJoin('ud.user', 'u')
+            ->where('u.isAgent = :agent')
+            ->setParameter('agent', true)
+            ->getQuery()
+            ->getResult();
     }
 }

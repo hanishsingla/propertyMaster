@@ -26,24 +26,6 @@ class ResetPasswordRepository extends ServiceEntityRepository implements ResetPa
         parent::__construct($registry, ResetPassword::class);
     }
 
-    public function save(ResetPassword $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(ResetPassword $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
     public function createResetPasswordRequest(object $user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken): ResetPasswordRequestInterface
     {
         return new ResetPassword($user, $expiresAt, $selector, $hashedToken);
