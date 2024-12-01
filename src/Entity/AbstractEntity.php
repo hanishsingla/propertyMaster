@@ -25,9 +25,11 @@ abstract class AbstractEntity
         return $this->isDeleted;
     }
 
-    public function setIsDeleted(bool $isDeleted): void
+    public function setIsDeleted(bool $isDeleted): self
     {
         $this->isDeleted = $isDeleted;
+
+        return $this;
     }
 
     public function getIsCreatedAt(): \DateTime
@@ -35,9 +37,11 @@ abstract class AbstractEntity
         return $this->isCreatedAt;
     }
 
-    public function setIsCreatedAt(\DateTime $isCreatedAt): void
+    public function setIsCreatedAt(\DateTime $isCreatedAt): self
     {
         $this->isCreatedAt = $isCreatedAt;
+
+        return $this;
     }
 
     public function getIsUpdatedAt(): \DateTime
@@ -45,9 +49,11 @@ abstract class AbstractEntity
         return $this->isUpdatedAt;
     }
 
-    public function setIsUpdatedAt(\DateTime $isUpdatedAt): void
+    public function setIsUpdatedAt(\DateTime $isUpdatedAt): self
     {
         $this->isUpdatedAt = $isUpdatedAt;
+
+        return $this;
     }
 
     public function getIsDeletedAt(): \DateTime
@@ -55,8 +61,10 @@ abstract class AbstractEntity
         return $this->isDeletedAt;
     }
 
-    public function setIsDeletedAt(\DateTime $isDeletedAt): void
+    public function setIsDeletedAt(\DateTime $isDeletedAt): self
     {
         $this->isDeletedAt = $isDeletedAt;
+
+        return $this;
     }
 }

@@ -50,7 +50,7 @@ class PropertyController extends AbstractDashboardController
 
         $propertyInformation = $propertyRepository->getProperty($propertyId);
 
-        $fav = $favoritePropertyRepository->findOneBy(['property' => $propertyId, 'ownerId' => $ownerId]);
+        $fav = $favoritePropertyRepository->getFavoritePropertyById($propertyId, $ownerId);
 
         return $this->render('property/detail.html.twig', [
             'propertyInformation' => $propertyInformation,
@@ -81,7 +81,7 @@ class PropertyController extends AbstractDashboardController
 
     #[IsGranted('ROLE_USER')]
     #[Route('/liked-property/{propertyId}', name: 'likedProperty')]
-    public function likedProperty(Request $request, CommonHelper $commonHelper, FavouritePropertyRepository $favouritePropertyRepository, PropertyRepository $propertyRepository, EntityManagerInterface $em, $propertyId): Response
+    public function likedProperty(Request $request, FavouritePropertyRepository $favouritePropertyRepository, PropertyRepository $propertyRepository, EntityManagerInterface $em, $propertyId): Response
     {
         $user = $this->getUser();
 
@@ -93,7 +93,7 @@ class PropertyController extends AbstractDashboardController
 
         $data = $request->get('data');
 
-        $favourite = $favouritePropertyRepository->findOneBy(['property' => $propertyId, 'ownerId' => $ownerId]);
+        $favourite = $favouritePropertyRepository->getFavoritePropertyById($propertyId, $ownerId);
 
         if (empty($favourite)) {
             $property = $propertyRepository->getProperty($propertyId);
@@ -102,9 +102,9 @@ class PropertyController extends AbstractDashboardController
                 ->setProperty($property)
                 ->setOwnerId($ownerId);
 
-            $commonHelper->setCreatedDate($favourite);
+            $favourite->setIsCreatedAt(new \DateTime());
         } else {
-            $commonHelper->setUpdateDate($favourite);
+            $favourite->setIsUpdatedAt(new \DateTime());
         }
 
         $favourite->setFavourite($data);

@@ -23,35 +23,6 @@ class CommonHelper
     public const Property_IMAGE_UPLOAD = '/uploads/propertyImages';
     public const USER_IMAGE_UPLOAD = '/uploads/userImages';
 
-    public function setRegisterUser($data): void
-    {
-        if ($data->isAgent()) {
-            $data->setRoles([self::ROLE_AGENT]);
-        }
-        $this->setCreatedDate($data);
-        $userDetail = $data->getUserDetail();
-        $this->setCreatedDate($userDetail);
-    }
-
-    public function setPropertyInformation($form, $ownerId): void
-    {
-        $information = $form->getData();
-        $information->setOwnerId($ownerId);
-        $this->setCreatedDate($information);
-    }
-
-    public function setCreatedDate($information): void
-    {
-        $date = new \DateTime();
-        $information->setIsCreatedAt($date);
-    }
-
-    public function setUpdateDate($information): void
-    {
-        $date = new \DateTime();
-        $information->setIsUpdatedAt($date);
-    }
-
     public function redirect($user): RedirectResponse
     {
         if (!$user) {

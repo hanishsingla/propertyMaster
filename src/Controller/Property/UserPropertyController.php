@@ -22,7 +22,7 @@ class UserPropertyController extends AbstractController
     {
         $ownerId = $request->getSession()->get('ownerId');
 
-        $propertyLists = $propertyRepository->getPropertyByOwner($ownerId);
+        $propertyLists = $propertyRepository->getOwnerProperties($ownerId);
 
         return $this->render('userProperty/user_property.html.twig', [
             'propertyLists' => $propertyLists,
@@ -35,9 +35,9 @@ class UserPropertyController extends AbstractController
     {
         $ownerId = $request->getSession()->get('ownerId');
 
-        $propertyForm = new Property();
+        $property = new Property();
 
-        $form = $this->createForm(PropertyType::class, $propertyForm);
+        $form = $this->createForm(PropertyType::class, $property);
 
         $form->handleRequest($request);
 
@@ -50,12 +50,12 @@ class UserPropertyController extends AbstractController
                     $imageFileNames[] = $imageFileNames[] = $uploader->upload($file, CommonHelper::Property_IMAGE_UPLOAD);
                 }
 
-                $propertyForm->setPropertyImage($imageFileNames);
+                $property->setPropertyImage($imageFileNames);
             }
 
-            $commonHelper->setPropertyInformation($form, $ownerId);
+            $property->setOwnerId($ownerId);
 
-            $em->persist($propertyForm);
+            $em->persist($property);
 
             $em->flush();
 
@@ -73,9 +73,9 @@ class UserPropertyController extends AbstractController
     {
         $ownerId = $request->getSession()->get('ownerId');
 
-        $userPropertyEditData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
+        $property = $propertyRepository->getOwnerProperty($ownerId, $id);
 
-        $form = $this->createForm(PropertyType::class, $userPropertyEditData);
+        $form = $this->createForm(PropertyType::class, $property);
 
         $form->handleRequest($request);
 
@@ -89,14 +89,12 @@ class UserPropertyController extends AbstractController
                     $imageFileNames[] = $uploader->upload($file, CommonHelper::Property_IMAGE_UPLOAD);
                 }
 
-                $userPropertyEditData->setPropertyImage($imageFileNames);
+                $property->setPropertyImage($imageFileNames);
             }
 
-            $information = $form->getData();
+            $property->setIsUpdatedAt(new \DateTime());
 
-            $commonHelper->setUpdateDate($information);
-
-            $em->persist($userPropertyEditData);
+            $em->persist($property);
 
             $em->flush();
 
@@ -114,9 +112,9 @@ class UserPropertyController extends AbstractController
     {
         $ownerId = $request->getSession()->get('ownerId');
 
-        $propertyData = $propertyRepository->findOneBy(['id' => $id, 'ownerId' => $ownerId]);
+        $property = $propertyRepository->getOwnerProperty($ownerId, $id);
 
-        $em->remove($propertyData);
+        $em->remove($property);
 
         $em->flush();
 

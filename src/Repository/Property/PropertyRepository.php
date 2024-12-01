@@ -27,14 +27,29 @@ class PropertyRepository extends ServiceEntityRepository
         return $this->findAll();
     }
 
-    public function getPropertyByOwner(mixed $ownerId): array
+    public function getProperty(?string $propertyId): ?Property
+    {
+        return $this->findOneBy([
+            'id' => $propertyId,
+        ]);
+    }
+
+    public function getOwnerProperties(string $ownerId): array
     {
         return $this->findBy([
             'ownerId' => $ownerId,
         ]);
     }
 
-    public function getPropertyByListType($listType, $maxResult)
+    public function getOwnerProperty(string $ownerId, string $id): ?Property
+    {
+        return $this->findOneBy([
+            'id' => $id,
+            'ownerId' => $ownerId,
+        ]);
+    }
+
+    public function getPropertyByListType(string $listType, $maxResult)
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -60,13 +75,6 @@ class PropertyRepository extends ServiceEntityRepository
             ->setParameter('status', $status)
             ->getQuery()
             ->getResult();
-    }
-
-    public function getProperty(?string $propertyId): ?Property
-    {
-        return $this->findOneBy([
-            'id' => $propertyId,
-        ]);
     }
 
     public function getFavoritePropertyOneByFav($propertyId, mixed $ownerId): array

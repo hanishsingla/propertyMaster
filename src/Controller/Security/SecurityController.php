@@ -43,7 +43,8 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/register', name: 'register')]
-    public function register(Request $request, CommonHelper $commonHelper, EmailVerifier $emailVerifier, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $authenticator, SecurityCustomAuthenticator $customAuthenticator): Response
+    public function register(Request $request, CommonHelper $commonHelper, EmailVerifier $emailVerifier, UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager, UserAuthenticatorInterface $authenticator, SecurityCustomAuthenticator $customAuthenticator): Response
     {
         if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('home');
@@ -55,14 +56,18 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-            $data = $form->getData();
-            $commonHelper->setRegisterUser($data);
+            $user->setPassword($userPasswordHasher->hashPassword($user, $form->get('password')->getData()));
+            $user->setIsCreatedAt(new \DateTime());
+            $user->setIsUpdatedAt(new \DateTime());
+
+            if ($user->isAgent()) {
+                $user->setRoles([CommonHelper::ROLE_AGENT]);
+            }
+
+            $user->getUserDetail()
+                ->setIsCreatedAt(new \DateTime())
+                ->setIsUpdatedAt(new \DateTime());
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -76,10 +81,7 @@ class SecurityController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $authenticator->authenticateUser(
-                $user,
-                $customAuthenticator,
-                $request);
+            return $authenticator->authenticateUser($user, $customAuthenticator, $request);
         }
 
         return $this->render('security/registration/register.html.twig', [

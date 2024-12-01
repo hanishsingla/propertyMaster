@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'properties')]
-#[ORM\Index(columns: ['id'], name: 'index_id')]
+#[ORM\Index(name: 'index_id', columns: ['id'])]
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 class Property extends AbstractEntity
 {
@@ -78,7 +78,7 @@ class Property extends AbstractEntity
     #[ORM\Column]
     private string $squareType;
 
-    #[ORM\OneToMany(mappedBy: 'property', targetEntity: FavouriteProperty::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: FavouriteProperty::class, mappedBy: 'property', cascade: ['persist', 'remove'])]
     private Collection $favouriteProperties;
 
     public function __construct()
@@ -96,9 +96,11 @@ class Property extends AbstractEntity
         return $this->ownerId;
     }
 
-    public function setOwnerId(string $ownerId): void
+    public function setOwnerId(string $ownerId): self
     {
         $this->ownerId = $ownerId;
+
+        return $this;
     }
 
     public function isPropertyIsGarage(): bool
@@ -106,9 +108,11 @@ class Property extends AbstractEntity
         return $this->propertyIsGarage;
     }
 
-    public function setPropertyIsGarage(bool $propertyIsGarage): void
+    public function setPropertyIsGarage(bool $propertyIsGarage): self
     {
         $this->propertyIsGarage = $propertyIsGarage;
+
+        return $this;
     }
 
     public function getPropertyArea(): string
@@ -116,9 +120,11 @@ class Property extends AbstractEntity
         return $this->propertyArea;
     }
 
-    public function setPropertyArea(string $propertyArea): void
+    public function setPropertyArea(string $propertyArea): self
     {
         $this->propertyArea = $propertyArea;
+
+        return $this;
     }
 
     public function getPropertyBathRooms(): string
@@ -126,9 +132,11 @@ class Property extends AbstractEntity
         return $this->propertyBathRooms;
     }
 
-    public function setPropertyBathRooms(string $propertyBathRooms): void
+    public function setPropertyBathRooms(string $propertyBathRooms): self
     {
         $this->propertyBathRooms = $propertyBathRooms;
+
+        return $this;
     }
 
     public function getPropertyCategory(): string
@@ -136,9 +144,11 @@ class Property extends AbstractEntity
         return $this->propertyCategory;
     }
 
-    public function setPropertyCategory(string $propertyCategory): void
+    public function setPropertyCategory(string $propertyCategory): self
     {
         $this->propertyCategory = $propertyCategory;
+
+        return $this;
     }
 
     public function getPropertyCity(): string
@@ -146,9 +156,11 @@ class Property extends AbstractEntity
         return $this->propertyCity;
     }
 
-    public function setPropertyCity(string $propertyCity): void
+    public function setPropertyCity(string $propertyCity): self
     {
         $this->propertyCity = $propertyCity;
+
+        return $this;
     }
 
     public function getPropertyCountry(): string
@@ -156,9 +168,11 @@ class Property extends AbstractEntity
         return $this->propertyCountry;
     }
 
-    public function setPropertyCountry(string $propertyCountry): void
+    public function setPropertyCountry(string $propertyCountry): self
     {
         $this->propertyCountry = $propertyCountry;
+
+        return $this;
     }
 
     public function getPropertyDescription(): string
@@ -166,9 +180,11 @@ class Property extends AbstractEntity
         return $this->propertyDescription;
     }
 
-    public function setPropertyDescription(string $propertyDescription): void
+    public function setPropertyDescription(string $propertyDescription): self
     {
         $this->propertyDescription = $propertyDescription;
+
+        return $this;
     }
 
     public function getPropertyDirection(): string
@@ -176,9 +192,11 @@ class Property extends AbstractEntity
         return $this->propertyDirection;
     }
 
-    public function setPropertyDirection(string $propertyDirection): void
+    public function setPropertyDirection(string $propertyDirection): self
     {
         $this->propertyDirection = $propertyDirection;
+
+        return $this;
     }
 
     public function getPropertyGarage(): ?string
@@ -186,9 +204,11 @@ class Property extends AbstractEntity
         return $this->propertyGarage;
     }
 
-    public function setPropertyGarage(?string $propertyGarage): void
+    public function setPropertyGarage(?string $propertyGarage): self
     {
         $this->propertyGarage = $propertyGarage;
+
+        return $this;
     }
 
     public function getPropertyImage(): ?array
@@ -196,9 +216,11 @@ class Property extends AbstractEntity
         return $this->propertyImage;
     }
 
-    public function setPropertyImage(?array $propertyImage): void
+    public function setPropertyImage(?array $propertyImage): self
     {
         $this->propertyImage = $propertyImage;
+
+        return $this;
     }
 
     public function getPropertyPrice(): string
@@ -206,9 +228,11 @@ class Property extends AbstractEntity
         return $this->propertyPrice;
     }
 
-    public function setPropertyPrice(string $propertyPrice): void
+    public function setPropertyPrice(string $propertyPrice): self
     {
         $this->propertyPrice = $propertyPrice;
+
+        return $this;
     }
 
     public function getPropertyRooms(): ?string
@@ -216,9 +240,11 @@ class Property extends AbstractEntity
         return $this->propertyRooms;
     }
 
-    public function setPropertyRooms(?string $propertyRooms): void
+    public function setPropertyRooms(?string $propertyRooms): self
     {
         $this->propertyRooms = $propertyRooms;
+
+        return $this;
     }
 
     public function getPropertyState(): string
@@ -226,9 +252,11 @@ class Property extends AbstractEntity
         return $this->propertyState;
     }
 
-    public function setPropertyState(string $propertyState): void
+    public function setPropertyState(string $propertyState): self
     {
         $this->propertyState = $propertyState;
+
+        return $this;
     }
 
     public function getPropertyStatus(): string
@@ -236,9 +264,11 @@ class Property extends AbstractEntity
         return $this->propertyStatus;
     }
 
-    public function setPropertyStatus(string $propertyStatus): void
+    public function setPropertyStatus(string $propertyStatus): self
     {
         $this->propertyStatus = $propertyStatus;
+
+        return $this;
     }
 
     public function getPropertyTitle(): string
@@ -246,9 +276,11 @@ class Property extends AbstractEntity
         return $this->propertyTitle;
     }
 
-    public function setPropertyTitle(string $propertyTitle): void
+    public function setPropertyTitle(string $propertyTitle): self
     {
         $this->propertyTitle = $propertyTitle;
+
+        return $this;
     }
 
     public function getPropertyType(): string
@@ -256,9 +288,11 @@ class Property extends AbstractEntity
         return $this->propertyType;
     }
 
-    public function setPropertyType(string $propertyType): void
+    public function setPropertyType(string $propertyType): self
     {
         $this->propertyType = $propertyType;
+
+        return $this;
     }
 
     public function getPropertyBedRooms(): ?string
@@ -266,9 +300,11 @@ class Property extends AbstractEntity
         return $this->propertyBedRooms;
     }
 
-    public function setPropertyBedRooms(?string $propertyBedRooms): void
+    public function setPropertyBedRooms(?string $propertyBedRooms): self
     {
         $this->propertyBedRooms = $propertyBedRooms;
+
+        return $this;
     }
 
     public function getSquareType(): string
@@ -276,9 +312,11 @@ class Property extends AbstractEntity
         return $this->squareType;
     }
 
-    public function setSquareType(string $squareType): void
+    public function setSquareType(string $squareType): self
     {
         $this->squareType = $squareType;
+
+        return $this;
     }
 
     /**
