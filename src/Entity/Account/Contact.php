@@ -3,7 +3,7 @@
 namespace App\Entity\Account;
 
 use App\Entity\AbstractEntity;
-use App\Repository\Contact\ContactRepository;
+use App\Repository\Account\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;

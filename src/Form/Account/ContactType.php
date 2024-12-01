@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Contact;
+namespace App\Form\Account;
 
 use App\Entity\Account\Contact;
 use Symfony\Component\Form\AbstractType;

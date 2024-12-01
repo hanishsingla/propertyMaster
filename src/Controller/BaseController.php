@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Account\Contact;
-use App\Form\Contact\ContactType;
+use App\Form\Account\ContactType;
 use App\Repository\Property\PropertyRepository;
 use App\Service\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
