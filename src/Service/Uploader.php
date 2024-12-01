@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\FileUploader;
+namespace App\Service;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;

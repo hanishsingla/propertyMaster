@@ -6,7 +6,7 @@ use App\Entity\Property\Property;
 use App\Form\Property\PropertyType;
 use App\Repository\Property\PropertyRepository;
 use App\Service\CommonHelper;
-use App\Service\FileUploader\Uploader;
+use App\Service\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
