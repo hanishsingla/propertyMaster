@@ -40,16 +40,23 @@ class ShellAndAdminTest extends WebTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public function testAdminCanOpenDashboardAndPropertyList(): void
+    public function testAdminCanOpenDashboardAndReachCrud(): void
     {
         $client = static::createClient();
         $this->loginJson($client, 'admin@propertymaster.test');
 
-        $client->request('GET', '/admin');
+        // Dashboard renders (proves EasyAdmin boots on this Symfony version).
+        $crawler = $client->request('GET', '/admin');
         self::assertResponseIsSuccessful();
 
-        // EasyAdmin property CRUD index.
-        $client->request('GET', '/admin?crudAction=index&crudControllerFqcn='.urlencode(\App\Controller\Admin\PropertyCrudController::class));
+        // The dashboard menu links to the Property and Users CRUDs; follow the
+        // Property link (EasyAdmin 5 generates its own signed admin URLs).
+        $link = $crawler->filter('a.menu-item-link, .menu a, a')->reduce(
+            fn ($node) => str_contains(strtolower($node->text()), 'property')
+        )->first();
+        self::assertGreaterThan(0, $link->count(), 'dashboard should link to the Property CRUD');
+
+        $client->click($link->link());
         self::assertResponseIsSuccessful();
     }
 

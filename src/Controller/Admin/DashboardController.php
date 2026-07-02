@@ -2,19 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Property\Property;
-use App\Entity\Security\User;
+use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[AdminDashboard(routePath: '/admin', routeName: 'admin')]
+#[IsGranted('ROLE_ADMIN')]
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
-    #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
         // Option 1. You can make your dashboard redirect to some common page of your backend
@@ -55,11 +53,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-
-        return [
-            yield MenuItem::section('Blog'),
-            yield MenuItem::linkToCrud('Property', 'fa fa-home', Property::class),
-            yield MenuItem::linkToCrud('Users', 'fa fa-home', User::class),
-        ];
+        yield MenuItem::section('Catalogue');
+        yield MenuItem::linkTo(PropertyCrudController::class, 'Properties', 'fa fa-building');
+        yield MenuItem::linkTo(UserCrudController::class, 'Users', 'fa fa-users');
     }
 }
