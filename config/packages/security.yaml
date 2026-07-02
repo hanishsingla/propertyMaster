@@ -4,12 +4,9 @@ security:
         ROLE_LICENSE: [ROLE_AGENT , ROLE_ADMIN]
         ROLE_ADMIN: [ROLE_AGENT]
         ROLE_AGENT: [ROLE_USER]
-    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
                 class: App\Entity\Security\User
@@ -21,45 +18,45 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\UserLoginAuthenticator
+            entry_point: App\Security\ApiEntryPoint
+            json_login:
+                check_path: api_auth_login
+                username_path: email
+                password_path: password
+                success_handler: App\Security\ApiAuthenticationSuccessHandler
+                failure_handler: App\Security\ApiAuthenticationFailureHandler
+            login_throttling:
+                max_attempts: 5 # per minute, keyed by username+IP
+            logout:
+                path: api_auth_logout
+                target: /
             remember_me:
-                secret: '%kernel.secret%' # required
-                lifetime: 604800 # 1 week in seconds
-                always_remember_me: true
-                # 'updatedAt' resolves to AbstractEntity::getUpdatedAt() (renamed from the old getIsUpdatedAt)
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week
+                # 'updatedAt' resolves to AbstractEntity::getUpdatedAt()
                 signature_properties: [ 'password', 'updatedAt' ]
                 token_provider:
                     doctrine: true
-            logout:
-                path: logout
-                # where to redirect after logout
-                # target: app_any_route
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
+    # Note: only the *first* matching access_control is used.
+    # Fine-grained API auth is enforced per-endpoint via #[IsGranted]/voters.
     access_control:
-        - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/register, roles: PUBLIC_ACCESS }
-        - { path: ^/reset-password, roles: PUBLIC_ACCESS }
-        - { path: ^/*, roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth, roles: PUBLIC_ACCESS }
+        - { path: ^/api/csrf, roles: PUBLIC_ACCESS }
+        - { path: ^/api/enums, roles: PUBLIC_ACCESS }
+        - { path: ^/api/contact, roles: PUBLIC_ACCESS }
+        - { path: ^/api/agents, roles: PUBLIC_ACCESS }
+        - { path: ^/api/properties, roles: PUBLIC_ACCESS, methods: [GET] }
+        - { path: ^/api/my, roles: ROLE_AGENT }
+        - { path: ^/api/account, roles: ROLE_USER }
+        - { path: ^/api/favourites, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
-
 
 when@test:
     security:
         password_hashers:
-            # By default, password hashers are resource intensive and take time. This is
-            # important to generate secure password hashes. In tests however, secure hashes
-            # are not important, waste resources and increase test times. The following
-            # reduces the work factor to the lowest possible values.
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
                 algorithm: auto
-                cost: 4 # Lowest possible value for bcrypt
-                time_cost: 3 # Lowest possible value for argon
-                memory_cost: 10 # Lowest possible value for argon
+                cost: 4
+                time_cost: 3
+                memory_cost: 10
