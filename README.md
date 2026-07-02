@@ -9,7 +9,7 @@ administration (server-rendered).
 
 | Layer | Tech |
 |---|---|
-| Backend | PHP 8.1+, Symfony 7.1, Doctrine ORM 3, MySQL 8 |
+| Backend | PHP 8.4, Symfony 8.0, Doctrine ORM 3, MySQL 8 |
 | API | JSON under `/api`, session-cookie auth, `X-CSRF-Token` on mutations, RFC7807-style errors |
 | Frontend | React 18, Vite, TypeScript, TanStack Router + Query, Tailwind CSS, react-hook-form + zod, Leaflet |
 | Admin | EasyAdmin 4 (`/admin`) |
