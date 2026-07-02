@@ -3,74 +3,130 @@
 namespace App\Entity\Property;
 
 use App\Entity\AbstractEntity;
+use App\Entity\Security\User;
+use App\Enum\AreaUnit;
+use App\Enum\Direction;
+use App\Enum\ListingType;
+use App\Enum\PropertyCategory;
+use App\Enum\PropertyStatus;
+use App\Enum\PropertyType;
 use App\Repository\Property\PropertyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'properties')]
 #[ORM\Index(name: 'index_id', columns: ['id'])]
+#[ORM\Index(name: 'index_slug', columns: ['slug'])]
+#[ORM\Index(name: 'index_status', columns: ['status'])]
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 class Property extends AbstractEntity
 {
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::GUID)]
+    #[ORM\Column(type: Types::GUID)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
-    #[Groups(['read'])]
+    #[Groups(['property:list', 'property:read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-    private string $ownerId;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'owner_id', referencedColumnName: 'id', nullable: false)]
+    #[Groups(['property:read'])]
+    private ?User $owner = null;
+
+    #[ORM\Column(length: 180)]
+    #[Groups(['property:list', 'property:read'])]
+    private string $title;
+
+    #[ORM\Column(length: 200, unique: true)]
+    #[Groups(['property:list', 'property:read'])]
+    private string $slug;
+
+    #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['property:read'])]
+    private string $description;
+
+    #[ORM\Column(length: 20, enumType: ListingType::class)]
+    #[Groups(['property:list', 'property:read'])]
+    private ListingType $listingType;
+
+    #[ORM\Column(length: 40, enumType: PropertyCategory::class)]
+    #[Groups(['property:list', 'property:read'])]
+    private PropertyCategory $category;
+
+    #[ORM\Column(length: 20, enumType: PropertyType::class)]
+    #[Groups(['property:read'])]
+    private PropertyType $type;
+
+    #[ORM\Column(length: 20, enumType: PropertyStatus::class, options: ['default' => 'draft'])]
+    #[Groups(['property:read'])]
+    private PropertyStatus $status = PropertyStatus::Draft;
+
+    /** Price in minor units (paise). BIGINT hydrates to string in DBAL; int accessors below. */
+    #[ORM\Column(type: Types::BIGINT)]
+    private string $priceMinor = '0';
+
+    #[ORM\Column(length: 3, options: ['default' => 'INR'])]
+    #[Groups(['property:list', 'property:read'])]
+    private string $currency = 'INR';
+
+    #[ORM\Column(type: Types::INTEGER)]
+    #[Groups(['property:list', 'property:read'])]
+    private int $area = 0;
+
+    #[ORM\Column(length: 10, enumType: AreaUnit::class, options: ['default' => 'sq_ft'])]
+    #[Groups(['property:list', 'property:read'])]
+    private AreaUnit $areaUnit = AreaUnit::SquareFeet;
+
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    #[Groups(['property:list', 'property:read'])]
+    private ?int $bedRooms = null;
+
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    #[Groups(['property:list', 'property:read'])]
+    private ?int $bathRooms = null;
+
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    #[Groups(['property:read'])]
+    private ?int $rooms = null;
+
+    #[ORM\Column(length: 10, nullable: true, enumType: Direction::class)]
+    #[Groups(['property:read'])]
+    private ?Direction $direction = null;
 
     #[ORM\Column]
-    private string $propertyArea;
+    #[Groups(['property:list', 'property:read'])]
+    private string $city;
 
-    #[ORM\Column]
-    private string $propertyBathRooms;
+    #[ORM\Column(options: ['default' => 'Punjab'])]
+    #[Groups(['property:read'])]
+    private string $state = 'Punjab';
 
-    #[ORM\Column]
-    private string $propertyCategory;
+    #[ORM\Column(options: ['default' => 'India'])]
+    #[Groups(['property:read'])]
+    private string $country = 'India';
 
-    #[ORM\Column]
-    private string $propertyCity;
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    #[Groups(['property:read'])]
+    private ?float $latitude = null;
 
-    #[ORM\Column]
-    private string $propertyState = 'Punjab';
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    #[Groups(['property:read'])]
+    private ?float $longitude = null;
 
-    #[ORM\Column]
-    private string $propertyCountry = 'India';
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
+    #[Groups(['property:list', 'property:read'])]
+    private bool $isFeatured = false;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT)]
-    private string $propertyDescription;
-
-    #[ORM\Column]
-    private string $propertyDirection;
-
-    #[ORM\Column(nullable: true)]
-    private ?array $propertyImage = null;
-
-    #[ORM\Column]
-    private string $propertyPrice;
-
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
-    private ?string $propertyRooms = null;
-
-    #[ORM\Column]
-    private string $propertyStatus;
-
-    #[ORM\Column]
-    private string $propertyTitle;
-
-    #[ORM\Column]
-    private string $propertyType;
-
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, nullable: true)]
-    private ?string $propertyBedRooms = null;
-
-    #[ORM\Column]
-    private string $squareType = 'feet';
+    /**
+     * @var Collection<int, PropertyImage>
+     */
+    #[ORM\OneToMany(targetEntity: PropertyImage::class, mappedBy: 'property', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['sortOrder' => 'ASC'])]
+    #[Groups(['property:read'])]
+    private Collection $images;
 
     /**
      * @var Collection<int, FavouriteProperty>
@@ -80,6 +136,7 @@ class Property extends AbstractEntity
 
     public function __construct()
     {
+        $this->images = new ArrayCollection();
         $this->favouriteProperties = new ArrayCollection();
     }
 
@@ -88,208 +145,306 @@ class Property extends AbstractEntity
         return $this->id;
     }
 
-    public function getOwnerId(): string
+    public function getOwner(): ?User
     {
-        return $this->ownerId;
+        return $this->owner;
     }
 
-    public function setOwnerId(string $ownerId): self
+    public function setOwner(?User $owner): self
     {
-        $this->ownerId = $ownerId;
+        $this->owner = $owner;
 
         return $this;
     }
 
-    public function getPropertyArea(): string
+    public function getTitle(): string
     {
-        return $this->propertyArea;
+        return $this->title;
     }
 
-    public function setPropertyArea(string $propertyArea): self
+    public function setTitle(string $title): self
     {
-        $this->propertyArea = $propertyArea;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getPropertyBathRooms(): string
+    public function getSlug(): string
     {
-        return $this->propertyBathRooms;
+        return $this->slug;
     }
 
-    public function setPropertyBathRooms(string $propertyBathRooms): self
+    public function setSlug(string $slug): self
     {
-        $this->propertyBathRooms = $propertyBathRooms;
+        $this->slug = $slug;
 
         return $this;
     }
 
-    public function getPropertyCategory(): string
+    public function getDescription(): string
     {
-        return $this->propertyCategory;
+        return $this->description;
     }
 
-    public function setPropertyCategory(string $propertyCategory): self
+    public function setDescription(string $description): self
     {
-        $this->propertyCategory = $propertyCategory;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getPropertyCity(): string
+    public function getListingType(): ListingType
     {
-        return $this->propertyCity;
+        return $this->listingType;
     }
 
-    public function setPropertyCity(string $propertyCity): self
+    public function setListingType(ListingType $listingType): self
     {
-        $this->propertyCity = $propertyCity;
+        $this->listingType = $listingType;
 
         return $this;
     }
 
-    public function getPropertyCountry(): string
+    public function getCategory(): PropertyCategory
     {
-        return $this->propertyCountry;
+        return $this->category;
     }
 
-    public function setPropertyCountry(string $propertyCountry): self
+    public function setCategory(PropertyCategory $category): self
     {
-        $this->propertyCountry = $propertyCountry;
+        $this->category = $category;
 
         return $this;
     }
 
-    public function getPropertyDescription(): string
+    public function getType(): PropertyType
     {
-        return $this->propertyDescription;
+        return $this->type;
     }
 
-    public function setPropertyDescription(string $propertyDescription): self
+    public function setType(PropertyType $type): self
     {
-        $this->propertyDescription = $propertyDescription;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getPropertyDirection(): string
+    public function getStatus(): PropertyStatus
     {
-        return $this->propertyDirection;
+        return $this->status;
     }
 
-    public function setPropertyDirection(string $propertyDirection): self
+    public function setStatus(PropertyStatus $status): self
     {
-        $this->propertyDirection = $propertyDirection;
+        $this->status = $status;
 
         return $this;
     }
 
-    public function getPropertyImage(): ?array
+    public function getPriceMinor(): int
     {
-        return $this->propertyImage;
+        return (int) $this->priceMinor;
     }
 
-    public function setPropertyImage(?array $propertyImage): self
+    public function setPriceMinor(int $priceMinor): self
     {
-        $this->propertyImage = $propertyImage;
+        $this->priceMinor = (string) $priceMinor;
 
         return $this;
     }
 
-    public function getPropertyPrice(): string
+    public function getCurrency(): string
     {
-        return $this->propertyPrice;
+        return $this->currency;
     }
 
-    public function setPropertyPrice(string $propertyPrice): self
+    public function setCurrency(string $currency): self
     {
-        $this->propertyPrice = $propertyPrice;
+        $this->currency = $currency;
 
         return $this;
     }
 
-    public function getPropertyRooms(): ?string
+    public function getArea(): int
     {
-        return $this->propertyRooms;
+        return $this->area;
     }
 
-    public function setPropertyRooms(?string $propertyRooms): self
+    public function setArea(int $area): self
     {
-        $this->propertyRooms = $propertyRooms;
+        $this->area = $area;
 
         return $this;
     }
 
-    public function getPropertyState(): string
+    public function getAreaUnit(): AreaUnit
     {
-        return $this->propertyState;
+        return $this->areaUnit;
     }
 
-    public function setPropertyState(string $propertyState): self
+    public function setAreaUnit(AreaUnit $areaUnit): self
     {
-        $this->propertyState = $propertyState;
+        $this->areaUnit = $areaUnit;
 
         return $this;
     }
 
-    public function getPropertyStatus(): string
+    public function getBedRooms(): ?int
     {
-        return $this->propertyStatus;
+        return $this->bedRooms;
     }
 
-    public function setPropertyStatus(string $propertyStatus): self
+    public function setBedRooms(?int $bedRooms): self
     {
-        $this->propertyStatus = $propertyStatus;
+        $this->bedRooms = $bedRooms;
 
         return $this;
     }
 
-    public function getPropertyTitle(): string
+    public function getBathRooms(): ?int
     {
-        return $this->propertyTitle;
+        return $this->bathRooms;
     }
 
-    public function setPropertyTitle(string $propertyTitle): self
+    public function setBathRooms(?int $bathRooms): self
     {
-        $this->propertyTitle = $propertyTitle;
+        $this->bathRooms = $bathRooms;
 
         return $this;
     }
 
-    public function getPropertyType(): string
+    public function getRooms(): ?int
     {
-        return $this->propertyType;
+        return $this->rooms;
     }
 
-    public function setPropertyType(string $propertyType): self
+    public function setRooms(?int $rooms): self
     {
-        $this->propertyType = $propertyType;
+        $this->rooms = $rooms;
 
         return $this;
     }
 
-    public function getPropertyBedRooms(): ?string
+    public function getDirection(): ?Direction
     {
-        return $this->propertyBedRooms;
+        return $this->direction;
     }
 
-    public function setPropertyBedRooms(?string $propertyBedRooms): self
+    public function setDirection(?Direction $direction): self
     {
-        $this->propertyBedRooms = $propertyBedRooms;
+        $this->direction = $direction;
 
         return $this;
     }
 
-    public function getSquareType(): string
+    public function getCity(): string
     {
-        return $this->squareType;
+        return $this->city;
     }
 
-    public function setSquareType(string $squareType): self
+    public function setCity(string $city): self
     {
-        $this->squareType = $squareType;
+        $this->city = $city;
 
         return $this;
+    }
+
+    public function getState(): string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function isFeatured(): bool
+    {
+        return $this->isFeatured;
+    }
+
+    public function setIsFeatured(bool $isFeatured): self
+    {
+        $this->isFeatured = $isFeatured;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PropertyImage>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(PropertyImage $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(PropertyImage $image): self
+    {
+        if ($this->images->removeElement($image) && $image->getProperty() === $this) {
+            $image->setProperty(null);
+        }
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?PropertyImage
+    {
+        foreach ($this->images as $image) {
+            if ($image->isCover()) {
+                return $image;
+            }
+        }
+
+        return $this->images->first() ?: null;
     }
 
     /**
@@ -312,7 +467,6 @@ class Property extends AbstractEntity
 
     public function removeFavouriteProperty(FavouriteProperty $favouriteProperty): self
     {
-        // set the owning side to null (unless already changed)
         if ($this->favouriteProperties->removeElement($favouriteProperty) && $favouriteProperty->getProperty() === $this) {
             $favouriteProperty->setProperty(null);
         }

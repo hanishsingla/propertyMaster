@@ -3,6 +3,7 @@
 namespace App\Entity\Security;
 
 use App\Entity\AbstractEntity;
+use App\Enum\Gender;
 use App\Repository\Security\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,16 +22,15 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
-    #[Groups(['read'])]
+    #[Groups(['user:read', 'agent:read', 'property:read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
-    private bool $isAgent = false;
-
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['user:self'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user:self'])]
     private array $roles = [];
 
     /**
@@ -39,55 +39,62 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[ORM\Column]
     private string $password;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
+    #[Groups(['user:read', 'agent:read'])]
+    private bool $isAgent = false;
+
     #[ORM\Column(type: Types::BOOLEAN)]
+    #[Groups(['user:self'])]
     private bool $isVerified = false;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $name;
+    #[Groups(['user:read', 'agent:read', 'property:read'])]
+    private ?string $name = null;
+
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true, enumType: Gender::class)]
+    #[Groups(['user:read'])]
+    private ?Gender $gender = null;
+
+    /** Avatar filename, served from /uploads/avatars/. */
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['user:read', 'agent:read', 'property:read'])]
+    private ?string $avatar = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $gender;
-
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $image = null;
-
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['user:self', 'agent:read'])]
     private ?string $phone = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['user:self', 'agent:read'])]
     private ?string $mobile = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['user:self'])]
     private ?string $country = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['user:self'])]
     private ?string $address = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['user:self'])]
     private ?string $address2 = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['user:self'])]
     private ?string $city = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['user:self'])]
     private ?string $zip = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['user:self'])]
     private ?string $state = null;
 
     public function getId(): ?string
     {
         return $this->id;
-    }
-
-    public function isAgent(): bool
-    {
-        return $this->isAgent;
-    }
-
-    public function setIsAgent(bool $isAgent): void
-    {
-        $this->isAgent = $isAgent;
     }
 
     public function getEmail(): ?string
@@ -117,6 +124,18 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
         return $this;
     }
 
+    public function isAgent(): bool
+    {
+        return $this->isAgent;
+    }
+
+    public function setIsAgent(bool $isAgent): self
+    {
+        $this->isAgent = $isAgent;
+
+        return $this;
+    }
+
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -141,26 +160,26 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
         return $this;
     }
 
-    public function getGender(): ?string
+    public function getGender(): ?Gender
     {
         return $this->gender;
     }
 
-    public function setGender(?string $gender): self
+    public function setGender(?Gender $gender): self
     {
         $this->gender = $gender;
 
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getAvatar(): ?string
     {
-        return $this->image;
+        return $this->avatar;
     }
 
-    public function setImage(?string $image): self
+    public function setAvatar(?string $avatar): self
     {
-        $this->image = $image;
+        $this->avatar = $avatar;
 
         return $this;
     }
@@ -273,14 +292,22 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
     /**
      * @see UserInterface
+     *
+     * @return string[]
      */
+    #[Groups(['user:self'])]
     public function getRoles(): array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+        // isAgent flag drives ROLE_AGENT (see role_hierarchy in security.yaml)
+        if ($this->isAgent) {
+            $roles[] = 'ROLE_AGENT';
+        }
+
+        return array_values(array_unique($roles));
     }
 
     public function setRoles(array $roles): self
@@ -296,6 +323,5 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 }

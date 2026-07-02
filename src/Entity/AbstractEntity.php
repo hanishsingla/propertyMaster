@@ -2,68 +2,89 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\MappedSuperclass]
 #[ORM\HasLifecycleCallbacks]
 abstract class AbstractEntity
 {
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::BOOLEAN, options: ['default' => 0])]
-    protected bool $isDeleted = false;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[Groups(['user:self'])]
+    protected \DateTimeImmutable $createdAt;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE)]
-    protected \DateTime $isCreatedAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[Groups(['user:self'])]
+    protected \DateTimeImmutable $updatedAt;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, nullable: true)]
-    protected \DateTime $isUpdatedAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    protected ?\DateTimeImmutable $deletedAt = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE, nullable: true)]
-    protected \DateTime $isDeletedAt;
+    #[ORM\PrePersist]
+    public function initTimestamps(): void
+    {
+        $now = new \DateTimeImmutable();
+        // Guard so fixtures/tests can pre-set createdAt explicitly.
+        if (!isset($this->createdAt)) {
+            $this->createdAt = $now;
+        }
+        $this->updatedAt = $now;
+    }
+
+    #[ORM\PreUpdate]
+    public function touchUpdatedAt(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
 
     public function isDeleted(): bool
     {
-        return $this->isDeleted;
+        return null !== $this->deletedAt;
     }
 
-    public function setIsDeleted(bool $isDeleted): self
+    /**
+     * Soft-delete convenience: stamp deletedAt now.
+     */
+    public function softDelete(): self
     {
-        $this->isDeleted = $isDeleted;
-
-        return $this;
-    }
-
-    public function getIsCreatedAt(): \DateTime
-    {
-        return $this->isCreatedAt;
-    }
-
-    public function setIsCreatedAt(\DateTime $isCreatedAt): self
-    {
-        $this->isCreatedAt = $isCreatedAt;
-
-        return $this;
-    }
-
-    public function getIsUpdatedAt(): \DateTime
-    {
-        return $this->isUpdatedAt;
-    }
-
-    public function setIsUpdatedAt(\DateTime $isUpdatedAt): self
-    {
-        $this->isUpdatedAt = $isUpdatedAt;
-
-        return $this;
-    }
-
-    public function getIsDeletedAt(): \DateTime
-    {
-        return $this->isDeletedAt;
-    }
-
-    public function setIsDeletedAt(\DateTime $isDeletedAt): self
-    {
-        $this->isDeletedAt = $isDeletedAt;
+        $this->deletedAt = new \DateTimeImmutable();
 
         return $this;
     }

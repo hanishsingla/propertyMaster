@@ -3,30 +3,31 @@
 namespace App\Entity\Property;
 
 use App\Entity\AbstractEntity;
+use App\Entity\Security\User;
 use App\Repository\Property\FavouritePropertyRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Table(name: 'favourite_properties')]
 #[ORM\Index(name: 'index_id', columns: ['id'])]
+#[ORM\UniqueConstraint(name: 'uniq_user_property', columns: ['user_id', 'property_id'])]
 #[ORM\Entity(repositoryClass: FavouritePropertyRepository::class)]
 class FavouriteProperty extends AbstractEntity
 {
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::GUID)]
+    #[ORM\Column(type: Types::GUID)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
-    #[Groups(['read'])]
+    #[Groups(['favourite:read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-    private string $ownerId;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false)]
+    private ?User $user = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-    private string $favourite;
-
-    #[ORM\ManyToOne(inversedBy: 'favouriteProperties')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Property::class, inversedBy: 'favouriteProperties')]
+    #[ORM\JoinColumn(name: 'property_id', referencedColumnName: 'id', nullable: false)]
     private ?Property $property = null;
 
     public function getId(): ?string
@@ -34,26 +35,14 @@ class FavouriteProperty extends AbstractEntity
         return $this->id;
     }
 
-    public function getOwnerId(): string
+    public function getUser(): ?User
     {
-        return $this->ownerId;
+        return $this->user;
     }
 
-    public function setOwnerId(string $ownerId): self
+    public function setUser(?User $user): self
     {
-        $this->ownerId = $ownerId;
-
-        return $this;
-    }
-
-    public function getFavourite(): string
-    {
-        return $this->favourite;
-    }
-
-    public function setFavourite(string $favourite): self
-    {
-        $this->favourite = $favourite;
+        $this->user = $user;
 
         return $this;
     }

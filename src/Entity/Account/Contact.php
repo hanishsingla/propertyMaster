@@ -3,78 +3,91 @@
 namespace App\Entity\Account;
 
 use App\Entity\AbstractEntity;
+use App\Entity\Security\User;
 use App\Repository\Account\ContactRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 #[ORM\Table(name: 'helpdesk_tickets')]
 #[ORM\Index(name: 'index_id', columns: ['id'])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Contact extends AbstractEntity
 {
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::GUID)]
+    #[ORM\Column(type: Types::GUID)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
-    #[Groups(['read'])]
+    #[Groups(['contact:read'])]
     private ?string $id = null;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING)]
-    private string $ownerId;
+    /** Set when a logged-in user submits the form; null for anonymous. */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: true)]
+    private ?User $user = null;
 
-    #[ORM\Column]
-    private string $username;
+    #[ORM\Column(length: 255)]
+    #[Groups(['contact:read'])]
+    private string $name;
 
-    #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
+    #[ORM\Column(length: 180)]
+    #[Groups(['contact:read'])]
+    private string $email;
 
-    #[ORM\Column]
-    private ?string $message = null;
+    #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['contact:read'])]
+    private string $message;
 
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function getOwnerId(): string
+    public function getUser(): ?User
     {
-        return $this->ownerId;
+        return $this->user;
     }
 
-    public function setOwnerId(string $ownerId): void
+    public function setUser(?User $user): self
     {
-        $this->ownerId = $ownerId;
+        $this->user = $user;
+
+        return $this;
     }
 
-    public function getUsername(): string
+    public function getName(): string
     {
-        return $this->username;
+        return $this->name;
     }
 
-    public function setUsername(string $username): void
+    public function setName(string $name): self
     {
-        $this->username = $username;
+        $this->name = $name;
+
+        return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setEmail(?string $email): void
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
     }
 
-    public function getMessage(): ?string
+    public function getMessage(): string
     {
         return $this->message;
     }
 
-    public function setMessage(?string $message): void
+    public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
     }
 }

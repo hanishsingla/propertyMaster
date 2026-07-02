@@ -26,6 +26,7 @@ security:
                 secret: '%kernel.secret%' # required
                 lifetime: 604800 # 1 week in seconds
                 always_remember_me: true
+                # 'updatedAt' resolves to AbstractEntity::getUpdatedAt() (renamed from the old getIsUpdatedAt)
                 signature_properties: [ 'password', 'updatedAt' ]
                 token_provider:
                     doctrine: true
