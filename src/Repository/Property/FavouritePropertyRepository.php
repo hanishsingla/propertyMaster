@@ -4,6 +4,7 @@ namespace App\Repository\Property;
 
 use App\Entity\Property\FavouriteProperty;
 use App\Entity\Property\Property;
+use App\Entity\Security\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,25 +23,52 @@ class FavouritePropertyRepository extends ServiceEntityRepository
         parent::__construct($registry, FavouriteProperty::class);
     }
 
-    public function getFavoritePropertyById(string $propertyId, string $ownerId): ?FavouriteProperty
+    public function findOneByUserAndProperty(User $user, Property $property): ?FavouriteProperty
     {
-        return $this->findOneBy([
-            'property' => $propertyId,
-            'ownerId' => $ownerId,
-        ]);
+        return $this->findOneBy(['user' => $user, 'property' => $property]);
     }
 
-    public function getFavoritePropertyByFav(string $ownerId): array
+    /**
+     * Non-deleted properties this user has favourited, newest first.
+     *
+     * @return Property[]
+     */
+    public function findFavouritedProperties(User $user): array
     {
-        $query = $this->createQueryBuilder('f')
-            ->select('p.id', 'p.propertyTitle', 'p.propertyCategory', 'p.propertyImage', 'p.propertyStatus', 'p.propertyCity', 'p.propertyState', 'p.propertyArea', 'p.propertyRooms', 'p.propertyPrice')
-            ->innerJoin(Property::class, 'p', 'WITH', 'p.id = f.property')
-            ->where('f.ownerId = :ownerId')
-            ->andWhere('f.favourite != :favourite')
-            ->setParameter('ownerId', $ownerId)
-            ->setParameter('favourite', 'false')
-        ;
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('p')
+            ->from(Property::class, 'p')
+            ->innerJoin('p.favouriteProperties', 'f')
+            ->andWhere('f.user = :user')->setParameter('user', $user)
+            ->andWhere('p.deletedAt IS NULL')
+            ->orderBy('f.createdAt', 'DESC')
+            ->getQuery()->getResult();
+    }
 
-        return $query->getQuery()->getResult();
+    /**
+     * Set of property ids (as array keys => true) this user has favourited,
+     * optionally restricted to a candidate id list. Used to fill isFavourited
+     * without an N+1.
+     *
+     * @param string[] $propertyIds
+     *
+     * @return array<string,bool>
+     */
+    public function favouritedIdSet(User $user, array $propertyIds = []): array
+    {
+        $qb = $this->createQueryBuilder('f')
+            ->select('IDENTITY(f.property) AS pid')
+            ->andWhere('f.user = :user')->setParameter('user', $user);
+
+        if ([] !== $propertyIds) {
+            $qb->andWhere('f.property IN (:ids)')->setParameter('ids', $propertyIds);
+        }
+
+        $set = [];
+        foreach ($qb->getQuery()->getScalarResult() as $row) {
+            $set[$row['pid']] = true;
+        }
+
+        return $set;
     }
 }

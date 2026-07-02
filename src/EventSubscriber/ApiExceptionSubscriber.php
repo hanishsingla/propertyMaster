@@ -35,6 +35,14 @@ class ApiExceptionSubscriber implements EventSubscriberInterface
 
         $throwable = $event->getThrowable();
 
+        // Let Symfony's security listener convert access/authentication errors
+        // (anonymous -> 401 via ApiEntryPoint, authenticated -> 403). These are
+        // NOT HttpExceptions, so we'd otherwise mislabel them as 500.
+        if ($throwable instanceof \Symfony\Component\Security\Core\Exception\AccessDeniedException
+            || $throwable instanceof \Symfony\Component\Security\Core\Exception\AuthenticationException) {
+            return;
+        }
+
         // Validation errors -> 422 with per-field violations.
         $validationException = $this->findValidationException($throwable);
         if ($validationException instanceof ValidationFailedException) {

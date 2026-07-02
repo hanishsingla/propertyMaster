@@ -47,6 +47,9 @@ security:
         - { path: ^/api/contact, roles: PUBLIC_ACCESS }
         - { path: ^/api/agents, roles: PUBLIC_ACCESS }
         - { path: ^/api/properties, roles: PUBLIC_ACCESS, methods: [GET] }
+        # Write operations on properties/images require at least an agent
+        # (ownership is refined by PropertyVoter). Gates anon before arg resolution.
+        - { path: ^/api/properties, roles: ROLE_AGENT, methods: [POST, PATCH, DELETE] }
         - { path: ^/api/my, roles: ROLE_AGENT }
         - { path: ^/api/account, roles: ROLE_USER }
         - { path: ^/api/favourites, roles: ROLE_USER }

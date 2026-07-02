@@ -53,8 +53,32 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
-    public function getAgents(): array
+    /**
+     * @return array{items: User[], total: int}
+     */
+    public function searchAgents(int $page, int $perPage): array
     {
-        return $this->findBy(['isAgent' => true]);
+        $qb = $this->createQueryBuilder('u')
+            ->andWhere('u.isAgent = true')
+            ->andWhere('u.deletedAt IS NULL')
+            ->orderBy('u.name', 'ASC')
+            ->setFirstResult(($page - 1) * $perPage)
+            ->setMaxResults($perPage);
+
+        $paginator = new \Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery(), false);
+
+        return [
+            'items' => iterator_to_array($paginator),
+            'total' => count($paginator),
+        ];
+    }
+
+    public function findAgent(string $id): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :id')->setParameter('id', $id)
+            ->andWhere('u.isAgent = true')
+            ->andWhere('u.deletedAt IS NULL')
+            ->getQuery()->getOneOrNullResult();
     }
 }
