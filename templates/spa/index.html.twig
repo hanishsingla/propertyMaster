@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PropertyMaster</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/logo/logo.png') }}">
+    <meta name="csrf-token" content="{{ csrfToken }}">
+    {% for href in vite.css %}
+        <link rel="stylesheet" href="{{ href }}">
+    {% endfor %}
+</head>
+<body>
+    <div id="root"></div>
+    {% if vite.dev %}
+        <script type="module" src="{{ vite.devServer }}/@vite/client"></script>
+        <script type="module" src="{{ vite.devServer }}{{ vite.entry }}"></script>
+    {% else %}
+        {% for src in vite.js %}
+            <script type="module" src="{{ src }}"></script>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
