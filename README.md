@@ -12,7 +12,7 @@ administration (server-rendered).
 | Backend | PHP 8.4, Symfony 8.0, Doctrine ORM 3, MySQL 8 |
 | API | JSON under `/api`, session-cookie auth, `X-CSRF-Token` on mutations, RFC7807-style errors |
 | Frontend | React 18, Vite, TypeScript, TanStack Router + Query, Tailwind CSS, react-hook-form + zod, Leaflet |
-| Admin | EasyAdmin 4 (`/admin`) |
+| Admin | EasyAdmin 5 (`/admin`) |
 
 Design docs live in [`docs/rebuild/`](docs/rebuild/): the data-model & API
 contract and the phased implementation plan.
