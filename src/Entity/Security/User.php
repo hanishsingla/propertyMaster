@@ -29,6 +29,7 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     #[Groups(['user:self'])]
     private ?string $email = null;
 
+    /** @var list<string> */
     #[ORM\Column]
     #[Groups(['user:self'])]
     private array $roles = [];
@@ -310,6 +311,9 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
         return array_values(array_unique($roles));
     }
 
+    /**
+     * @param list<string> $roles
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;

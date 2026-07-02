@@ -26,6 +26,9 @@ class PropertyService
     ) {
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function create(array $data, User $owner): Property
     {
         $input = $this->hydrateAndValidate($data);
@@ -41,6 +44,9 @@ class PropertyService
         return $property;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function update(Property $property, array $data): Property
     {
         $input = $this->hydrateAndValidate($data);
@@ -125,6 +131,9 @@ class PropertyService
             ->setIsFeatured($input->isFeatured);
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function hydrateAndValidate(array $data): PropertyInput
     {
         $violations = new ConstraintViolationList();
@@ -160,6 +169,9 @@ class PropertyService
         return $input;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function str(array $data, string $key): ?string
     {
         $v = $data[$key] ?? null;
@@ -167,6 +179,9 @@ class PropertyService
         return (null === $v || '' === $v) ? null : (string) $v;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function int(array $data, string $key): ?int
     {
         $v = $data[$key] ?? null;
@@ -177,7 +192,8 @@ class PropertyService
     /**
      * @template T of \BackedEnum
      *
-     * @param class-string<T> $enumClass
+     * @param class-string<T>      $enumClass
+     * @param array<string, mixed> $data
      *
      * @return T|null
      */

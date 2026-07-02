@@ -28,9 +28,11 @@ class PropertyImageApiController extends ApiController
         $property = $this->load($id);
         $this->denyAccessUnlessGranted(PropertyVoter::EDIT, $property);
 
-        /** @var \Symfony\Component\HttpFoundation\File\UploadedFile[] $files */
-        $files = $request->files->all()['images'] ?? $request->files->all();
-        $files = is_array($files) ? $files : [$files];
+        $uploaded = $request->files->all();
+        $files = $uploaded['images'] ?? array_values($uploaded);
+        if (!is_array($files)) {
+            $files = [$files];
+        }
 
         $property = $this->imageService->addImages($property, array_filter($files));
 

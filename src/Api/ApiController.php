@@ -18,6 +18,8 @@ abstract class ApiController extends AbstractController
 {
     /**
      * Decode a JSON request body to an associative array.
+     *
+     * @return array<string, mixed>
      */
     protected function decode(Request $request): array
     {
@@ -36,6 +38,8 @@ abstract class ApiController extends AbstractController
 
     /**
      * Standard list envelope: { data, meta: { page, perPage, total, totalPages } }.
+     *
+     * @param array<int, mixed> $data
      */
     protected function envelope(array $data, int $page, int $perPage, int $total): JsonResponse
     {

@@ -17,8 +17,6 @@ class SpaController extends AbstractController
     public function __construct(
         #[\Symfony\Component\DependencyInjection\Attribute\Autowire('%kernel.project_dir%')]
         private readonly string $projectDir,
-        #[\Symfony\Component\DependencyInjection\Attribute\Autowire('%kernel.environment%')]
-        private readonly string $environment,
     ) {
     }
 

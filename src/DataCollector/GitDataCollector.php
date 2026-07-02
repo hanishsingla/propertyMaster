@@ -34,22 +34,22 @@ class GitDataCollector extends DataCollector
     }
 
     // Some helpers to access more easily to infos in the template
-    public function getGitBranch()
+    public function getGitBranch(): string
     {
         return $this->data['git_branch'];
     }
 
-    public function getLastCommitMessage()
+    public function getLastCommitMessage(): string
     {
         return $this->data['last_commit_message'];
     }
 
-    public function getLastCommitAuthor()
+    public function getLastCommitAuthor(): string
     {
         return $this->data['logs']['author'];
     }
 
-    public function getLastCommitDate()
+    public function getLastCommitDate(): string
     {
         return $this->data['logs']['date'];
     }

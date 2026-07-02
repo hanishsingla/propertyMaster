@@ -57,7 +57,7 @@ class PropertyImageService
     }
 
     /**
-     * @param array<int,array{imageId:string,sortOrder?:int,isCover?:bool}> $ops
+     * @param array<int,array{imageId?:string,sortOrder?:int,isCover?:bool}> $ops untrusted JSON
      */
     public function reorder(Property $property, array $ops): Property
     {

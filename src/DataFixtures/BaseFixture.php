@@ -12,8 +12,7 @@ abstract class BaseFixture extends Fixture
     private ObjectManager $manager;
     protected Generator $faker;
 
-    // ... line 17
-    abstract protected function loadData(ObjectManager $manager);
+    abstract protected function loadData(ObjectManager $manager): void;
 
     public function load(ObjectManager $manager): void
     {

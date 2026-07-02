@@ -13,6 +13,8 @@ class UserPresenter
 
     /**
      * Full self view (GET /api/me, /api/account).
+     *
+     * @return array<string, mixed>
      */
     public function self(User $user): array
     {
@@ -39,6 +41,8 @@ class UserPresenter
 
     /**
      * Public agent card (GET /api/agents).
+     *
+     * @return array<string, mixed>
      */
     public function agent(User $user): array
     {

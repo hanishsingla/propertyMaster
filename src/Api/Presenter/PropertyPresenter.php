@@ -18,6 +18,8 @@ class PropertyPresenter
      * Compact card for list responses.
      *
      * @param array<string,bool> $favouritedIds set of property ids the viewer has favourited
+     *
+     * @return array<string, mixed>
      */
     public function list(Property $property, array $favouritedIds = []): array
     {
@@ -37,6 +39,8 @@ class PropertyPresenter
             'bedRooms' => $property->getBedRooms(),
             'bathRooms' => $property->getBathRooms(),
             'city' => $property->getCity(),
+            'latitude' => $property->getLatitude(),
+            'longitude' => $property->getLongitude(),
             'isFeatured' => $property->isFeatured(),
             'coverImageUrl' => $cover ? $this->imageUrl($cover) : null,
             'isFavourited' => isset($favouritedIds[$property->getId()]),
@@ -47,6 +51,8 @@ class PropertyPresenter
      * Full detail view.
      *
      * @param array<string,bool> $favouritedIds
+     *
+     * @return array<string, mixed>
      */
     public function detail(Property $property, array $favouritedIds = []): array
     {

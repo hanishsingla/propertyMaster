@@ -7,6 +7,9 @@ use App\Entity\Security\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/**
+ * @extends Voter<self::EDIT|self::DELETE, Property>
+ */
 class PropertyVoter extends Voter
 {
     public const EDIT = 'PROPERTY_EDIT';
@@ -29,7 +32,7 @@ class PropertyVoter extends Voter
             return true;
         }
 
-        /** @var Property $subject */
+        /* @var Property $subject */
         return $subject->getOwner()?->getId() === $user->getId();
     }
 }

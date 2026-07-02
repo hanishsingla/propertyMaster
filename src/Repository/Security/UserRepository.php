@@ -39,20 +39,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    public function getUser(string $ownerId): ?User
-    {
-        return $this->findOneBy(['id' => $ownerId]);
-    }
-
-    public function fetchAllData(string $ownerId): ?array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.id = :ownerId')
-            ->setParameter('ownerId', $ownerId)
-            ->getQuery()
-            ->getResult();
-    }
-
     /**
      * @return array{items: User[], total: int}
      */

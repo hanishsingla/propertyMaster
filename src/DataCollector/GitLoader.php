@@ -46,6 +46,9 @@ class GitLoader
         return \is_array($commitMessage) ? trim($commitMessage[0]) : '';
     }
 
+    /**
+     * @return array{author: string, date: string}
+     */
     public function getLastCommitDetail(): array
     {
         $gitLogFile = $this->project_dir.'/.git/logs/HEAD';
@@ -67,7 +70,7 @@ class GitLoader
 
         return [
             'author' => $author,
-            'date' => $date->setTimezone($timeZone)->setTimestamp($dateString)->format('Y/m/d H:i'),
+            'date' => $date->setTimezone($timeZone)->setTimestamp((int) $dateString)->format('Y/m/d H:i'),
         ];
     }
 }
