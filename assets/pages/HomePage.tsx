@@ -30,7 +30,7 @@ export function HomePage() {
     <div>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-indigo-700 text-primary-foreground">
-        <div className="container py-20 md:py-28">
+        <div className="container pt-16 pb-20 md:pt-20 md:pb-24">
           <div className="max-w-2xl">
             <h1 className="text-4xl font-bold leading-tight md:text-5xl">
               Find a place you'll love to call home
@@ -69,7 +69,7 @@ export function HomePage() {
       </section>
 
       {/* Quick categories */}
-      <section className="container -mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <section className="container relative z-10 -mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <QuickCard icon={Building2} title="Buy a home" text="Find your dream property" to="/buy" />
         <QuickCard icon={KeyRound} title="Rent a home" text="Flexible rental listings" to="/rent" />
         <QuickCard icon={TrendingUp} title="Featured" text="Hand-picked properties" to="/properties" />
